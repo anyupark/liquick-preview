@@ -32,7 +32,7 @@
   --disp:'MADE TOMMY','Fraunces',serif; --sans:'MADE TOMMY',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}   /* each .cine is a discrete snap stop (proximity + snap-stop:always) — the history timeline & sales body (no snap-align) still scroll freely */
 body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
 ::selection{background:var(--plum);color:#fff}
 
@@ -131,7 +131,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   #depth .num{font-size:10.5px;min-width:auto}#depth .lbl{display:none}}
 
 /* ============ SCROLL SECTIONS (cinematic) ============ */
-.cine{position:relative;z-index:10;scroll-snap-align:center}
+.cine{position:relative;z-index:10;scroll-snap-align:start;scroll-snap-stop:always}
 .cine .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .copy{max-width:620px;padding:0 28px;text-align:center;opacity:0;transform:translateY(24px);will-change:opacity,transform}
 .copy .stagelbl{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--plum);margin-bottom:20px;opacity:.9}
@@ -788,7 +788,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 
 <!-- ======= CINEMATIC SCROLL SECTIONS ======= -->
 <!-- ===== THE DEPTH LADDER — one 50m stop per snap section ===== -->
-<section class="cine lay-hero" data-scene="0" data-len="140" data-bg="#F4EFFB" data-depth="0" data-vis="none">
+<section class="cine lay-hero" data-scene="0" data-len="112" data-bg="#F4EFFB" data-depth="0" data-vis="none">
   <div class="pin"><div class="copy hero-edit">
     <div aria-hidden="true"></div>
     <div class="hero-cap rv">
@@ -858,7 +858,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
   </div>
 </section>
 
-<section class="cine txt-left placesec" data-scene="2" data-len="170" data-bg="#E4D6F5" data-depth="-100" data-vis="place">
+<section class="cine txt-left placesec" data-scene="2" data-len="112" data-bg="#E4D6F5" data-depth="-100" data-vis="place">
   <div class="pin"><div class="copy rv">
     <div class="stagelbl rv-el" style="--rd:.05s">The Dead Sea · 430 m below sea level</div>
     <h2 class="tommy rv-el" style="--rd:.2s">This is the reason.</h2>
@@ -866,7 +866,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
   </div></div>
 </section>
 
-<section class="cine" data-scene="3" data-len="180" data-bg="#F1EAFB" data-depth="-150" data-vis="crystals">
+<section class="cine" data-scene="3" data-len="112" data-bg="#F1EAFB" data-depth="-150" data-vis="crystals">
   <div class="pin"><div class="copy crys-wrap">
     <div class="crys-title" role="img" aria-label="21 minerals">
       <div class="v21"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div>
@@ -877,7 +877,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 </section>
 
 
-<section class="cine txt-left" data-scene="7" data-len="150" data-bg="#F3EEF7" data-depth="-350" data-vis="none">
+<section class="cine txt-left" data-scene="7" data-len="112" data-bg="#F3EEF7" data-depth="-350" data-vis="none">
   <div class="pin"><div class="copy rv">
     <h2 class="rv-el" style="--rd:.05s"><span class="rv-underline">Authentic</span> Dead Sea Water</h2>
     <p class="rv-el" style="--rd:.3s">As one of Earth’s most extraordinary natural ecosystems, its water is just as much a part of what makes this place unlike anywhere else on Earth. Its remarkable salinity and mineral-rich composition have drawn people here for thousands of years.</p>
@@ -885,12 +885,12 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 </section>
 
 <!-- −430m: arrival at the seabed — the raw mud -->
-<section class="cine mudsec" data-scene="8" data-len="150" data-bg="#EFE7FA" data-depth="-430" data-vis="none">
+<section class="cine mudsec" data-scene="8" data-len="112" data-bg="#EFE7FA" data-depth="-430" data-vis="none">
   <div class="pin"></div>
 </section>
 
 <!-- the making: ONE continuous stop — mud is filtered, then botanicals flow in from the sides as the copy changes -->
-<section class="cine makesec" data-scene="9" data-len="210" data-bg="#F1EAFB" data-depth="-430" data-vis="make">
+<section class="cine makesec" data-scene="9" data-len="112" data-bg="#F1EAFB" data-depth="-430" data-vis="make">
   <div class="pin">
     <div class="copy filter-copy make-copy" id="mkFilter">
       <h2 class="fx-head"><span class="fx-l1">Raw mud is <span class="fx-pow">powerful</span>.</span><span class="fx-l2">It is not <span class="fx-gentle">gentle</span>.</span></h2>
@@ -911,7 +911,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 </section>
 
 <!-- the payoff: the bottle forms -->
-<section class="cine lay-split" data-scene="11" data-len="130" data-bg="#FBF8F3" data-depth="-430" data-vis="bottle">
+<section class="cine lay-split" data-scene="11" data-len="112" data-bg="#FBF8F3" data-depth="-430" data-vis="bottle">
   <div class="pin"><div class="copy rv bottleTxt">
     <div class="col"><h2 class="rv-el" style="--rd:.05s">Introducing <em class="rv-underline">LIQUICK</em><span class="tm">™</span></h2><p class="big bottle-claim rv-el" style="--rd:.26s">The world's first liquid Dead Sea mineral mask.</p></div>
     <div class="col"><p class="split-tag rv-el" style="--rd:.46s">From the lowest place on Earth.<br>To the highest step in your routine.</p></div>
@@ -1379,16 +1379,18 @@ function frame(){
       return;
     }
     if(b.el.dataset.vis==='make'){
-      /* one stop, two overlaid copies: filter reads first, botanicals crossfades in at the halfway mark */
-      const fO=clamp(t<0.44?1:1-(t-0.44)/0.07,0,1), bO=clamp((t-0.51)/0.07,0,1)*clamp(t>0.9?(1-t)/0.1:1,0,1);   /* near-sequential handoff; botanicals dissolve at the very end so the copy melts into the bottle instead of drifting up */
-      if(mkFilter){mkFilter.style.opacity=fO.toFixed(3);mkFilter.classList.toggle('lqfx',t>0.02&&t<0.58);}
-      if(mkBot){mkBot.style.opacity=bO.toFixed(3);mkBot.classList.toggle('lqfx',t>0.5);}
+      /* two overlaid copies that can't both show at once — auto-crossfade on ENTRY (time): filter reads first, then botanicals fades in and HOLDS as the resting state */
+      const mkc=(i===act)?clamp((nowT-revEnterT)/2200,0,1):(i<act?1:0);
+      const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;
+      const fO=clamp(1-(mkc-0.42)/0.18,0,1)*exitF, bO=clamp((mkc-0.5)/0.18,0,1)*exitF;
+      if(mkFilter){mkFilter.style.opacity=fO.toFixed(3);mkFilter.classList.toggle('lqfx',mkc>0.02&&mkc<0.66);}
+      if(mkBot){mkBot.style.opacity=bO.toFixed(3);mkBot.classList.toggle('lqfx',mkc>0.5);}
       return;
     }
-    const o=(i===0?1:(t<.12?t/.12:1))*(t>.85?(1-t)/.15:1);
-    b.copy.style.opacity=clamp(o,0,1);
-    const up='';   /* crystals title is pinned to the top via .pin flex-start (CSS) */
-    b.copy.style.transform=up+'translateY('+lerp(20,-20,t)+'px)';});
+    const appear=(i===act)?clamp(tr/0.4,0,1):(i<act?1:0);    /* copy fades in on ENTRY (time), then holds — no scroll-scrubbing */
+    const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;            /* fades out only as you scroll toward the next section */
+    b.copy.style.opacity=clamp(appear*exitF,0,1);
+    b.copy.style.transform='translateY('+(appear<1?lerp(14,0,appear):0).toFixed(1)+'px)';});   /* rise in once, then stay still (no drift) */
 
   /* depth meter — smooth count-down toward the active stop */
   const targetDepth=parseFloat(el.dataset.depth||0);
@@ -1461,7 +1463,7 @@ function frame(){
   const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=innerHeight/2;
-  const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+CRYS_OY)*svgScale; /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
+  const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
   const Rx=Math.min(cw-64,164),Ry=innerHeight*0.132;
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1511,7 +1513,7 @@ function frame(){
   }
 
   /* the making: mud breaks into fine particles (filter) → botanicals join → bottle forms */
-  const isMake=(vis==='make'), mp=isMake?p[act]:0;
+  const isMake=(vis==='make'), mp=isMake?clamp((nowT-revEnterT)/2000,0,1):0;   /* mud→droplets→bottle morph plays on ENTRY over ~2s (time-based), not scrubbed — so it always completes without precise scrolling */
   oFilter=ez(oFilter,isMake?1:0,k);
   oBot=ez(oBot,isMake?smooth(clamp((mp-0.46)/0.18,0,1)):0,k); /* botanicals flow in across the 2nd half of the make stop */
   const cloud=Math.max(oFilter,oBot);
