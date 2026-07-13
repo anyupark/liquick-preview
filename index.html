@@ -1299,7 +1299,7 @@ const stage=document.getElementById('stage'),stoneG=document.getElementById('sto
  seaLayer=document.getElementById('seaLayer'),seaMedia=document.getElementById('seaMedia'),mtnLayer=document.getElementById('mtnLayer'),seaScrim=document.getElementById('seaScrim'),saltLayer=document.getElementById('saltLayer'),tagLayer=document.getElementById('tagLayer'),dropLayer=document.getElementById('dropLayer'),
  crysMedia=document.querySelectorAll('.vtext-media');
 let cineEnd=0,lastT=performance.now();
-let curDepth=0,stoneO=1,stoneScale=1,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
+let curDepth=0,stoneO=1,stoneScale=1,stoneOX=0,stoneOY=0,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
 let introStart=-1,introAtTop=false; /* stone grows in on load so the headline reads first */
 let burstP=0,burstFired=false;       /* crystals: one-shot timed burst — crossing the scroll point reveals ALL minerals together */
 const ez=(c,t,k)=>c+(t-c)*k;
@@ -1398,6 +1398,8 @@ function frame(){
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
   stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.46:sea?(innerWidth>719?0.72:0.51):1,k); /* recede so the fan / crystal ring / hands can frame it; float divider = big centered stone */
+  if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
+  stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
   /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
   handsLayer.style.opacity=mud?'1':'0';
   /* stage the two Cleopatra copies in as the mud scene reads (top on entry, bottom once the stone reaches the modern hand) */
@@ -1425,7 +1427,7 @@ function frame(){
     introS=lerp(0.12,1,eb);
     introA=clamp(e/360,0,1);                  /* fade the ink in a touch faster than the grow */
   }
-  stoneG.setAttribute('transform','translate('+(500+ox)+','+(500+oy+bob)+') scale('+(stoneScale*introS).toFixed(3)+')');
+  stoneG.setAttribute('transform','translate('+(500+stoneOX)+','+(500+stoneOY+bob)+') scale('+(stoneScale*introS).toFixed(3)+')');
   stoneRot.setAttribute('transform','rotate('+sway+')');
   stoneG.style.opacity=(stoneO*introA).toFixed(3);
   crust.style.opacity=1;                                  /* keep the full photoreal stone — ochre crust + black-mud break */
