@@ -1305,6 +1305,7 @@ const stage=document.getElementById('stage'),stoneG=document.getElementById('sto
 let cineEnd=0,lastT=performance.now();
 let curDepth=0,stoneO=1,stoneScale=1,stoneOX=0,stoneOY=0,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
 let colVids=null,colPlaying=false;   /* collage <video>s are gated to the place scene (perf) */
+let revAct=-1,revEnterT=0;   /* per-section reveal clock so content appears on ENTRY (time), not spread across the scroll */
 let introStart=-1,introAtTop=false; /* stone grows in on load so the headline reads first */
 let burstP=0,burstFired=false;       /* crystals: one-shot timed burst — crossing the scroll point reveals ALL minerals together */
 const ez=(c,t,k)=>c+(t-c)*k;
@@ -1353,6 +1354,10 @@ function frame(){
   const el=bounds[act].el, vis=el.dataset.vis||'none', mud=el.classList.contains('mudsec'), sea=el.dataset.scene==='7';
   const nowT=performance.now(),dt=Math.min((nowT-lastT)/1000,.05);lastT=nowT;
   const k=1-Math.exp(-dt*4);
+  /* reveal clock: when a section becomes active, its content appears within ~0.8s (time-based), then HOLDS until you scroll out —
+     so a section's objects always fully show, instead of scrubbing in as you scroll (which fast scrolling would skip). */
+  if(act!==revAct){revAct=act;revEnterT=nowT;}
+  const tr=clamp((nowT-revEnterT)/800,0,1);
 
   stage.style.background=bounds[act].bg;
   stage.classList.toggle('flat',sea);
@@ -1364,9 +1369,9 @@ function frame(){
     if(b.el.dataset.vis==='crystals'){
       /* staged reveal: headline first, then body — driven below alongside the bubble burst.
          parent stays lit; children carry their own opacity/rise so the sequence reads 1→2→3→4 */
-      const R=clamp(t/0.42,0,1);                                   /* reveal completes over the first ~42% of the pin scroll, then holds */
-      const hR=smooth(clamp(R/0.22,0,1));                          /* 1) 21 MINERALS. */
-      const bR=smooth(clamp((R-0.20)/0.24,0,1));                   /* 2) body copy */
+      const R=(i<act)?1:(i===act?tr:0);                            /* reveal on ENTRY (time-based) then hold; 0 before reached, 1 once passed (parent opacity hides it on exit) */
+      const hR=smooth(clamp(R/0.30,0,1));                          /* 1) 21 MINERALS. */
+      const bR=smooth(clamp((R-0.28)/0.34,0,1));                   /* 2) body copy */
       b.copy.style.opacity=clamp(t>.9?(1-t)/.1:1,0,1);            /* only fade the group on the way out */
       b.copy.style.transform='none';
       if(crysTitle){crysTitle.style.opacity=hR.toFixed(3);crysTitle.style.transform='translateY('+lerp(30,0,hR).toFixed(1)+'px)';}
@@ -1408,8 +1413,8 @@ function frame(){
   /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
   handsLayer.style.opacity=mud?'1':'0';
   /* stage the two Cleopatra copies in as the mud scene reads (top on entry, bottom once the stone reaches the modern hand) */
-  handsCopyTopEl.classList.toggle('seen', mud && p[act]>0.08);
-  handsCopyBotEl.classList.toggle('seen', mud && p[act]>0.4);
+  handsCopyTopEl.classList.toggle('seen', mud && tr>0.04);      /* both Cleopatra beats reveal on ENTRY (time-based) and hold — no need to scroll to the 40% mark for the second line */
+  handsCopyBotEl.classList.toggle('seen', mud && tr>0.5);
   seaLayer.style.opacity=sea?'1':'0';
   mtnLayer.style.opacity=sea?'1':'0';
   seaScrim.style.opacity=sea?'1':'0';
@@ -1454,7 +1459,7 @@ function frame(){
   /* −150m: the minerals — crystals orbit (tappable), revealed as a staggered burst out of the mud stone */
   const crysOn=(vis==='crystals');
   const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
-  const R=crysOn?clamp(p[act]/0.42,0,1):0;                  /* same reveal clock as the headline/body above (1→2→3→4) */
+  const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=innerHeight/2;
   const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+CRYS_OY)*svgScale; /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
   const Rx=Math.min(cw-64,164),Ry=innerHeight*0.132;
