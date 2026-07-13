@@ -1089,7 +1089,11 @@ function measure(){
   bounds=scenes.map(s=>{const r=s.getBoundingClientRect(),y=r.top+scrollY;
     return{el:s,top:y,len:r.height-innerHeight,copy:s.querySelector('.copy'),bg:s.dataset.bg,depth:s.dataset.depth};});
 }
-addEventListener('resize',measure);
+/* Only re-measure on a real (width) resize. Mobile address-bar hide/show changes ONLY the height —
+   re-measuring then rewrites each section's scrub length and remaps scroll→progress mid-scroll,
+   which is exactly the "sections jump around" jolt. Ignore height-only resizes. */
+function onWidthResize(fn){ let w=innerWidth; addEventListener('resize',()=>{ if(innerWidth!==w){ w=innerWidth; fn(); } }); }
+onWidthResize(measure);
 /* retire the descent HUD (depth meter / mineral card / dev-nav) while the editorial history section is on screen */
 (function(){const hs=document.getElementById('historySec'); if(!hs)return;
   new IntersectionObserver(es=>es.forEach(e=>{
@@ -1133,7 +1137,7 @@ document.querySelectorAll('.rv:not(.handsTxt):not(.bottleTxt)').forEach(el=>{   
     mud.style.setProperty('--mscale',(1+edge*1.28).toFixed(2));
   }
   addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
-  addEventListener('resize',upd);
+  onWidthResize(upd);   /* ignore address-bar height toggles (see onWidthResize) */
   upd();
   const rows=[...tl.querySelectorAll('.tl-row')];
   if('IntersectionObserver' in window){
@@ -1300,6 +1304,7 @@ const stage=document.getElementById('stage'),stoneG=document.getElementById('sto
  crysMedia=document.querySelectorAll('.vtext-media');
 let cineEnd=0,lastT=performance.now();
 let curDepth=0,stoneO=1,stoneScale=1,stoneOX=0,stoneOY=0,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
+let colVids=null,colPlaying=false;   /* collage <video>s are gated to the place scene (perf) */
 let introStart=-1,introAtTop=false; /* stone grows in on load so the headline reads first */
 let burstP=0,burstFired=false;       /* crystals: one-shot timed burst — crossing the scroll point reveals ALL minerals together */
 const ez=(c,t,k)=>c+(t-c)*k;
@@ -1330,7 +1335,7 @@ const SLROWS=[];
       t.style.width=s.tw+'px'; t.style.height=rowH+'px'; t.style.marginRight=gap+'px';
       const ph=document.createElement('div'); ph.className='ph';
       if(s.m.vid){ const v=document.createElement('video'); v.src=s.m.vid; v.poster=s.m.poster;
-        v.muted=v.loop=v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='metadata'; ph.appendChild(v); }
+        v.muted=v.loop=true; v.autoplay=false; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; ph.appendChild(v); } /* NOT autoplay: gated to the place scene in the frame loop so ~20 clips don't decode in the background and jank the whole scroll */
       else ph.style.backgroundImage="url('"+s.m.img+"')";
       t.appendChild(ph); row.appendChild(t);
     }
@@ -1435,6 +1440,10 @@ function frame(){
   /* −100m: the place — framed Dead Sea photos slide across the background in rows (stone in front, no fade) */
   oCollage=ez(oCollage,(vis==='place')?1:0,k);
   col.style.opacity=oCollage.toFixed(3);
+  /* only let the collage clips decode while the place scene is actually up — otherwise ~20 background videos stutter the whole descent */
+  const colOn=oCollage>0.02;
+  if(colOn!==colPlaying){ colPlaying=colOn; if(!colVids)colVids=[...col.querySelectorAll('video')];
+    colVids.forEach(v=>{ if(colOn){ const q=v.play(); if(q&&q.catch)q.catch(()=>{}); } else v.pause(); }); }
   if(oCollage>0.004){
     for(const r of SLROWS){
       const p=(nowT*0.004*r.spd)%r.setW;                 /* gentle continuous slide */
