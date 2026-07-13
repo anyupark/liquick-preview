@@ -257,6 +257,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .hero-edit .hero-cap p{color:var(--ink-soft);font-size:clamp(13px,2.4vw,16px);line-height:1.55;max-width:26em;margin:0}
 .hero-edit .hero-cap .hc-sub b{color:var(--plum-d)}
 .hero-edit .cue{margin-top:20px}
+@media(max-width:440px){
+  /* narrow phones: the SVG 'slice' over-scales the giant hero words past both edges — pull them in so ANCIENT/POWERFUL sit fully inside the frame with breathing room */
+  #heroBig{transform:scale(.82);transform-box:view-box;transform-origin:500px 470px}
+}
 @media(max-width:719px){
   .copy{padding-top:16px;text-shadow:0 1px 18px rgba(244,239,251,.92),0 0 3px rgba(244,239,251,.7)}
   .copy h1,.copy h2{font-size:clamp(21px,6.2vw,30px)}
