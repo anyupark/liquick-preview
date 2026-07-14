@@ -1511,7 +1511,7 @@ function frame(){
 
   /* STONE — centered, gentle float, drifts a little deeper as you descend */
   const g=act/(N-1);
-  const CRYS_OY=94;                                   /* crystals scene: drop the stone + ring so the big headline + copy read up top; balanced so the top spheres clear the copy AND the bottom (Zinc) label + tap prompt clear the info card */
+  const CRYS_OY=145;                                   /* crystals scene: drop the stone + ring so the big headline + copy read up top; balanced so the top spheres clear the copy AND the bottom (Zinc) label + tap prompt clear the info card */
   let oy=lerp(0,34,g), ox=0; if(act===0)oy=30; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make'||vis==='makebot')?0:1,k); /* SVG stone hides for the mud scene and both making stops (the particle cluster stands in for the mud) */
