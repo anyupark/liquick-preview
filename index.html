@@ -317,23 +317,38 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   background:linear-gradient(180deg,#F6E9C3 0%,#F4E8D8 24%,#F2ECF5 50%,#F3EEFA 78%,#F4EFFB 100%)}
 .hist-frame{position:relative;overflow:hidden;padding:48px 24px 118px}
 /* full-bleed video band (still footage), static headline below */
-.hist-media{position:relative;width:100%;height:clamp(272px,49vh,564px);overflow:hidden;background:#16211d;
+.hist-hero{position:relative;width:100%}
+.hist-media{position:relative;width:100%;height:clamp(378px,53vh,516px);overflow:hidden;background:#16211d;
   -webkit-mask:var(--tear-mask) center/100% 100% no-repeat;
           mask:var(--tear-mask) center/100% 100% no-repeat}
-.hist-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-/* soft lilac fade at the very top so the dark water band emerges gently from the hero instead of a hard edge */
-.hist-media::before{content:"";position:absolute;left:0;right:0;top:0;height:42%;z-index:2;pointer-events:none;
-  background:linear-gradient(to bottom,#F4EFFB 0%,rgba(244,239,251,.72) 32%,rgba(244,239,251,0) 100%)}
-.hist-title{font-family:var(--disp);font-weight:700;font-size:clamp(40px,10.6vw,92px);line-height:1.02;letter-spacing:-.02em;
-  color:var(--ink);text-align:center;margin:0 auto 20px}
-.hist-sub{font-family:var(--sans);font-size:13px;line-height:1.62;color:var(--mute);
-  text-align:center;max-width:30em;margin:0 auto 60px}
+.hist-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:28% 24%;display:block}   /* woman floats upper-LEFT so the copy reads over the open water on the right */
+/* soft lilac fade at the very top so the dark water band emerges gently from the hero */
+.hist-media::before{content:"";position:absolute;left:0;right:0;top:0;height:32%;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,#F4EFFB 0%,rgba(244,239,251,.55) 34%,rgba(244,239,251,0) 100%)}
+/* lighten the RIGHT of the water so the dark copy stays legible (mirrors the misty right side of the reference) */
+.hist-media::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,rgba(232,237,240,0) 16%,rgba(235,239,242,.58) 44%,rgba(241,242,247,.85) 80%)}
+.hist-head{position:absolute;top:0;right:0;z-index:4;width:64%;padding:7% 4% 0 0;text-align:left}
+.hist-title{font-family:var(--disp);font-weight:700;font-size:clamp(23px,6.1vw,36px);line-height:1.08;letter-spacing:-.02em;
+  color:var(--ink);text-align:left;margin:0 0 13px}
+.hist-sub{font-family:var(--sans);font-size:13px;line-height:1.6;color:#443c5c;
+  text-align:left;max-width:24em;margin:0}
 .timeline{position:relative;max-width:720px;margin:0 auto;z-index:3}
 .timeline::before{content:"";position:absolute;left:50%;top:8px;bottom:30px;width:2px;
   background:linear-gradient(var(--violetDeep),rgba(200,180,237,.2));transform:translateX(-1px);border-radius:2px}
-.tl-row{position:relative;display:grid;grid-template-columns:1fr 1fr;column-gap:26px;align-items:center;padding:32px 0}
-.tl-row:nth-child(odd){grid-template-columns:0.92fr 1.08fr}
-.tl-row:nth-child(even){grid-template-columns:1.08fr 0.92fr}
+.tl-row{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border-radius:22px;overflow:hidden;margin:18px 2px;background:#EFE7F7;min-height:210px;
+  box-shadow:0 20px 44px -22px rgba(50,20,87,.30),0 3px 10px rgba(50,20,87,.07)}
+.tl-row:nth-child(odd){grid-template-columns:1.02fr .98fr}
+.tl-row:nth-child(even){grid-template-columns:.98fr 1.02fr}
+/* per-era card colours — match the reference */
+.tl-row:nth-of-type(1){background:#F4EDDF}                    /* Antiquity — cream */
+.tl-row:nth-of-type(2){background:#E7E0F2}                    /* Cleopatra — lavender */
+.tl-row:nth-of-type(3){background:#D6E9E2}                    /* Travelers — mint */
+.tl-row:nth-of-type(4){background:#2A2540}                    /* The Black Mud — deep navy (white text below) */
+.tl-row:nth-of-type(4) .tl-name{color:#F5F1FB}
+.tl-row:nth-of-type(4) .tl-body{color:rgba(240,236,250,.82)}
+.tl-row:nth-of-type(4) .tl-year{color:#B9A6E6}
+.tl-row:nth-of-type(4) .tl-src{color:rgba(240,236,250,.6)}
 /* white dots replaced by the travelling mud-stone marker */
 .tl-row::before{display:none}
 /* scroll-follow mud-stone navigator + progressive line fill + section % */
@@ -350,7 +365,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   background:rgba(255,255,255,.72);padding:3px 8px;border-radius:999px;box-shadow:0 3px 9px rgba(74,32,128,.18)}
 @keyframes mudbob{0%,100%{transform:translateY(-2px) rotate(-5deg) scale(var(--mscale,1))}50%{transform:translateY(2px) rotate(5deg) scale(var(--mscale,1))}}
 /* staged reveal per row: the image settles in first, then era → name → body → source rise in turn */
-.tl-row .tl-img{opacity:0;transform:translateY(24px) scale(.955)}
+.tl-row .tl-img{opacity:0;transform:translateY(20px);position:relative;overflow:hidden;align-self:stretch}
 .tl-row .tl-year,.tl-row .tl-name,.tl-row .tl-body,.tl-row .tl-src{opacity:0;transform:translateY(14px)}
 .tl-row.revealed .tl-img{animation:tlIn .85s .02s cubic-bezier(.2,.85,.25,1) forwards}
 .tl-row.revealed .tl-year{animation:fxRise .6s .24s cubic-bezier(.2,.85,.25,1) forwards}
@@ -439,12 +454,19 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @media(max-width:719px){.crys-title{--mh:min(44vw,162px);margin-bottom:11px}.crys-wrap .crys-body{font-size:12px;line-height:1.56;max-width:22em}.crys-wrap .cb-lead{font-size:14px}}
 
 @keyframes cleofloat{0%,100%{translate:0 0}50%{translate:0 -20px}}
-.tl-row:nth-child(odd) .tl-text{order:1;text-align:right;padding-right:6px}
+.tl-text{align-self:center;text-align:left;padding:24px 22px}
+.tl-row:nth-child(odd) .tl-text{order:1}
 .tl-row:nth-child(odd) .tl-img{order:2}
-.tl-row:nth-child(odd) .tl-img img{rotate:1.8deg}
-.tl-row:nth-child(even) .tl-text{order:2;text-align:left;padding-left:6px}
+.tl-row:nth-child(even) .tl-text{order:2}
 .tl-row:nth-child(even) .tl-img{order:1}
-.tl-row:nth-child(even) .tl-img img{rotate:-1.8deg}
+/* ---- images now FILL their half of the card (override the old torn-collage sizing/rotation/masks) ---- */
+.tl-img.tl-modern,.kings-stack,.cleo-stack{position:relative;width:auto;max-width:none;aspect-ratio:auto;margin:0;overflow:hidden;display:block}
+.kings-stack .kings-scene,.cleo-stack .cleo-portrait,.cleo-stack .cleo-portrait img,.tl-img.tl-modern.tl-one img,.tl-img.tl-two img.tl-hands{
+  position:absolute;inset:0;width:100%;height:100%;max-width:none;aspect-ratio:auto;object-fit:cover;rotate:0deg;margin:0;border-radius:0;-webkit-mask:none;mask:none;animation:none;opacity:1}
+.tl-img.tl-two img.tl-girl{display:none}   /* Black Mud shows the hands only, per the reference */
+/* composites: pharaoh statue stands in front of the ruins; fresco tablet sits beside Cleopatra */
+.kings-stack .kings-statue{display:block;position:absolute;left:1%;bottom:0;width:44%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;object-position:bottom;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:none;opacity:1;filter:drop-shadow(0 9px 15px rgba(20,10,30,.4))}
+.cleo-stack .cleo-stone{display:block;position:absolute;right:-3%;bottom:3%;width:56%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:none;opacity:1;border-radius:6px;box-shadow:0 12px 24px rgba(20,10,30,.32)}
 .tl-row:nth-child(2) .tl-img img{animation-duration:7.5s;animation-delay:-2.3s}
 .tl-row:nth-child(3) .tl-img img{animation-duration:6.0s;animation-delay:-3.7s}
 .tl-row:nth-child(4) .tl-img img{animation-duration:7.1s;animation-delay:-1.2s}
@@ -882,12 +904,16 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 
 <!-- ======= THE PLACE: teaser timeline (right after hero) — placeholder copy ======= -->
 <section id="historySec">
-  <div class="hist-media">
-    <video class="hist-vid" src="assets/history/floating.mp4" poster="assets/history/floating-poster.webp" muted loop autoplay playsinline preload="none"></video>
+  <div class="hist-hero">
+    <div class="hist-media">
+      <video class="hist-vid" src="assets/history/floating.mp4" poster="assets/history/floating-poster.webp" muted loop autoplay playsinline preload="none"></video>
+    </div>
+    <div class="hist-head">
+      <h2 class="hist-title">The place<br>where people float.</h2>
+      <p class="hist-sub">Long before modern skincare, royalty and travelers crossed continents to reach these shores, drawn by waters long celebrated for their unique mineral-rich environment. Where wellness naturally flows.</p>
+    </div>
   </div>
   <div class="hist-frame">
-    <h2 class="hist-title">The place where<br>people float.</h2>
-    <p class="hist-sub">Long before modern skincare, royalty and travelers crossed continents to reach these shores, drawn by waters long celebrated for their unique mineral-rich environment. Where wellness naturally flows.</p>
     <div class="timeline">
       <div class="tl-nav" aria-hidden="true">
         <div class="tl-fill" id="tlFill"></div>
