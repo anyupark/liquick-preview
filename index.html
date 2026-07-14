@@ -821,7 +821,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 </div>
 
 <!-- mineral crystals live above the scroll content so they're tappable -->
-<div id="mineralLayer"><div id="tapHint"><svg class="tapic" viewBox="0 0 24 24"><path d="M10 10.5V6a1.6 1.6 0 0 1 3.2 0v4"/><path d="M13.2 10V8.2a1.5 1.5 0 0 1 3 0V11"/><path d="M16.2 11v-.8a1.5 1.5 0 0 1 3 0v4.3c0 2.9-2 5-5 5-1.6 0-2.8-.5-3.7-1.8l-2.3-3.2c-.5-.8-.2-1.7.7-2.1.6-.3 1.4-.1 1.9.5l.7.9"/><path d="M8 6.5a3.5 3.5 0 0 1 4.8-1.8"/></svg>Tap a crystal to explore</div></div>
+<div id="mineralLayer"></div>
 <!-- ancient (Cleopatra) reaches down + a modern hand reaches up toward the mud stone (scene 8) -->
 <div id="handsLayer" aria-hidden="true"><div id="handsStage">
   <img id="handTop" src="assets/hands/cleopatra-down.webp" alt="">
@@ -1285,7 +1285,7 @@ const MIN=[
  ['Manganese','The defense mineral','Supports skin\'s natural resilience against daily stress.'],
  ['Strontium','The comfort mineral','Rare in skincare; known for its skin-soothing properties.']];
 const mlayer=document.getElementById('mineralLayer');const crystals=[];const labels=[];const dots=[];const tapHint=document.getElementById('tapHint');
-const crysTitle=document.querySelector('.crys-title'),crysBody=document.querySelector('.crys-body');
+const crysTitle=document.querySelector('.crys-title'),crysBody=document.querySelector('.crys-body'),crysDiv=document.querySelector('.crys-div');
 const crysRipple=document.getElementById('crysRipple'),crysOrbit=document.getElementById('crysOrbit'),crysBg=document.getElementById('crysBg');
 const mkFilter=document.getElementById('mkFilter'),mkBot=document.getElementById('mkBot'); /* the two overlaid copies of the merged make stop */
 const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};                                    /* smoothstep ease */
@@ -1435,6 +1435,7 @@ function frame(){
       b.copy.style.opacity=clamp(t>.9?(1-t)/.1:1,0,1);            /* only fade the group on the way out */
       b.copy.style.transform='none';
       if(crysTitle){crysTitle.style.opacity=hR.toFixed(3);crysTitle.style.transform='none';}   /* fixed in place at the top — no rise */
+      if(crysDiv){crysDiv.style.opacity=hR.toFixed(3);}                                        /* the sparkle divider must reveal/hide with the copy — else it stays at opacity 1 and shows through the fixed pin in OTHER scenes */
       if(crysBody){crysBody.style.opacity=bR.toFixed(3);crysBody.style.transform='none';}
       return;
     }
@@ -1541,24 +1542,20 @@ function frame(){
     const op=smooth(clamp((bt-0.07)/0.34,0,1));            /* invisible at the stone's core, MATERIALISES as it clears the mud edge */
     const orbX=cw+Math.cos(a)*Rx, orbY=ccy+Math.sin(a)*Ry;
     const bcx=lerp(cw,orbX,mv)+swx*bt, scy=lerp(ccy,orbY,mv)+bob*bt, s=0.34+0.66*mv;
-    c.style.left=(bcx-29)+'px';                            /* offset = half the 82px ball box */
-    c.style.top=(scy-28)+'px';                             /* -39 so the SPHERE centre (not the box) lands on the orbit ring; thin base hangs below */
-    c.style.scale=s.toFixed(3);                            /* start small (but not a speck) and grow — independent scale prop, no transition lag */
+    /* position via the composited `translate`/`scale` props (NOT left/top) — left/top forces a layout recalc on all 21 elements every frame and lags the whole section */
+    c.style.translate=(bcx-29).toFixed(1)+'px '+(scy-28).toFixed(1)+'px';   /* offset = half the 58px ball box; -28 lands the SPHERE centre on the orbit */
+    c.style.scale=s.toFixed(3);                            /* start small (but not a speck) and grow */
     c.style.opacity=(op*crysExit).toFixed(3);
     c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
     const L=labels[i];                                     /* labels ride in their own top layer so neighbours never cover them */
-    L.style.left=bcx.toFixed(1)+'px';
-    L.style.top=(scy+34*s).toFixed(1)+'px';
+    L.style.translate='calc(-50% + '+bcx.toFixed(1)+'px) '+(scy+34*s).toFixed(1)+'px';
+    L.style.scale=s.toFixed(3);
     L.style.opacity=(op*crysExit).toFixed(3);
-    L.style.transform='translate(-50%,0) scale('+s.toFixed(3)+')';
     const da=a+Math.PI/crystals.length, D=dots[i];         /* node sits on the orbit ring, midway to the next ball */
-    D.style.left=(cw+Math.cos(da)*Rx).toFixed(1)+'px';
-    D.style.top=(ccy+Math.sin(da)*Ry).toFixed(1)+'px';
+    D.style.translate=(cw+Math.cos(da)*Rx).toFixed(1)+'px '+(ccy+Math.sin(da)*Ry).toFixed(1)+'px';
     D.style.opacity=(0.75*burstP*crysExit).toFixed(3);
   });
   if(crysBg) crysBg.style.opacity=crysOn?'1':'0';           /* soft salt-shore atmosphere only in the crystals scene */
-  const hintR=smooth(clamp((burstP-0.7)/0.3,0,1));
-  tapHint.style.left=cw+'px'; tapHint.style.top=(ccy+Ry+84)+'px'; tapHint.style.opacity=(0.62*hintR*crysExit).toFixed(3); /* prompt appears last, below the bottom (Zinc) bubble + its label, clearing the info card */
   mbar.classList.toggle('show',crysOn&&burstP>0.85&&crysExit>0.5);       /* info card slides up once the burst settles, and slides back down as the section exits */
   /* only decode the masked shore video while the crystals scene is on screen — keeps the rest of the scroll light */
   if(crysMedia){ crysMedia.forEach(v=>{ if(crysOn&&v.paused)v.play().catch(()=>{}); else if(!crysOn&&!v.paused)v.pause(); }); }
