@@ -318,10 +318,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .hist-frame{position:relative;overflow:hidden;padding:48px 24px 118px}
 /* full-bleed video band (still footage), static headline below */
 .hist-hero{position:relative;width:100%}
-.hist-media{position:relative;width:100%;height:clamp(378px,53vh,516px);overflow:hidden;background:#16211d;
+.hist-media{position:relative;width:100%;height:clamp(324px,45vh,424px);overflow:hidden;background:#16211d;
   -webkit-mask:var(--tear-mask) center/100% 100% no-repeat;
           mask:var(--tear-mask) center/100% 100% no-repeat}
-.hist-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:28% 24%;display:block}   /* woman floats upper-LEFT so the copy reads over the open water on the right */
+.hist-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% 40%;transform:scale(1.2);transform-origin:30% 44%;display:block}   /* mild zoom (keeps it crisp) + crop biased up-left so the floating woman reads larger and level with the copy */
 /* soft lilac fade at the very top so the dark water band emerges gently from the hero */
 .hist-media::before{content:"";position:absolute;left:0;right:0;top:0;height:32%;z-index:2;pointer-events:none;
   background:linear-gradient(to bottom,#F4EFFB 0%,rgba(244,239,251,.55) 34%,rgba(244,239,251,0) 100%)}
