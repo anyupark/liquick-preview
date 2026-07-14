@@ -1527,7 +1527,7 @@ function frame(){
   const cw=innerWidth/2,ch=innerHeight/2;
   const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
   const Rx=Math.min(cw-46,178),Ry=innerHeight*0.108;
-  if(crysOrbit){ crysOrbit.setAttribute('cy',(500+stoneOY+bob).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit ring sized to the mineral ring, follows the stone */
+  if(crysOrbit){ crysOrbit.setAttribute('cy',(500+CRYS_OY).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit is FIXED at the scene's resting position (already there) — like the ripple, it must NOT follow stoneOY/bob or it 'comes down with the mud'; the stone settles at CRYS_OY so it aligns at rest */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
   const TRIG=0.5;                                           /* scroll point (in reveal units) at which the burst fires, right after the body reads */
