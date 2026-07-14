@@ -276,10 +276,25 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   transform:rotate(-2.2deg);box-shadow:0 14px 30px rgba(50,20,87,.34),inset 0 2px 0 rgba(255,255,255,.22);text-shadow:none}
 .hero-soar .sub{color:var(--ink-soft);font-size:clamp(14px,2.5vw,17px);line-height:1.62;margin-top:30px;max-width:30em;text-shadow:none}
 /* editorial hero caption (under the stone) */
-.hero-edit .hero-cap{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
-.hero-edit .hero-cap p{color:var(--ink-soft);font-size:clamp(13px,2.4vw,16px);line-height:1.55;max-width:26em;margin:0}
-.hero-edit .hero-cap .hc-sub b{color:var(--plum-d)}
-.hero-edit .cue{margin-top:20px}
+/* editorial hero: stacked ANCIENT./POWERFUL. headline (top) + reason/depth + scroll button (bottom); stone floats in the gap */
+.hero-edit{text-align:center;justify-content:space-between}
+.hero-top,.hero-bot{display:flex;flex-direction:column;align-items:center}
+.hero-top{gap:12px}
+.hero-bot{gap:11px}
+.h-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--plum)}
+.h-hr{width:26px;height:1.5px;border-radius:2px;background:var(--plum);opacity:.5}
+.hero-h1{display:flex;flex-direction:column;align-items:center;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(48px,17vw,80px);line-height:.95;letter-spacing:-.022em;margin:6px 0 4px}
+.hero-h1 .hh-a{color:var(--plum)}
+.hero-h1 .hh-b{color:var(--plum-dd)}
+.hero-sub{font-family:var(--sans);color:var(--ink);font-size:clamp(14px,3.6vw,17px);line-height:1.5;max-width:19em;margin:6px auto 0}
+.hero-sub b{color:var(--plum-d)}
+.hero-depth{font-family:var(--disp);font-weight:600;font-size:clamp(20px,5.4vw,27px);color:var(--ink);letter-spacing:-.008em;margin:0}
+.hero-depth .hd-num{color:var(--plum);font-weight:800}
+.hero-arrow{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;pointer-events:auto;
+  box-shadow:0 10px 26px -10px rgba(80,45,130,.4),inset 0 1px 0 rgba(255,255,255,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);margin:5px 0 1px}
+.hero-arrow svg{width:20px;height:20px;fill:none;stroke:var(--plum);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:heroBob 2.4s ease-in-out infinite}
+@keyframes heroBob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
+@media(prefers-reduced-motion:reduce){.hero-arrow svg{animation:none}}
 @media(max-width:440px){
   /* narrow phones: the SVG 'slice' over-scales the giant hero words past both edges — pull them in so ANCIENT/POWERFUL sit fully inside the frame with breathing room */
   #heroBig{transform:scale(.82);transform-box:view-box;transform-origin:500px 470px}
@@ -743,13 +758,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
     </g>
     <!-- particle field (scenes 6-8) -->
     <g id="particles"></g>
-    <!-- editorial hero: giant headline that the solid mudstone overlaps (fades as you descend) -->
-    <g id="heroBig" fill="url(#heroInk)" font-family="'MADE TOMMY','Poppins',sans-serif" font-weight="900" text-anchor="middle">
-      <!-- ANCIENT: top fixed, stretched down toward the stone -->
-      <text x="500" y="295" font-size="116" letter-spacing="-2" transform="translate(0,211) scale(1,1.95) translate(0,-211)">ANCIENT</text>
-      <!-- POWERFUL: bottom fixed, stretched up toward the stone -->
-      <text x="500" y="687" font-size="96" letter-spacing="-3" transform="translate(0,687) scale(1,2.25) translate(0,-687)">POWERFUL</text>
-    </g>
+    <!-- hero headline is now HTML (.hero-h1 "Ancient. Powerful.") — the SVG stretched words were removed -->
+    <g id="heroBig"></g>
     <!-- THE STONE (real Promise mud-stone art, feathered into the purple stage) -->
     <!-- the stone rests in a photoreal rippled water pool (crystals scene) — behind the stone so the ripples radiate from it; two cross-faded copies scale outward so the rings continuously propagate like real water -->
     <g id="crysRipple" opacity="0">
@@ -858,11 +868,17 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <!-- ===== THE DEPTH LADDER — one 50m stop per snap section ===== -->
 <section class="cine lay-hero" data-scene="0" data-len="140" data-bg="#F4EFFB" data-depth="0" data-vis="none">
   <div class="pin"><div class="copy hero-edit">
-    <div aria-hidden="true"></div>
-    <div class="hero-cap rv">
-      <p class="rv-el" style="--rd:.35s">One of the oldest and most powerful skincare ingredients on Earth.</p>
-      <p class="hc-sub rv-el" style="--rd:.55s">The reason it works is <b>430m below sea level</b></p>
-      <div class="cue">Scroll to Descent ↓</div>
+    <div class="hero-top rv">
+      <div class="h-eyebrow rv-el" style="--rd:.1s">Born from extremes</div>
+      <span class="h-hr rv-el" style="--rd:.18s"></span>
+      <h1 class="hero-h1"><span class="hh-a rv-el" style="--rd:.26s">Ancient.</span><span class="hh-b rv-el" style="--rd:.38s">Powerful.</span></h1>
+      <p class="hero-sub rv-el" style="--rd:.52s">One of the oldest and most powerful skincare ingredients on <b>Earth.</b></p>
+    </div>
+    <div class="hero-bot rv">
+      <div class="h-eyebrow rv-el" style="--rd:.2s">The reason it works is</div>
+      <p class="hero-depth rv-el" style="--rd:.3s"><b class="hd-num">430m</b> below sea level.</p>
+      <button class="hero-arrow rv-el" style="--rd:.42s" type="button" id="heroArrow" aria-label="Scroll to discover"><svg viewBox="0 0 24 24"><path d="M12 5v13"/><path d="M6.5 12.5 12 18l5.5-5.5"/></svg></button>
+      <div class="h-eyebrow rv-el" style="--rd:.52s">Scroll to discover</div>
     </div>
   </div></div>
 </section>
@@ -1337,6 +1353,8 @@ document.getElementById('mbarNext').onclick=()=>{curMin=(curMin+1)%MIN.length;co
     hd.appendChild(s);
   }
 })();
+/* hero scroll button → glide down into the first section */
+{const ha=document.getElementById('heroArrow'); if(ha)ha.onclick=()=>{const t=document.getElementById('historySec')||document.querySelector('.cine[data-scene="2"]'); if(t)t.scrollIntoView({behavior:'smooth'});};}
 
 /* ---- offer code copy ---- */
 codeBtn.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND');copiedMsg.style.opacity=1;
@@ -1495,10 +1513,10 @@ function frame(){
   /* STONE — centered, gentle float, drifts a little deeper as you descend */
   const g=act/(N-1);
   const CRYS_OY=94;                                   /* crystals scene: drop the stone + ring so the big headline + copy read up top; balanced so the top spheres clear the copy AND the bottom (Zinc) label + tap prompt clear the info card */
-  let oy=lerp(0,34,g), ox=0; if(act===0)oy=-55; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
+  let oy=lerp(0,34,g), ox=0; if(act===0)oy=16; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
-  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.40:sea?(innerWidth>719?0.72:0.51):1,k); /* recede so the fan / crystal ring / hands can frame it; float divider = big centered stone */
+  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.40:sea?(innerWidth>719?0.72:0.51):(act===0?0.82:1),k); /* recede so the fan / crystal ring / hands can frame it; hero = medium floating stone between the headline and the scroll block */
   if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
   stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
   /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
