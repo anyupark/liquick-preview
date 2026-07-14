@@ -1522,7 +1522,7 @@ function frame(){
   /* −150m: the minerals — crystals orbit (tappable), revealed as a staggered burst out of the mud stone */
   const crysOn=(vis==='crystals');
   const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
-  if(crysRipple){ crysRipple.setAttribute('transform','translate(0,'+(stoneOY+bob).toFixed(1)+')'); crysRipple.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* ripples follow the stone, only in the crystals scene */
+  if(crysRipple){ crysRipple.setAttribute('transform','translate(0,'+CRYS_OY+')'); crysRipple.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* ripple is FIXED at the scene's resting position (water already there); the stone floats DOWN into it. Do NOT follow stoneOY/bob — a moving full-width pool sweeps its edge across as a 'border'. */
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=innerHeight/2;
   const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
