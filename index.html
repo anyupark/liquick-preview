@@ -602,6 +602,55 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 .protonote{background:var(--lavender);color:var(--mute);text-align:center;font-size:11px;padding:16px;line-height:1.6}
 @media(prefers-reduced-motion:reduce){.copy .cue{animation:none}}
 </style>
+<style>
+/* ============ NORMAL-FLOW REBUILD — replaces the scroll-cinematic ============ */
+html{scroll-snap-type:none!important}
+#depth,#scrollbar{display:none!important}
+.rvx{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.85,.25,1),transform .7s cubic-bezier(.2,.85,.25,1)}
+.rvx.seen{opacity:1;transform:none}
+
+.hero2{min-height:90vh;min-height:90svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 24px 64px;gap:2px}
+.hero2 .hero-stone{width:min(72vw,400px);height:auto;filter:drop-shadow(0 34px 52px rgba(50,20,87,.32));margin-bottom:4px}
+.hero2 h1{font-family:var(--disp);font-weight:900;line-height:.9;letter-spacing:-.02em;margin:10px 0 16px;text-transform:uppercase}
+.hero2 h1 span{display:block;font-size:clamp(46px,15vw,116px)}
+.hero2 h1 span:first-child{color:var(--plum)}
+.hero2 h1 span:last-child{color:var(--plum-dd)}
+.hero2 p{max-width:29em;font-size:clamp(14px,2.7vw,17px);color:var(--ink-soft);line-height:1.55;margin:0 auto}
+.hero2 .hero-sub{margin-top:6px}
+.hero2 .hero-sub b{color:var(--plum-d)}
+.hero2 .cue2{margin-top:30px;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--plum);opacity:.7}
+
+.story{max-width:960px;margin:0 auto;padding:clamp(58px,10vh,108px) 24px;text-align:center}
+.story .eyebrow{margin-bottom:14px}
+.story h2{font-family:var(--disp);font-weight:500;font-size:clamp(26px,5.6vw,42px);line-height:1.13;margin:0 0 18px;color:var(--plum-dd);text-wrap:balance}
+.story h2 em,.story .lead em{font-style:italic;color:var(--plum)}
+.story .lead{max-width:34em;margin:0 auto;font-size:clamp(15px,2.9vw,18px);line-height:1.62;color:var(--ink-soft)}
+.story .lead b{color:var(--plum-d)}
+.story .lead+.lead{margin-top:16px}
+.story figure{margin:34px 0 0}
+.story figure img{max-width:100%;height:auto;border-radius:16px;display:block;margin:0 auto;box-shadow:0 24px 50px -26px rgba(50,20,87,.5)}
+
+.dsrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:36px auto 0;max-width:720px}
+.dsrow img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;box-shadow:0 18px 34px -22px rgba(50,20,87,.5)}
+@media(max-width:520px){.dsrow{grid-template-columns:1fr 1fr}.dsrow img:nth-child(3){display:none}}
+
+.min-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,3.4vw,30px);max-width:660px;margin:40px auto 0}
+@media(max-width:520px){.min-grid{grid-template-columns:repeat(2,1fr);gap:26px 20px}}
+.min-grid figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:9px}
+.min-grid img{width:clamp(58px,15vw,88px);height:auto;filter:drop-shadow(0 12px 18px rgba(50,20,87,.26))}
+.min-grid figcaption{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--plum-d);font-weight:600}
+
+.tagrow{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px}
+.tagrow span{font-size:13px;background:rgba(124,77,204,.09);border:1px solid rgba(124,77,204,.22);color:var(--plum-d);padding:9px 15px;border-radius:999px}
+
+.botrow{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(16px,5vw,40px);margin-top:36px}
+.botrow figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;width:92px}
+.botrow img{width:76px;height:76px;object-fit:cover;border-radius:50%;box-shadow:0 14px 24px -10px rgba(50,20,87,.45)}
+.botrow figcaption{font-size:12px;color:var(--ink-soft);line-height:1.35}
+.botrow figcaption b{color:var(--plum-d)}
+
+.story-bottle figure img{width:min(58vw,280px);border-radius:0;box-shadow:none;filter:drop-shadow(0 34px 54px rgba(50,20,87,.34))}
+</style>
 </head>
 <body>
 
@@ -617,308 +666,85 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <div id="topbar"></div>
 <img id="brand" src="images/logo.webp" alt="Promise">
 
-<!-- ======= FIXED STAGE ======= -->
-<div id="stage">
-  <!-- the place: Dead Sea photos drift upward with parallax behind the stone (tiles built in JS) -->
-  <div id="collage" aria-hidden="true"></div>
-  <!-- distant hazy Dead Sea mountains behind the stone — only over the −350m water section -->
-  <div id="mtnLayer" aria-hidden="true"><img id="mtnImg" src="assets/sea/mountains.webp" alt=""></div>
-  <!-- mud-mask texture gallery: two rows of looping footage slide slowly behind the finished bottle (built + gated in JS) -->
-  <div id="mudGallery" aria-hidden="true">
-    <div class="mg-row" id="mgRowA"></div>
-    <div class="mg-row mg-rev" id="mgRowB"></div>
-  </div>
-  <svg id="stageSvg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <radialGradient id="fth" cx="0" cy="0" r="230" gradientUnits="userSpaceOnUse">
-        <stop offset="0.78" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-      </radialGradient>
-      <mask id="stoneMask" maskUnits="userSpaceOnUse" x="-260" y="-260" width="520" height="520">
-        <rect x="-260" y="-260" width="520" height="520" fill="url(#fth)"/>
-      </mask>
-      <clipPath id="bclip"><path d="M-16,-160 C-58,-140 -70,-110 -70,-70 L-70,120 C-70,152 -46,170 0,170 C46,170 70,152 70,120 L70,-70 C70,-110 58,-140 16,-160 Z"/></clipPath>
-      <!-- glass body interior of the real bottle — the mud level is clipped to this -->
-      <clipPath id="bodyClip"><rect x="-95" y="-88" width="190" height="274" rx="16"/></clipPath>
-      <!-- real LIQUICK mud texture for the particles -->
-      <pattern id="mudTex" width="1" height="1" patternContentUnits="objectBoundingBox">
-        <image href="assets/minerals/mud-swatch.webp" width="1" height="1" preserveAspectRatio="xMidYMid slice"/>
-      </pattern>
-      <!-- spherical shading: turns a flat textured circle into a round 3D mud bead -->
-      <radialGradient id="sphereShade" cx="0.34" cy="0.27" r="0.95">
-        <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
-        <stop offset="0.09" stop-color="#ffffff" stop-opacity="0.25"/>
-        <stop offset="0.20" stop-color="#ffffff" stop-opacity="0.05"/>
-        <stop offset="0.55" stop-color="#000000" stop-opacity="0"/>
-        <stop offset="0.86" stop-color="#221208" stop-opacity="0.22"/>
-        <stop offset="1" stop-color="#c9a678" stop-opacity="0.30"/>
-      </radialGradient>
-      <!-- tiny clear foam bubble -->
-      <radialGradient id="foamGrad" cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
-        <stop offset="0.68" stop-color="#ffffff" stop-opacity="0.03"/>
-        <stop offset="0.88" stop-color="#e9e0f6" stop-opacity="0.18"/>
-        <stop offset="1" stop-color="#ffffff" stop-opacity="0.7"/>
-      </radialGradient>
-      <!-- gooey / metaball filter: mud droplets fuse with liquid bridges when they touch -->
-      <filter id="goo" x="-40%" y="-40%" width="180%" height="180%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="blur"/>
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -12" result="goo"/>
-        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-      </filter>
-      <!-- golden oil tint inside the rosemary-oil & jojoba-oil bubbles -->
-      <radialGradient id="oilTint" cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0" stop-color="#e6ab3c" stop-opacity="0.62"/>
-        <stop offset="0.62" stop-color="#d9992c" stop-opacity="0.5"/>
-        <stop offset="1" stop-color="#cf8f26" stop-opacity="0"/>
-      </radialGradient>
-      <!-- water-droplet look for the H2O molecules (Dead Sea water) -->
-      <radialGradient id="waterMol" cx="0.36" cy="0.3" r="0.72">
-        <stop offset="0" stop-color="#ffffff" stop-opacity="0.92"/>
-        <stop offset="0.32" stop-color="#cdeaf6" stop-opacity="0.78"/>
-        <stop offset="1" stop-color="#7fbbe0" stop-opacity="0.62"/>
-      </radialGradient>
-      <!-- hero headline ink: static — brand purple up top → near-black at the base (echoes the black mud core / the descent) -->
-      <linearGradient id="heroInk" gradientUnits="userSpaceOnUse" x1="0" y1="180" x2="0" y2="705">
-        <stop offset="0" stop-color="#6a44a8"/>
-        <stop offset="0.5" stop-color="#3a2263"/>
-        <stop offset="1" stop-color="#130b1e"/>
-      </linearGradient>
-    </defs>
-    <!-- (place scene: frames drift from behind the stone; no photo backdrop) -->
-    <!-- water overlay (scene 4) -->
-    <rect id="waterlvl" x="0" y="1000" width="1000" height="1000" fill="#C8B4ED" opacity=".72"/>
-    <g id="bubbles" opacity="0">
-      <circle cx="380" cy="700" r="3" fill="#bcd0ff" opacity=".4"/><circle cx="640" cy="620" r="2" fill="#bcd0ff" opacity=".35"/>
-      <circle cx="520" cy="760" r="2.5" fill="#bcd0ff" opacity=".3"/><circle cx="300" cy="520" r="2" fill="#bcd0ff" opacity=".3"/>
-      <circle cx="700" cy="480" r="3" fill="#bcd0ff" opacity=".35"/><circle cx="440" cy="420" r="2" fill="#bcd0ff" opacity=".3"/>
-    </g>
-    <!-- particle field (scenes 6-8) -->
-    <g id="particles"></g>
-    <!-- editorial hero: giant headline that the solid mudstone overlaps (fades as you descend) -->
-    <g id="heroBig" fill="url(#heroInk)" font-family="'MADE TOMMY','Poppins',sans-serif" font-weight="900" text-anchor="middle">
-      <!-- ANCIENT: top fixed, stretched down toward the stone -->
-      <text x="500" y="295" font-size="116" letter-spacing="-2" transform="translate(0,211) scale(1,1.95) translate(0,-211)">ANCIENT</text>
-      <!-- POWERFUL: bottom fixed, stretched up toward the stone -->
-      <text x="500" y="687" font-size="96" letter-spacing="-3" transform="translate(0,687) scale(1,2.25) translate(0,-687)">POWERFUL</text>
-    </g>
-    <!-- THE STONE (real Promise mud-stone art, feathered into the purple stage) -->
-    <g id="stoneG" transform="translate(500,500)" style="filter:drop-shadow(0 28px 44px rgba(50,20,87,.32))">
-      <g id="stoneRot">
-        <image id="core"  href="assets/mudstone/stone-hero.webp" x="-170" y="-141" width="340" height="283" preserveAspectRatio="xMidYMid meet" style="filter:brightness(.42) saturate(.7) contrast(1.1)"/>
-        <image id="crust" href="assets/mudstone/stone-hero.webp" x="-170" y="-141" width="340" height="283" preserveAspectRatio="xMidYMid meet"/>
-      </g>
-    </g>
-    <!-- (the drifting collage behind the bottle is now a native HTML video gallery — #mudGallery, above the SVG in #stage) -->
-    <!-- THE BOTTLE: mud fills the clear glass, then it dissolves into the finished purple product -->
-    <g id="bottleG" transform="translate(500,490)" opacity="0">
-      <g id="bScale">
-        <g id="glassStack" style="isolation:isolate;filter:drop-shadow(0 20px 34px rgba(50,20,87,.26))">
-          <image href="images/bottle-real.webp" x="-106" y="-200" width="212" height="400" preserveAspectRatio="xMidYMid meet"/>
-          <rect id="liquid" x="-95" y="186" width="190" height="0" fill="#a68a63" clip-path="url(#bodyClip)" style="mix-blend-mode:multiply"/>
-        </g>
-        <image id="realBottle" href="images/bottle-final.webp" x="-106" y="-200" width="212" height="400" preserveAspectRatio="xMidYMid meet" opacity="0" style="filter:drop-shadow(0 20px 34px rgba(50,20,87,.26))"/>
-        <g id="blabel"></g>
-      </g>
-    </g>
-  </svg>
-</div>
+<!-- ======= HERO ======= -->
+<header class="hero2">
+  <img class="hero-stone rvx" src="assets/mudstone/stone-hero.webp" alt="A cracked Dead Sea mud stone revealing black mineral mud inside">
+  <h1 class="rvx" style="transition-delay:.08s"><span>Ancient</span><span>Powerful</span></h1>
+  <p class="rvx" style="transition-delay:.18s">One of the oldest and most powerful skincare ingredients on Earth.</p>
+  <p class="hero-sub rvx" style="transition-delay:.26s">The reason it works is <b>430&nbsp;m below sea level</b>.</p>
+  <div class="cue2 rvx" style="transition-delay:.4s">Scroll ↓</div>
+</header>
 
-<!-- ======= DEAD SEA WATER (−350m section only) — the stone floats above it ======= -->
-<div id="seaLayer" aria-hidden="true">
-  <video id="seaMedia" src="assets/sea/cross-water.mp4" poster="assets/sea/cross-water.webp" muted loop playsinline preload="none"></video>
-</div>
-<div id="seaScrim" aria-hidden="true"></div>
-<div id="saltLayer" aria-hidden="true">
-  <img class="salt salt-c" src="assets/sea/salt-b.webp" alt="">
-  <img class="salt salt-l" src="assets/sea/salt-a.webp" alt="">
-  <img class="salt salt-r" src="assets/sea/salt-a.webp" alt="">
-</div>
-<!-- water drops floating gently around the tags in the water -->
-<div id="dropLayer" aria-hidden="true">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:60%;left:32%;width:48px;animation-duration:9s,3.4s;animation-delay:-1s,-0.5s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:67%;left:7%;width:20px;animation-duration:11s,4s;animation-delay:-5s,-1.2s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:62%;left:73%;width:56px;animation-duration:10s,3.2s;animation-delay:-3s,-2.1s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:74%;left:62%;width:18px;animation-duration:8s,3.8s;animation-delay:-6s,-0.8s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:81%;left:29%;width:42px;animation-duration:12s,3.5s;animation-delay:-2s,-1.6s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:70%;left:90%;width:22px;animation-duration:9s,4.2s;animation-delay:-7s,-2.4s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:85%;left:67%;width:50px;animation-duration:11s,3s;animation-delay:-4s,-0.3s">
-  <img class="drop" src="assets/minerals/waterdrop.webp" alt="" style="top:87%;left:44%;width:18px;animation-duration:10s,3.7s;animation-delay:-8s,-1.9s">
-</div>
-<!-- mineral tags floating in the white space above the stone (−350m only) -->
-<div id="tagLayer" aria-hidden="true">
-  <span class="mtag" style="top:59%;left:14%;--rot:-4deg;animation-delay:0s">Hydrates</span>
-  <span class="mtag" style="top:65%;left:47%;--rot:3deg;animation-delay:-1.4s">Supports skin barrier</span>
-  <span class="mtag" style="top:71%;left:13%;--rot:-2.5deg;animation-delay:-2.6s">Soothes irritation</span>
-  <span class="mtag" style="top:77%;left:45%;--rot:4deg;animation-delay:-0.7s">Softens &amp; smooths skin</span>
-  <span class="mtag" style="top:83%;left:13%;--rot:-3deg;animation-delay:-3.3s">Suitable for sensitive skin</span>
-</div>
-
-<!-- ======= DEPTH METER ======= -->
-<div id="depth">
-  <div class="lbl">Depth</div>
-  <div class="track"><div class="fill" id="dfill"></div></div>
-  <div class="num" id="dnum">0 m</div>
-</div>
-
-<!-- ======= MINERAL CARD ======= -->
-<div id="mbar">
-  <img id="mbarImg" src="assets/minerals/raw/magnesium.webp" alt="">
-  <div class="mbar-txt"><h4 id="mbarName">Magnesium</h4><div class="mbar-role" id="mbarRole">The barrier mineral</div><p id="mbarBody">Supports skin hydration and helps calm visible irritation.</p></div>
-</div>
-
-<!-- mineral crystals live above the scroll content so they're tappable -->
-<div id="mineralLayer"><div id="tapHint">Tap a crystal to explore</div></div>
-<!-- ancient (Cleopatra) reaches down + a modern hand reaches up toward the mud stone (scene 8) -->
-<div id="handsLayer" aria-hidden="true"><div id="handsStage">
-  <img id="handTop" src="assets/hands/cleopatra-down.webp" alt="">
-  <img id="handMud" src="assets/mudstone/stone-hero.webp" alt="">
-  <img id="handBot" src="assets/hands/modern-receive.webp" alt="">
-  <div class="handsTxt rv" id="handsCopyTop">
-    <h4 class="hook rv-el" style="--rd:.05s">You couldn’t have touched this.</h4>
-    <p class="body rv-el" style="--rd:.26s">2,000 years ago, you couldn’t simply own it. Egypt claimed it for its gods. Kings fought over its shores. Cleopatra secured exclusive rights to it. Even rulers paid to keep access.</p>
-    <p class="closer rv-el" style="--rd:.5s">To reach it, you needed a throne.</p>
-  </div>
-  <div class="handsTxt rv" id="handsCopyBot">
-    <h4 class="hook rv-el" style="--rd:.05s">Now it’s yours<br>to touch.</h4>
-    <p class="body rv-el" style="--rd:.24s">Once reserved for royalty.<br>Now part of your routine.</p>
-    <p class="body rv-el" style="--rd:.42s">The mud never changed.<br>We changed how it reaches you.</p>
-    <p class="lead rv-el" style="--rd:.6s">That created one challenge.</p>
-  </div>
-</div></div>
-
-<!-- ======= CINEMATIC SCROLL SECTIONS ======= -->
-<!-- ===== THE DEPTH LADDER — one 50m stop per snap section ===== -->
-<section class="cine lay-hero" data-scene="0" data-len="112" data-bg="#F4EFFB" data-depth="0" data-vis="none">
-  <div class="pin"><div class="copy hero-edit">
-    <div aria-hidden="true"></div>
-    <div class="hero-cap rv">
-      <p class="rv-el" style="--rd:.35s">One of the oldest and most powerful skincare ingredients on Earth.</p>
-      <p class="hc-sub rv-el" style="--rd:.55s">The reason it works is <b>430m below sea level</b></p>
-      <div class="cue">Scroll to Descent ↓</div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ======= THE PLACE: teaser timeline (right after hero) — placeholder copy ======= -->
-<section id="historySec">
-  <div class="hist-media">
-    <video class="hist-vid" src="assets/history/floating.mp4" poster="assets/history/floating-poster.webp" muted loop autoplay playsinline preload="none"></video>
-  </div>
-  <div class="hist-frame">
-    <h2 class="hist-title">The place where<br>people float.</h2>
-    <p class="hist-sub">Long before modern skincare, royalty and travelers crossed continents to reach these shores, drawn by waters long celebrated for their unique mineral-rich environment. Where wellness naturally flows.</p>
-    <div class="timeline">
-      <div class="tl-nav" aria-hidden="true">
-        <div class="tl-fill" id="tlFill"></div>
-        <div class="tl-mud" id="tlMud"><img src="assets/mudstone/stone-hero.webp" alt=""><span class="tl-pct" id="tlPct">0%</span></div>
-      </div>
-      <div class="hist-veil" aria-hidden="true"></div>
-      <article class="tl-row">
-        <div class="tl-text">
-          <div class="tl-year">Antiquity</div>
-          <h3 class="tl-name">Kings &amp; Emperors</h3>
-          <p class="tl-body">Kings and emperors built palaces and bathing retreats along its edge, journeying for days to soak in waters long believed to heal the body and preserve youth.</p>
-          <p class="tl-src">Source: National Geographic</p>
-        </div>
-        <div class="tl-img kings-stack">
-          <img class="kings-scene" src="assets/history/kings.webp" alt="">
-          <img class="kings-statue" src="assets/history/kings-statue.webp" alt="">
-        </div>
-      </article>
-      <article class="tl-row">
-        <div class="tl-text">
-          <div class="tl-year">c. 40 BCE</div>
-          <h3 class="tl-name">Cleopatra</h3>
-          <p class="tl-body">The most powerful woman of the ancient world is said to have claimed these shores as her own &mdash; building workshops to harvest their mineral mud and salt for her legendary beauty rituals.</p>
-          <p class="tl-src">Source: Encyclopaedia Britannica</p>
-        </div>
-        <div class="tl-img cleo-stack">
-          <div class="cleo-portrait"><img src="assets/history/cleopatra-portrait.webp" alt=""></div>
-          <img class="cleo-stone" src="assets/history/cleopatra-stone.webp" alt="">
-        </div>
-      </article>
-      <article class="tl-row">
-        <div class="tl-text">
-          <div class="tl-year">Today</div>
-          <h3 class="tl-name">Travelers Still Come</h3>
-          <p class="tl-body">Even now, people fly from every corner of the earth to float on its surface and coat their skin in its mineral-rich mud &mdash; chasing a feeling nowhere else on the planet can give.</p>
-        </div>
-        <div class="tl-img tl-modern tl-one"><img src="assets/history/trav-crowd.webp" alt=""></div>
-      </article>
-      <article class="tl-row">
-        <div class="tl-text">
-          <div class="tl-year">The secret</div>
-          <h3 class="tl-name">The Black Mud</h3>
-          <p class="tl-body">A dense, mineral-rich mud, formed over thousands of years and still gathered by hand from the shore &mdash; the reason the world keeps coming back.</p>
-        </div>
-        <div class="tl-img tl-modern tl-two"><img class="tl-girl" src="assets/history/mud-apply.webp" alt=""><img class="tl-hands" src="assets/history/mud-hold-wide.webp" alt=""></div>
-      </article>
-    </div>
-    <div class="hist-foot"><span></span></div>
+<!-- ======= THE DEAD SEA ======= -->
+<section class="story">
+  <div class="eyebrow rvx">The Dead Sea · 430&nbsp;m below sea level</div>
+  <h2 class="rvx" style="transition-delay:.06s">This is the reason.</h2>
+  <p class="lead rvx" style="transition-delay:.12s">The lowest exposed place on Earth. Water flows in and never leaves. For thousands of years the desert sun has taken the water and left the minerals — concentrating them to <b>ten times</b> any ocean.</p>
+  <div class="dsrow rvx" style="transition-delay:.18s">
+    <img src="images/ds-aerial.webp" loading="lazy" alt="Aerial view of turquoise Dead Sea water and salt">
+    <img src="images/ds-pillars.webp" loading="lazy" alt="Underwater Dead Sea salt pillars">
+    <img src="images/ds-rings.webp" loading="lazy" alt="Aerial Dead Sea salt formations">
   </div>
 </section>
 
-<section class="cine txt-left placesec" data-scene="2" data-len="112" data-bg="#E4D6F5" data-depth="-100" data-vis="place">
-  <div class="pin"><div class="copy rv">
-    <div class="stagelbl rv-el" style="--rd:.05s">The Dead Sea · 430 m below sea level</div>
-    <h2 class="tommy rv-el" style="--rd:.2s">This is the reason.</h2>
-    <p class="rv-el" style="--rd:.4s">The lowest exposed place on Earth. Water flows in and never leaves. For thousands of years the desert sun has taken the water and left the minerals, concentrating them to <em class="stat">ten times</em> any ocean.</p>
-  </div></div>
+<!-- ======= CLEOPATRA ======= -->
+<section class="story">
+  <div class="eyebrow rvx">For 2,000 years</div>
+  <h2 class="rvx" style="transition-delay:.06s">You couldn't have touched this.</h2>
+  <p class="lead rvx" style="transition-delay:.12s">Egypt claimed it for its gods. Kings fought over its shores. Cleopatra secured exclusive rights to it — even rulers paid to keep access. <em>To reach it, you needed a throne.</em></p>
+  <figure class="rvx" style="transition-delay:.18s"><img src="assets/history/cleopatra-portrait.webp" loading="lazy" alt="Portrait of Cleopatra" style="max-width:330px"></figure>
+  <p class="lead rvx" style="transition-delay:.24s">Now it's yours to touch. Once reserved for royalty — now part of your routine.</p>
 </section>
 
-<section class="cine" data-scene="3" data-len="112" data-bg="#F1EAFB" data-depth="-150" data-vis="crystals">
-  <div class="pin"><div class="copy crys-wrap">
-    <div class="crys-title" role="img" aria-label="21 minerals">
-      <div class="v21"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div>
-      <div class="vmin-slot"><div class="vmin"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div></div>
-    </div>
-    <p class="crys-body">No ocean on Earth is this concentrated. Dead Sea mud holds a rare, complete spectrum of minerals your skin can actually use. <strong class="crys-strong">Here are 7.</strong></p>
-  </div></div>
-</section>
-
-
-<section class="cine txt-left" data-scene="7" data-len="112" data-bg="#F3EEF7" data-depth="-350" data-vis="none">
-  <div class="pin"><div class="copy rv">
-    <h2 class="rv-el" style="--rd:.05s"><span class="rv-underline">Authentic</span> Dead Sea Water</h2>
-    <p class="rv-el" style="--rd:.3s">As one of Earth’s most extraordinary natural ecosystems, its water is just as much a part of what makes this place unlike anywhere else on Earth. Its remarkable salinity and mineral-rich composition have drawn people here for thousands of years.</p>
-  </div></div>
-</section>
-
-<!-- −430m: arrival at the seabed — the raw mud -->
-<section class="cine mudsec" data-scene="8" data-len="112" data-bg="#EFE7FA" data-depth="-430" data-vis="none">
-  <div class="pin"></div>
-</section>
-
-<!-- the making: ONE continuous stop — mud is filtered, then botanicals flow in from the sides as the copy changes -->
-<section class="cine makesec" data-scene="9" data-len="112" data-bg="#F1EAFB" data-depth="-430" data-vis="make">
-  <div class="pin">
-    <div class="copy filter-copy make-copy" id="mkFilter">
-      <h2 class="fx-head"><span class="fx-l1">Raw mud is <span class="fx-pow">powerful</span>.</span><span class="fx-l2">It is not <span class="fx-gentle">gentle</span>.</span></h2>
-      <p class="fx-body">Through repeated filtration, we create a smoother, more refined texture while preserving both its mineral richness and the authentic Dead Sea water that makes this ecosystem unique.</p>
-      <p class="big fx-pure"><em>82% pure</em>, multi-filtered Dead Sea mud.</p>
-    </div>
-    <div class="copy botanicals-copy make-copy" id="mkBot">
-      <h2 class="fx-head"><span class="fx-bl1">So we add what</span><span class="fx-bl2">the desert <span class="fx-gentle">cannot grow</span>.</span></h2>
-      <ul class="bot-list">
-        <li><b>Aloe</b> to cool.</li>
-        <li><b>Jojoba</b> to soften.</li>
-        <li><b>Lavender &amp; rosemary</b> to calm.</li>
-        <li><b>Honeysuckle</b> to soothe.</li>
-      </ul>
-      <p class="big bot-close">Minerals do the deep work.<br><em>Botanicals make it a pleasure.</em></p>
-    </div>
+<!-- ======= 21 MINERALS ======= -->
+<section class="story">
+  <div class="eyebrow rvx">The minerals</div>
+  <h2 class="rvx" style="transition-delay:.06s">21 minerals your skin can actually use.</h2>
+  <p class="lead rvx" style="transition-delay:.12s">No ocean on Earth is this concentrated. Dead Sea mud holds a rare, complete spectrum of minerals. Here are seven:</p>
+  <div class="min-grid rvx" style="transition-delay:.18s">
+    <figure><img src="assets/minerals/cut/magnesium.webp" loading="lazy" alt="Magnesium mineral"><figcaption>Magnesium</figcaption></figure>
+    <figure><img src="assets/minerals/cut/calcium.webp" loading="lazy" alt="Calcium mineral"><figcaption>Calcium</figcaption></figure>
+    <figure><img src="assets/minerals/cut/potassium.webp" loading="lazy" alt="Potassium mineral"><figcaption>Potassium</figcaption></figure>
+    <figure><img src="assets/minerals/cut/strontium.webp" loading="lazy" alt="Strontium mineral"><figcaption>Strontium</figcaption></figure>
+    <figure><img src="assets/minerals/cut/zinc.webp" loading="lazy" alt="Zinc mineral"><figcaption>Zinc</figcaption></figure>
+    <figure><img src="assets/minerals/cut/iron.webp" loading="lazy" alt="Iron mineral"><figcaption>Iron</figcaption></figure>
+    <figure><img src="assets/minerals/cut/manganese.webp" loading="lazy" alt="Manganese mineral"><figcaption>Manganese</figcaption></figure>
+    <figure><img src="assets/minerals/mud-swatch.webp" loading="lazy" alt="Dead Sea mud" style="width:82px;border-radius:12px"><figcaption>+ 14 more</figcaption></figure>
   </div>
 </section>
 
-<!-- the payoff: the bottle forms -->
-<section class="cine lay-split" data-scene="11" data-len="112" data-bg="#FBF8F3" data-depth="-430" data-vis="bottle">
-  <div class="pin"><div class="copy rv bottleTxt">
-    <div class="col"><h2 class="rv-el" style="--rd:.05s">Introducing <em class="rv-underline">LIQUICK</em><span class="tm">™</span></h2><p class="big bottle-claim rv-el" style="--rd:.26s">The world's first liquid Dead Sea mineral mask.</p></div>
-    <div class="col"><p class="split-tag rv-el" style="--rd:.46s">From the lowest place on Earth.<br>To the highest step in your routine.</p></div>
-  </div></div>
+<!-- ======= AUTHENTIC DEAD SEA WATER ======= -->
+<section class="story">
+  <div class="eyebrow rvx">Not just mud</div>
+  <h2 class="rvx" style="transition-delay:.06s">Authentic Dead Sea water.</h2>
+  <p class="lead rvx" style="transition-delay:.12s">Its remarkable salinity and mineral-rich composition have drawn people here for thousands of years — just as much a part of what makes this place unlike anywhere else on Earth.</p>
+  <figure class="rvx" style="transition-delay:.18s"><img src="images/ds-floor.webp" loading="lazy" alt="Sunlit turquoise Dead Sea water" style="max-width:560px"></figure>
+  <div class="tagrow rvx" style="transition-delay:.24s"><span>Hydrates</span><span>Supports skin barrier</span><span>Soothes irritation</span><span>Softens &amp; smooths skin</span><span>Suitable for sensitive skin</span></div>
 </section>
 
-<!-- ======= SALES BODY ======= -->
+<!-- ======= THE MAKING ======= -->
+<section class="story">
+  <div class="eyebrow rvx">The making</div>
+  <h2 class="rvx" style="transition-delay:.06s">Raw mud is <em>powerful</em>.<br>We make it a pleasure.</h2>
+  <p class="lead rvx" style="transition-delay:.12s">Through repeated filtration we create a smoother, more refined texture while preserving the mineral richness and authentic Dead Sea water — <b>82% pure, multi-filtered Dead Sea mud</b>. Then we add what the desert cannot grow:</p>
+  <div class="botrow rvx" style="transition-delay:.18s">
+    <figure><img src="assets/minerals/ingredients/aloe.webp" loading="lazy" alt="Aloe"><figcaption><b>Aloe</b><br>to cool</figcaption></figure>
+    <figure><img src="assets/minerals/ingredients/jojoba.webp" loading="lazy" alt="Jojoba"><figcaption><b>Jojoba</b><br>to soften</figcaption></figure>
+    <figure><img src="assets/minerals/ingredients/lavender.webp" loading="lazy" alt="Lavender"><figcaption><b>Lavender</b><br>to calm</figcaption></figure>
+    <figure><img src="assets/minerals/ingredients/honeysuckle.webp" loading="lazy" alt="Honeysuckle"><figcaption><b>Honeysuckle</b><br>to soothe</figcaption></figure>
+  </div>
+  <p class="lead rvx" style="transition-delay:.26s;margin-top:26px">Minerals do the deep work. <em>Botanicals make it a pleasure.</em></p>
+</section>
+
+<!-- ======= INTRODUCING LIQUICK ======= -->
+<section class="story story-bottle">
+  <div class="eyebrow rvx">The result</div>
+  <figure class="rvx" style="transition-delay:.06s"><img src="images/bottle-final.webp" loading="lazy" alt="LIQUICK liquid Dead Sea mud mask bottle"></figure>
+  <h2 class="rvx" style="transition-delay:.16s">Introducing LIQUICK™</h2>
+  <p class="lead rvx" style="transition-delay:.22s">The world's first liquid Dead Sea mineral mask.</p>
+  <p class="lead rvx" style="transition-delay:.3s"><em>From the lowest place on Earth. To the highest step in your routine.</em></p>
+</section>
+
 <div id="body">
 
   <section class="sect">
@@ -1074,187 +900,23 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <div class="protonote">Prototype — real Promise mud-stone art + Dead Sea media · placeholder reviews, before/afters, and study citations pending verification · Promise Cosmetics 2026</div>
 
 <script>
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const lerp=(a,b,t)=>a+(b-a)*t;
-const rng=(seed=>()=> (seed=(seed*9301+49297)%233280)/233280)(42);
-
-/* wire buy CTAs */
-document.querySelectorAll('[data-messenger]').forEach(el=>{el.href=window.MESSENGER_URL;el.target='_blank';el.rel='noopener';});
-
-/* ---- scene layout ---- */
-const scenes=[...document.querySelectorAll('.cine')];
-scenes.forEach(s=>s.style.height=s.dataset.len+'vh');
-let bounds=[];
-function measure(){
-  bounds=scenes.map(s=>{const r=s.getBoundingClientRect(),y=r.top+scrollY;
-    return{el:s,top:y,len:r.height-innerHeight,copy:s.querySelector('.copy'),bg:s.dataset.bg,depth:s.dataset.depth};});
-}
-/* Only re-measure on a real (width) resize. Mobile address-bar hide/show changes ONLY the height —
-   re-measuring then rewrites each section's scrub length and remaps scroll→progress mid-scroll,
-   which is exactly the "sections jump around" jolt. Ignore height-only resizes. */
-function onWidthResize(fn){ let w=innerWidth; addEventListener('resize',()=>{ if(innerWidth!==w){ w=innerWidth; fn(); } }); }
-onWidthResize(measure);
-/* retire the descent HUD (depth meter / mineral card / dev-nav) while the editorial history section is on screen */
-(function(){const hs=document.getElementById('historySec'); if(!hs)return;
-  new IntersectionObserver(es=>es.forEach(e=>{
-    document.body.classList.toggle('in-history', e.isIntersecting && e.intersectionRatio>0.3);
-  }),{threshold:[0,0.3,0.6]}).observe(hs);})();
-
-/* the merged "make" stop drives both copies' staged reveals (.lqfx) from scroll progress in the frame loop */
-
-/* generic staged reveal: any .rv copy block plays its .rv-el children when it enters view (re-triggers on re-entry) */
-document.querySelectorAll('.rv:not(.handsTxt):not(.bottleTxt)').forEach(el=>{   /* the fixed hands + bottle copies are driven from the frame loop instead, so they sequence with the scene */
-  new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting && e.intersectionRatio>0.42) el.classList.add('seen');
-    else if(e.intersectionRatio<0.06) el.classList.remove('seen');
-  }),{threshold:[0,0.06,0.42,1]}).observe(el);
-});
-
-/* ---- history timeline: mud-stone scroll navigator + progress % + row reveal ---- */
+/* ---- reveal on scroll (normal page, no scroll-cinematic) ---- */
 (function(){
-  const tl=document.querySelector('#historySec .timeline');
-  if(!tl)return;
-  const fill=document.getElementById('tlFill'),mud=document.getElementById('tlMud'),pct=document.getElementById('tlPct');
-  const veil=tl.querySelector('.hist-veil');
-  const TOP=8,BOT=30;                                  // matches the spine ::before top/bottom insets
-  let ticking=false;
-  function upd(){
-    ticking=false;
-    const r=tl.getBoundingClientRect(),usable=r.height-TOP-BOT;
-    if(usable<=0)return;
-    const sec=document.getElementById('historySec').getBoundingClientRect();
-    const mid=innerHeight*0.5;                          // stone starts mid-viewport as the timeline arrives...
-    const span=sec.bottom-r.top-mid;                    // ...and eases down to the bottom, hitting 100% at the section end
-    let p=span>0?(mid-r.top)/span:0;
-    p=clamp(p,0,1);
-    const y=TOP+p*usable;
-    fill.style.height=(p*usable)+'px';
-    mud.style.top=y+'px';
-    pct.textContent=Math.round(p*100)+'%';
-    if(veil)veil.style.opacity=document.body.classList.contains('in-history')?String(clamp(1-(p-0.78)/0.22,0,1)):'0';
-    /* stone arrives big at the top (echoing the descending hero stone), then shrinks to a small travelling marker — grows only on entry, never on exit, so it never covers row copy */
-    const edge=Math.max(0,1-p/0.07);
-    mud.style.setProperty('--mscale',(1+edge*1.28).toFixed(2));
-  }
-  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
-  onWidthResize(upd);   /* ignore address-bar height toggles (see onWidthResize) */
-  upd();
-  const rows=[...tl.querySelectorAll('.tl-row')];
-  if('IntersectionObserver' in window){
-    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}}),{threshold:0.16,rootMargin:'0px 0px -6% 0px'});
-    rows.forEach(r=>io.observe(r));
-  } else rows.forEach(r=>r.classList.add('revealed'));
+  const els=document.querySelectorAll('.rvx, .rv');
+  if(!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('seen')); return; }
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); } }),{threshold:0.14, rootMargin:'0px 0px -6% 0px'});
+  els.forEach(e=>io.observe(e));
 })();
 
-/* ---- particles: a floating cluster of mud + botanicals (Lotus-style bouquet) ---- */
-const svgNS='http://www.w3.org/2000/svg';
-const P=[];const pg=document.getElementById('particles');
-const mudGoo=document.createElementNS(svgNS,'g');mudGoo.setAttribute('filter','url(#goo)');pg.appendChild(mudGoo); // liquid-mud metaball layer (behind the bubbles)
-// one small bubble per ingredient (no duplicates, no oversized hero)
-const INGSPEC=[{n:'lavender',s:1.05,oily:false},{n:'rosemary',s:0.92,oily:true},{n:'aloe',s:1.12,oily:false},{n:'jojoba-seeds',s:1.0,oily:true},{n:'honeysuckle',s:1.18,oily:false}];
-function mkImg(href,w,h){const e=document.createElementNS(svgNS,'image');e.setAttribute('href',href);e.setAttribute('width',w);e.setAttribute('height',h);e.setAttribute('x',-w/2);e.setAttribute('y',-h/2);return e;}
-// a bubble, optionally with a golden oil tint multiplied over the glass interior (for the oils)
-function mkBubble(name,w,oily){
-  const img=mkImg('assets/minerals/ingredients/'+name+'.webp',w,w);
-  if(!oily)return img;
-  const g=document.createElementNS(svgNS,'g');g.setAttribute('style','isolation:isolate');
-  const tint=document.createElementNS(svgNS,'circle');tint.setAttribute('r',w*0.41);tint.setAttribute('fill','url(#oilTint)');tint.setAttribute('style','mix-blend-mode:multiply');
-  g.appendChild(img);g.appendChild(tint);return g;
-}
-// composition: 1 hero glass bubble · ingredient bubbles · gold serum beads · mud beads · tiny foam
-const N=40;
-for(let i=0;i<N;i++){
-  let type; // back → front draw order: water, mud, ingredient bubbles
-  if(i<9)type='foam'; else if(i<35)type='mud'; else type='ing';
-  const bot=(type==='ing'); // botanicals join at the botanicals stop
-  let g,img=null;
-  // clustered position (biased toward centre; water drifts a little wider)
-  let bx,by;
-  if(type==='ing'){ const a=((i-35)/5)*Math.PI*2+(rng()-.5)*0.5, rad=(0.62+rng()*0.3)*196; bx=Math.cos(a)*rad; by=Math.sin(a)*rad*0.9; } // one bubble per ingredient, evenly ringed
-  else{ const a=rng()*Math.PI*2, spread=(type==='foam'?300:188), rad=(0.2+0.8*Math.pow(rng(),0.62))*spread; bx=Math.cos(a)*rad; by=Math.sin(a)*rad*0.95; }
-  if(type==='ing'){
-    const sp=INGSPEC[i-35]||INGSPEC[0];
-    const w=(49+rng()*10)*sp.s; g=mkBubble(sp.n,w,sp.oily); // one of each ingredient, sized to read
-  }else if(type==='mud'){
-    const w=34+rng()*50;
-    g=document.createElementNS(svgNS,'g');
-    const base=document.createElementNS(svgNS,'circle');base.setAttribute('r',w*0.42);base.setAttribute('fill','#7c6d50'); // mud colour fills the liquid bridges
-    g.appendChild(base);g.appendChild(mkImg('assets/minerals/mudball.webp',w,w));
-  }else{ // clear water droplet — Dead Sea water; varied sizes, wobbles like liquid
-    const w=30+Math.pow(rng(),0.7)*54; g=mkImg('assets/minerals/waterdrop.webp',w,w);
-  }
-  const isMud=(type==='mud');
-  g.setAttribute('opacity','0');(isMud?mudGoo:pg).appendChild(g);
-  P.push({g,img,bot,mud:isMud,water:(type==='foam'),bx,by,side:(bot?(bx>=0?1:-1)*(340+rng()*180):0),amp:3+rng()*8,bobs:0.0003+rng()*0.0005,ph:rng()*Math.PI*2,wob:0.0011+rng()*0.0012,rot0:rng()*360,rspin:(rng()-.5)*1.2,pdelay:rng()*0.4});
-}
-
-/* ---- mud-mask scene gallery behind the bottle: every scene from both films, one scene per frame, sliding slowly ---- */
-const mudGallery=document.getElementById('mudGallery');
-const bottleTxtEl=document.querySelector('.bottleTxt'); /* driven from the frame loop so text reveals between the bottle and the gallery */
-const galTiles=[]; /* {el, v} — v is the <video> (null for an image frame) */
-(function(){
-  /* 10 clips (UGC model dropped) split into three DISJOINT rows — no scene is shared between lines, and the metallic/product shots are spread one per row. each row is cycled to cover the viewport, then duplicated for a seamless marquee */
-  const rows=[
-    ['mgRowA',[1,2,7,3,10]],   /* bottle · mud texture · bottle-pump · hand-press · endcard texture */
-    ['mgRowB',[9,5,4,8,6]]];   /* bottle-hold · mud smear · pour-patch · model · scoop */
-  /* two disjoint rows; the purple-bottle shots (1,7,9) are spaced so two never sit side by side */
-  const addVid=(row,n)=>{
-    const slug='assets/mudclips/clip-'+String(n).padStart(2,'0');
-    const tile=document.createElement('div');tile.className='mg-tile';
-    const v=document.createElement('video');
-    v.src=slug+'.mp4'; v.poster=slug+'.webp';
-    v.muted=true; v.loop=true; v.playsInline=true; v.preload='none';
-    v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('aria-hidden','true');
-    tile.appendChild(v); row.appendChild(tile); galTiles.push({el:tile,v}); return tile;
-  };
-  const need=innerWidth*1.15;   /* one set must exceed the viewport for the -50% loop to be seamless */
-  rows.forEach(([id,clips])=>{
-    const row=document.getElementById(id);
-    const first=addVid(row,clips[0]);
-    const tw=first.getBoundingClientRect().width+parseFloat(getComputedStyle(first).marginRight);
-    const rawN=Math.max(clips.length, Math.ceil(need/(tw||140)));
-    const setN=Math.ceil(rawN/clips.length)*clips.length; /* whole cycles only → no duplicate clip at the loop seam */
-    for(let i=1;i<setN;i++) addVid(row,clips[i%clips.length]);
-    for(let i=0;i<setN;i++) addVid(row,clips[i%clips.length]); /* identical duplicate → -50% loops seamlessly */
-  });
-})();
-let galActive=false, galTick=0;
-
-/* ---- minerals ---- */
-const MIN=[
- ['Magnesium','The barrier mineral','Supports skin hydration and helps calm visible irritation.'],
- ['Calcium','The renewal mineral','Supports the skin\'s natural surface turnover for smoother texture.'],
- ['Potassium','The moisture mineral','Helps skin hold water where it belongs.'],
- ['Zinc','The balance mineral','Helps control excess oil and soothe blemish-prone skin.'],
- ['Iron','The vitality mineral','Contributes to a healthy, even-looking tone.'],
- ['Manganese','The defense mineral','Supports skin\'s natural resilience against daily stress.'],
- ['Strontium','The comfort mineral','Rare in skincare; known for its skin-soothing properties.']];
-const mlayer=document.getElementById('mineralLayer');const crystals=[];const tapHint=document.getElementById('tapHint');
-const crysTitle=document.querySelector('.crys-title'),crysBody=document.querySelector('.crys-body');
-const mkFilter=document.getElementById('mkFilter'),mkBot=document.getElementById('mkBot'); /* the two overlaid copies of the merged make stop */
-const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};                                    /* smoothstep ease */
-const outBack=t=>{if(t<=0)return 0;if(t>=1)return 1;const c1=1.70158,c3=c1+1,u=t-1;return 1+c3*u*u*u+c1*u*u;}; /* easeOutBack → pops past then settles */
-const mbar=document.getElementById('mbar'),mbarImg=document.getElementById('mbarImg'),
-  mbarName=document.getElementById('mbarName'),mbarRole=document.getElementById('mbarRole'),mbarBody=document.getElementById('mbarBody');
-function setBar(m,slug,d){
-  mbarImg.src='assets/minerals/cut/'+slug+'.webp'; mbarName.textContent=m[0]; mbarRole.textContent=m[1]; mbarBody.textContent=m[2];
-  mbar.classList.remove('swap'); void mbar.offsetWidth; mbar.classList.add('swap'); /* replay the content-swap animation */
-  crystals.forEach(c=>c.classList.remove('sel')); if(d)d.classList.add('sel');
-}
-MIN.forEach((m)=>{
-  const slug=m[0].toLowerCase();
-  const d=document.createElement('div');d.className='crystal';
-  d.innerHTML='<img class="min-img" src="assets/minerals/cut/'+slug+'.webp" alt=""><img class="bub" src="assets/minerals/bubble.webp" alt=""><span>'+m[0]+'</span>';
-  d.onclick=()=>setBar(m,slug,d);
-  mlayer.appendChild(d);crystals.push(d);
+/* ---- drag-to-compare sliders (old-clay vs LIQUICK) ---- */
+document.querySelectorAll('.wipe').forEach(w=>{
+  const inp=w.querySelector('input'),after=w.querySelector('.after'),h=w.querySelector('.handle'),k=w.querySelector('.knob');
+  if(!inp||!after)return;
+  const set=v=>{after.style.clipPath='inset(0 0 0 '+v+'%)';if(h)h.style.left=v+'%';if(k)k.style.left=v+'%';};
+  inp.addEventListener('input',()=>set(inp.value)); set(inp.value);
 });
-setBar(MIN[0],'magnesium',crystals[0]);
 
-/* ---- offer code copy ---- */
-codeBtn.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND');copiedMsg.style.opacity=1;
-  setTimeout(()=>copiedMsg.style.opacity=0,1800);};
-
-/* ---- UGC gallery: build 4:5 tiles into two marquee rows (duplicated for a seamless loop) ---- */
+/* ---- UGC community marquee ---- */
 (function(){
   const A=document.getElementById('ugcRowA'),B=document.getElementById('ugcRowB');
   if(!A||!B)return;
@@ -1270,301 +932,12 @@ codeBtn.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND
     {h:'@june_c',q:'Gentle enough for every day.'},
     {h:'@toey.loves',q:'This replaced three products.'}
   ];
-  data.forEach((d,i)=>d.img=(i%6)+1); /* cycle the 6 real customer photos across the tiles */
+  data.forEach((d,i)=>d.img=(i%6)+1);
   const tile=(d)=>{const t=document.createElement('div');t.className='ugc-tile';
     t.innerHTML='<img src="assets/lower/ugc-'+d.img+'.webp" loading="lazy" alt="Customer using the LIQUICK mud mask">'+
       '<div class="meta"><div class="h">'+d.h+' <span class="tick">✓</span></div><div class="q">“'+d.q+'”</div></div>';
     return t;};
-  [[A,data.slice(0,5)],[B,data.slice(5)]].forEach(([row,items])=>{
-    for(let pass=0;pass<2;pass++) items.forEach((d)=>row.appendChild(tile(d)));
-  });
-})();
-
-/* ---- wipe sliders ---- */
-document.querySelectorAll('.wipe').forEach(w=>{
-  const inp=w.querySelector('input'),after=w.querySelector('.after'),h=w.querySelector('.handle'),k=w.querySelector('.knob');
-  const set=v=>{after.style.clipPath='inset(0 0 0 '+v+'%)';h.style.left=v+'%';k.style.left=v+'%';};
-  inp.addEventListener('input',()=>set(inp.value));set(inp.value);
-});
-
-/* ---- main scroll loop — the depth ladder: one 50m stop per snap section ---- */
-const stage=document.getElementById('stage'),stoneG=document.getElementById('stoneG'),
- stoneRot=document.getElementById('stoneRot'),crust=document.getElementById('crust'),
- water=document.getElementById('waterlvl'),heroBig=document.getElementById('heroBig'),
- bub=document.getElementById('bubbles'),bottle=document.getElementById('bottleG'),
- bScale=document.getElementById('bScale'),liquid=document.getElementById('liquid'),
- glassStack=document.getElementById('glassStack'),realBottle=document.getElementById('realBottle'),
- blabel=document.getElementById('blabel'),depthEl=document.getElementById('depth'),
- dnum=document.getElementById('dnum'),dfill=document.getElementById('dfill'),
- brand=document.getElementById('brand'),
- col=document.getElementById('collage'),
- handsLayer=document.getElementById('handsLayer'),handTop=document.getElementById('handTop'),handBot=document.getElementById('handBot'),handMud=document.getElementById('handMud'),
- handsCopyTopEl=document.getElementById('handsCopyTop'),handsCopyBotEl=document.getElementById('handsCopyBot'),
- seaLayer=document.getElementById('seaLayer'),seaMedia=document.getElementById('seaMedia'),mtnLayer=document.getElementById('mtnLayer'),seaScrim=document.getElementById('seaScrim'),saltLayer=document.getElementById('saltLayer'),tagLayer=document.getElementById('tagLayer'),dropLayer=document.getElementById('dropLayer'),
- crysMedia=document.querySelectorAll('.vtext-media');
-let cineEnd=0,lastT=performance.now();
-let curDepth=0,stoneO=1,stoneScale=1,stoneOX=0,stoneOY=0,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
-let colVids=null,colPlaying=false;   /* collage <video>s are gated to the place scene (perf) */
-let revAct=-1,revEnterT=0;   /* per-section reveal clock so content appears on ENTRY (time), not spread across the scroll */
-let introStart=-1,introAtTop=false; /* stone grows in on load so the headline reads first */
-let burstP=0,burstFired=false;       /* crystals: one-shot timed burst — crossing the scroll point reveals ALL minerals together */
-const ez=(c,t,k)=>c+(t-c)*k;
-/* --- place: framed Dead Sea photos slide across the background in rows (seamless marquee, stone in front, no fade) --- */
-/* real Dead Sea footage — EACH ROW gets its own distinct set (no footage shared across rows); all 8 source clips shown */
-const PLACE_ROWS=[
-  [ {vid:'images/ds-pillars.webm',poster:'images/ds-pillars.webp'}, {img:'images/ds-floor.webp'}, {vid:'images/ds-aerial.webm',poster:'images/ds-aerial.webp'} ],   /* clip 01 (salt pillars + sunlit floor) · DJI_0206 aerial water */
-  [ {img:'images/ds-rings.webp'}, {img:'images/ds-mud.webp'}, {vid:'images/ds-flower.webm',poster:'images/ds-flower.webp'} ],                                          /* clip 03 salt rings · 20230507 black mud · DJI_0267 salt flower */
-  [ {vid:'images/ds-icicles.webm',poster:'images/ds-icicles.webp'}, {img:'images/ds-water2.webp'}, {img:'images/ds-shore.webp'} ]                                       /* 185A2687 salt icicles · clip 02 water · 20250501 salt shore */
-];
-const SLROWS=[];
-(function(){
-  const RN=3, W=innerWidth, H=innerHeight;
-  const gap=Math.round(W*0.035), rowH=Math.round(H*0.15), rowYf=[0.07,0.25,0.43];
-  const ratios=[1.25,0.8,1.25,0.8,1.0];   /* mix 5:4 landscape · 4:5 portrait · square */
-  for(let ri=0;ri<RN;ri++){
-    const media=PLACE_ROWS[ri%PLACE_ROWS.length];   /* this row's own footage */
-    const row=document.createElement('div'); row.className='slrow';
-    row.style.top=Math.round(H*rowYf[ri])+'px'; row.style.height=rowH+'px';
-    const set=[]; let setW=0, idx=0;
-    /* cover the viewport, then pad to a whole number of media-cycles so the loop seam never repeats a tile */
-    while(setW < W+rowH*2 || set.length % media.length !== 0){
-      const tw=Math.round(rowH*ratios[(ri*2+idx)%ratios.length]);
-      set.push({tw, m:media[idx%media.length]}); setW+=tw+gap; idx++;
-    }
-    for(let pass=0;pass<2;pass++)for(const s of set){ /* two copies → seamless loop */
-      const t=document.createElement('div'); t.className='sltile';
-      t.style.width=s.tw+'px'; t.style.height=rowH+'px'; t.style.marginRight=gap+'px';
-      const ph=document.createElement('div'); ph.className='ph';
-      if(s.m.vid){ const v=document.createElement('video'); v.src=s.m.vid; v.poster=s.m.poster;
-        v.muted=v.loop=true; v.autoplay=false; v.playsInline=true; v.setAttribute('playsinline',''); v.preload='none'; ph.appendChild(v); } /* NOT autoplay: gated to the place scene in the frame loop so ~20 clips don't decode in the background and jank the whole scroll */
-      else ph.style.backgroundImage="url('"+s.m.img+"')";
-      t.appendChild(ph); row.appendChild(t);
-    }
-    col.appendChild(row);
-    SLROWS.push({el:row, dir:ri%2?-1:1, spd:6+ri*1.5, setW}); /* alternate slide direction per row */
-  }
-})();
-
-function frame(){
-  if(!bounds.length){requestAnimationFrame(frame);return;}
-  const y=scrollY,N=bounds.length;
-  cineEnd=bounds[N-1].top+bounds[N-1].el.offsetHeight-innerHeight;
-  const p=bounds.map(b=>clamp((y-b.top)/Math.max(b.len,1),0,1));
-  let act=0;for(let i=0;i<N;i++){if(y>=bounds[i].top-innerHeight*.5)act=i;}
-  const el=bounds[act].el, vis=el.dataset.vis||'none', mud=el.classList.contains('mudsec'), sea=el.dataset.scene==='7';
-  const nowT=performance.now(),dt=Math.min((nowT-lastT)/1000,.05);lastT=nowT;
-  const k=1-Math.exp(-dt*4);
-  /* reveal clock: when a section becomes active, its content appears within ~0.8s (time-based), then HOLDS until you scroll out —
-     so a section's objects always fully show, instead of scrubbing in as you scroll (which fast scrolling would skip). */
-  if(act!==revAct){revAct=act;revEnterT=nowT;}
-  const tr=clamp((nowT-revEnterT)/800,0,1);
-
-  stage.style.background=bounds[act].bg;
-  stage.classList.toggle('flat',sea);
-  brand.classList.toggle('on-light',y>cineEnd+innerHeight*.3);
-  stage.classList.toggle('hidden',y>cineEnd+innerHeight*.3);
-
-  /* copy fades — hero always on; the crystals stop sits higher so the orbit shows below */
-  bounds.forEach((b,i)=>{const t=p[i]; if(!b.copy)return;
-    if(b.el.dataset.vis==='crystals'){
-      /* staged reveal: headline first, then body — driven below alongside the bubble burst.
-         parent stays lit; children carry their own opacity/rise so the sequence reads 1→2→3→4 */
-      const R=(i<act)?1:(i===act?tr:0);                            /* reveal on ENTRY (time-based) then hold; 0 before reached, 1 once passed (parent opacity hides it on exit) */
-      const hR=smooth(clamp(R/0.30,0,1));                          /* 1) 21 MINERALS. */
-      const bR=smooth(clamp((R-0.28)/0.34,0,1));                   /* 2) body copy */
-      b.copy.style.opacity=clamp(t>.9?(1-t)/.1:1,0,1);            /* only fade the group on the way out */
-      b.copy.style.transform='none';
-      if(crysTitle){crysTitle.style.opacity=hR.toFixed(3);crysTitle.style.transform='translateY('+lerp(30,0,hR).toFixed(1)+'px)';}
-      if(crysBody){crysBody.style.opacity=bR.toFixed(3);crysBody.style.transform='translateY('+lerp(20,0,bR).toFixed(1)+'px)';}
-      return;
-    }
-    if(b.el.dataset.vis==='make'){
-      /* two overlaid copies that can't both show at once — auto-crossfade on ENTRY (time): filter reads first, then botanicals fades in and HOLDS as the resting state */
-      const mkc=(i===act)?clamp((nowT-revEnterT)/2200,0,1):(i<act?1:0);
-      const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;
-      const fO=clamp(1-(mkc-0.42)/0.18,0,1)*exitF, bO=clamp((mkc-0.5)/0.18,0,1)*exitF;
-      if(mkFilter){mkFilter.style.opacity=fO.toFixed(3);mkFilter.classList.toggle('lqfx',mkc>0.02&&mkc<0.66);}
-      if(mkBot){mkBot.style.opacity=bO.toFixed(3);mkBot.classList.toggle('lqfx',mkc>0.5);}
-      return;
-    }
-    const appear=(i===act)?clamp(tr/0.4,0,1):(i<act?1:0);    /* copy fades in on ENTRY (time), then holds — no scroll-scrubbing */
-    const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;            /* fades out only as you scroll toward the next section */
-    b.copy.style.opacity=clamp(appear*exitF,0,1);
-    b.copy.style.transform='translateY('+(appear<1?lerp(14,0,appear):0).toFixed(1)+'px)';});   /* rise in once, then stay still (no drift) */
-
-  /* depth meter — smooth count-down toward the active stop */
-  const targetDepth=parseFloat(el.dataset.depth||0);
-  curDepth=ez(curDepth,targetDepth,k*1.3);
-  dnum.textContent=Math.round(curDepth)+' m';
-  dfill.style.setProperty('--pct',clamp(-curDepth/430*100,0,100)+'%');
-  /* the descent ENDS at the bottle: once we arrive at −430 and the reveal begins, retire the depth HUD */
-  depthEl.classList.toggle('gone', (vis==='bottle' && p[act]>0.42) || y>cineEnd+innerHeight*0.3);
-  const heroEnd=bounds[0].top+bounds[0].el.offsetHeight;           // hero's own bottom (where the timeline begins)
-  const heroVis=clamp((heroEnd-y)/(innerHeight*0.75),0,1);         // giant headline is fully gone before the timeline, never re-shows
-  heroBig.style.opacity=(clamp(1-(-curDepth)/55,0,1)*heroVis).toFixed(3);
-
-  /* STONE — centered, gentle float, drifts a little deeper as you descend */
-  const g=act/(N-1);
-  const CRYS_OY=78;                                   /* crystals scene: drop the stone + ring so the big headline reads up top; sits centred between the lifted body copy and the lowered info card so everything breathes */
-  let oy=lerp(0,34,g), ox=0; if(act===0)oy=-55; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
-  const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
-  stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
-  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.46:sea?(innerWidth>719?0.72:0.51):1,k); /* recede so the fan / crystal ring / hands can frame it; float divider = big centered stone */
-  if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
-  stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
-  /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
-  handsLayer.style.opacity=mud?'1':'0';
-  /* stage the two Cleopatra copies in as the mud scene reads (top on entry, bottom once the stone reaches the modern hand) */
-  handsCopyTopEl.classList.toggle('seen', mud && tr>0.04);      /* both Cleopatra beats reveal on ENTRY (time-based) and hold — no need to scroll to the 40% mark for the second line */
-  handsCopyBotEl.classList.toggle('seen', mud && tr>0.5);
-  seaLayer.style.opacity=sea?'1':'0';
-  mtnLayer.style.opacity=sea?'1':'0';
-  seaScrim.style.opacity=sea?'1':'0';
-  saltLayer.style.opacity=sea?'1':'0';
-  tagLayer.style.opacity=sea?'1':'0';
-  dropLayer.style.opacity=sea?'1':'0';
-  if(seaMedia.tagName==='VIDEO'){ if(sea && seaMedia.paused) seaMedia.play().catch(()=>{}); else if(!sea && !seaMedia.paused) seaMedia.pause(); }
-  if(mud){ const fl=Math.sin(nowT*0.0009)*5;
-    const mf=Math.sin(nowT*0.00135+1.3)*8;   /* mud floats on its OWN — different rate & phase, so it reads as suspended, not held */
-    handTop.style.transform='translateY('+fl.toFixed(1)+'px)';
-    handMud.style.transform='translate(-50%,-50%) translateY('+mf.toFixed(1)+'px)';
-    handBot.style.transform='translateY('+(-fl).toFixed(1)+'px) scaleX(-1)'; }
-  /* intro: hold the stone tiny, let the headline read, then grow it in with a soft pop */
-  if(introStart<0){introStart=nowT;introAtTop=(y<innerHeight*0.6);}
-  let introS=1,introA=1;
-  if(introAtTop){
-    const DELAY=650,DUR=1000,e=(nowT-introStart-DELAY);
-    const tt=clamp(e/DUR,0,1),c1=1.70158,c3=c1+1,u=tt-1;
-    const eb=tt<=0?0:1+c3*u*u*u+c1*u*u;      /* easeOutBack → grows past 1 then settles */
-    introS=lerp(0.12,1,eb);
-    introA=clamp(e/360,0,1);                  /* fade the ink in a touch faster than the grow */
-  }
-  stoneG.setAttribute('transform','translate('+(500+stoneOX)+','+(500+stoneOY+bob)+') scale('+(stoneScale*introS).toFixed(3)+')');
-  stoneRot.setAttribute('transform','rotate('+sway+')');
-  stoneG.style.opacity=(stoneO*introA).toFixed(3);
-  crust.style.opacity=1;                                  /* keep the full photoreal stone — ochre crust + black-mud break */
-
-  /* −100m: the place — framed Dead Sea photos slide across the background in rows (stone in front, no fade) */
-  oCollage=ez(oCollage,(vis==='place')?1:0,k);
-  col.style.opacity=oCollage.toFixed(3);
-  /* only let the collage clips decode while the place scene is actually up — otherwise ~20 background videos stutter the whole descent */
-  const colOn=oCollage>0.02;
-  if(colOn!==colPlaying){ colPlaying=colOn; if(!colVids)colVids=[...col.querySelectorAll('video')];
-    colVids.forEach(v=>{ if(colOn){ const q=v.play(); if(q&&q.catch)q.catch(()=>{}); } else v.pause(); }); }
-  if(oCollage>0.004){
-    for(const r of SLROWS){
-      const p=(nowT*0.004*r.spd)%r.setW;                 /* gentle continuous slide */
-      r.el.style.transform='translateX('+(r.dir>0?-p:(p-r.setW)).toFixed(1)+'px)';
-    }
-  }
-
-  /* −150m: the minerals — crystals orbit (tappable), revealed as a staggered burst out of the mud stone */
-  const crysOn=(vis==='crystals');
-  const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
-  const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
-  const cw=innerWidth/2,ch=innerHeight/2;
-  const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=Math.min(cw-64,164),Ry=innerHeight*0.132;
-  /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
-        on their own time clock — they don't scrub in one-by-one as you keep scrolling */
-  const TRIG=0.5;                                           /* scroll point (in reveal units) at which the burst fires, right after the body reads */
-  burstFired=(crysOn && R>=TRIG);
-  burstP=clamp(burstP+(burstFired?dt/0.95:-dt/0.5),0,1);    /* pop out over ~0.95s so the travel reads; suck back in if you scroll above the point */
-  crystals.forEach((c,i)=>{
-    const a=(i/crystals.length)*Math.PI*2-Math.PI/2+Math.PI/crystals.length; /* fixed ring position, gap at top-centre */
-    const bob=Math.sin(nowT*0.0007+i*1.3)*4, swx=Math.cos(nowT*0.00052+i*2.1)*3; /* slow gentle bob in place, not free-floating */
-    const bt=clamp((burstP-i*0.03)/0.82,0,1);              /* tight cascade — still reads as one burst, but each has its own beat */
-    const mv=outBack(bt);                                   /* travel with a soft pop past the seat, then settle */
-    const op=smooth(clamp((bt-0.07)/0.34,0,1));            /* invisible at the stone's core, MATERIALISES as it clears the mud edge */
-    const orbX=cw+Math.cos(a)*Rx, orbY=ccy+Math.sin(a)*Ry;
-    c.style.left=(lerp(cw,orbX,mv)-33+swx*bt)+'px';        /* born buried in the stone centre, flies out to its ring seat */
-    c.style.top=(lerp(ccy,orbY,mv)-33+bob*bt)+'px';
-    c.style.scale=(0.34+0.66*mv).toFixed(3);               /* start small (but not a speck) and grow — independent scale prop, no transition lag */
-    c.style.opacity=(op*crysExit).toFixed(3);
-    c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
-  });
-  const hintR=smooth(clamp((burstP-0.7)/0.3,0,1));
-  tapHint.style.left=cw+'px'; tapHint.style.top=(ccy+Ry+72)+'px'; tapHint.style.opacity=(0.62*hintR*crysExit).toFixed(3); /* prompt appears last, below the bottom (Zinc) bubble */
-  mbar.classList.toggle('show',crysOn&&burstP>0.85&&crysExit>0.5);       /* info card slides up once the burst settles, and slides back down as the section exits */
-  /* only decode the masked shore video while the crystals scene is on screen — keeps the rest of the scroll light */
-  if(crysMedia){ crysMedia.forEach(v=>{ if(crysOn&&v.paused)v.play().catch(()=>{}); else if(!crysOn&&!v.paused)v.pause(); }); }
-
-  /* −430m: the seabed — the product forms as the stone fades */
-  oBottle=ez(oBottle,(vis==='bottle')?1:0,k);
-  bottle.setAttribute('transform','translate(500,490)');
-  bottle.setAttribute('opacity',oBottle.toFixed(3));
-  bScale.setAttribute('transform','scale('+lerp(.86,1,oBottle)+')');
-  const fillP=clamp((oBottle-0.1)/0.55,0,1);          /* mud level rises as the cluster pours in */
-  const fy=lerp(186,-52,fillP); liquid.setAttribute('y',fy.toFixed(1)); liquid.setAttribute('height',(186-fy).toFixed(1)); /* stops below the shoulder so mud never sticks out */
-  /* once the bottle is filled, dissolve into the purple product on its OWN slow ease (independent of the fast bottle ease) */
-  revealE=ez(revealE,(oBottle>0.75?1:0),k*0.4);
-  glassStack.setAttribute('opacity',(1-revealE).toFixed(3));
-  realBottle.setAttribute('opacity',revealE.toFixed(3));
-  /* sequence: 1) the bottle forms → 2) the text reveals once the product is basically there → 3) the gallery settles in last */
-  if(bottleTxtEl) bottleTxtEl.classList.toggle('seen', revealE>0.42);
-  worldE=ez(worldE,(revealE>0.92?1:0),k*0.35);
-  mudGallery.style.opacity=worldE.toFixed(3);
-  const gAct=(vis==='bottle'&&worldE>0.02); galTick++;
-  if(gAct!==galActive || (gAct && galTick%14===0)){   /* only decode the clips actually on screen — keeps concurrent video decode low despite 30 tiles */
-    galActive=gAct; const Wv=innerWidth, mg=Wv*0.18;
-    const on=galTiles.map(t=>{const r=t.el.getBoundingClientRect();return r.right>-mg && r.left<Wv+mg && r.bottom>0 && r.top<innerHeight;});
-    galTiles.forEach((t,i)=>{ if(!t.v)return; const want=gAct&&on[i];
-      if(want){ if(t.v.paused){const q=t.v.play();if(q&&q.catch)q.catch(()=>{});} } else if(!t.v.paused) t.v.pause(); });
-  }
-
-  /* the making: mud breaks into fine particles (filter) → botanicals join → bottle forms */
-  const isMake=(vis==='make'), mp=isMake?clamp((nowT-revEnterT)/2000,0,1):0;   /* mud→droplets→bottle morph plays on ENTRY over ~2s (time-based), not scrubbed — so it always completes without precise scrolling */
-  oFilter=ez(oFilter,isMake?1:0,k);
-  oBot=ez(oBot,isMake?smooth(clamp((mp-0.46)/0.18,0,1)):0,k); /* botanicals flow in across the 2nd half of the make stop */
-  const cloud=Math.max(oFilter,oBot);
-  /* whole cluster scales in as it forms; during the pour it neutralises so particles land on the real bottle mouth */
-  const cs=lerp(0.72,1,Math.max(cloud,oBottle)), rock=Math.sin(nowT*0.00016)*6*(1-oBottle);
-  const clOff=(innerWidth>719?-168:0)*oFilter*(1-oBottle);   /* desktop: hold the cluster left of the copy while making; recentre for the pour */
-  pg.setAttribute('transform','translate('+(500+clOff).toFixed(1)+',458) scale('+cs.toFixed(3)+') rotate('+rock.toFixed(2)+') translate(-500,-458)');
-  const MX=500, MY=400;   /* the bottle neck, in stage coords */
-  P.forEach((pt)=>{
-    const slide=pt.bot?pt.side*(1-oBot):0;   /* botanicals sweep in from off the sides as they fade up */
-    const bxo=pt.bx+slide+Math.sin(nowT*pt.bobs+pt.ph)*pt.amp, byo=pt.by+Math.cos(nowT*pt.bobs*0.9+pt.ph)*pt.amp; /* gentle float */
-    let px=500+bxo, py=458+byo, sc=1, o=(pt.bot?oBot:cloud);
-    if(oBottle>0.001){                                   /* funnel down into the bottle & fill it */
-      const pp=clamp((oBottle-pt.pdelay)/0.5,0,1), e=pp*pp;
-      px=lerp(px,MX,e); py=lerp(py,MY,e); sc=lerp(1,0.14,pp);
-      o=Math.max(o, pp<0.8?1:(1-pp)/0.2);                /* stay visible, then vanish into the mouth */
-    }
-    /* mud wobble is applied as a non-uniform squash/stretch in the transform below */
-    pt.g.setAttribute('opacity',clamp(o,0,1).toFixed(2));
-    if(pt.img){ const rot=pt.rot0+nowT*0.003*pt.rspin; pt.img.setAttribute('transform','rotate('+rot.toFixed(1)+')'); }
-    let tf='translate('+px.toFixed(1)+','+py.toFixed(1)+')';
-    if(pt.water){ const s1=1+Math.sin(nowT*pt.wob*2.1+pt.ph)*0.15, s2=1+Math.cos(nowT*pt.wob*1.7+pt.ph*1.4)*0.12, rot=pt.rot0+nowT*0.014*pt.rspin; /* droplet squashes & stretches like moving liquid */
-      tf+=' rotate('+rot.toFixed(1)+') scale('+(sc*s1).toFixed(3)+','+(sc*s2).toFixed(3)+')'; }
-    else if(pt.mud){ const w1=Math.sin(nowT*pt.wob+pt.ph)*0.05, w2=Math.cos(nowT*pt.wob*1.15+pt.ph*1.4)*0.05, wr=Math.sin(nowT*pt.wob*0.7+pt.ph*1.3)*2.4; /* light jelly wobble → soft squash/stretch on offset axes + a tiny sway */
-      tf+=' rotate('+wr.toFixed(2)+') scale('+(sc*(1+w1)).toFixed(3)+','+(sc*(1+w2)).toFixed(3)+')'; }
-    else if(sc!==1){ tf+=' scale('+sc.toFixed(3)+')'; }
-    pt.g.setAttribute('transform',tf);
-  });
-  pg.setAttribute('opacity',cloud>0.01?'1':'0');
-  water.setAttribute('opacity','0');bub.setAttribute('opacity','0');
-
-  requestAnimationFrame(frame);
-}
-measure();requestAnimationFrame(frame);
-addEventListener('load',measure);
-
-/* free-flowing scroll — the scene-by-scene snap has been removed so the whole page scrolls like a normal site */
-
-/* scroll progress — a single subtle gradient line at the very bottom edge.
-   page height is cached (measured only on resize/load) so scrolling never forces a reflow */
-(function(){
-  const bar=document.createElement('div'); bar.id='scrollbar';
-  bar.innerHTML='<div class="sb-track"></div><div class="sb-fill" id="sbFill"></div>';
-  document.body.appendChild(bar);
-  const fill=bar.querySelector('#sbFill');
-  let maxScroll=1, ticking=false;
-  function paint(){ let p=scrollY/maxScroll; p=p<0?0:p>1?1:p; fill.style.width=(p*100)+'%'; }
-  function measure(){ maxScroll=Math.max(1, document.documentElement.scrollHeight-innerHeight); paint(); }
-  addEventListener('scroll',()=>{ if(!ticking){ticking=true;requestAnimationFrame(()=>{ticking=false;paint();});} },{passive:true});
-  addEventListener('resize',measure); addEventListener('load',measure);
-  measure(); setTimeout(measure,700); setTimeout(measure,2200);   // catch late height changes as media loads
+  [[A,data.slice(0,5)],[B,data.slice(5)]].forEach(([row,items])=>{ for(let pass=0;pass<2;pass++) items.forEach((d)=>row.appendChild(tile(d))); });
 })();
 </script>
 </body>
