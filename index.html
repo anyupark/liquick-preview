@@ -404,9 +404,16 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .v21 .vtext-media{-webkit-mask:var(--mask21) center/contain no-repeat;mask:var(--mask21) center/contain no-repeat}
 .vmin .vtext-media{-webkit-mask:var(--maskmin) center/contain no-repeat;mask:var(--maskmin) center/contain no-repeat}
 .cine[data-vis="crystals"] .pin{align-items:flex-start;padding-top:clamp(46px,5.4vh,66px)}
-.crys-wrap .crys-body{font-size:13px;line-height:1.62;max-width:24em;margin:0 auto;color:var(--mute)}.crys-strong{color:var(--plum);font-weight:800;white-space:nowrap}
+.crys-wrap .crys-body{font-size:13px;line-height:1.62;max-width:23em;margin:0 auto;color:var(--mute)}
+.crys-wrap .cb-lead{display:block;font-weight:800;color:var(--plum-d);font-size:15px;letter-spacing:-.005em;margin-bottom:6px}
+.crys-strong{display:block;color:var(--plum);font-weight:800;white-space:nowrap;margin-top:7px}
+/* champagne sparkle divider between the headline and the copy */
+.crys-div{display:flex;align-items:center;justify-content:center;gap:12px;max-width:212px;margin:2px auto 15px}
+.crys-div .dl{height:1px;flex:1;max-width:68px;background:linear-gradient(90deg,transparent,rgba(176,146,104,.6))}
+.crys-div .dl:last-child{background:linear-gradient(90deg,rgba(176,146,104,.6),transparent)}
+.crys-div svg{width:15px;height:15px;fill:#c1a069;flex:0 0 auto}
 .crys-lead{font-family:'MADE TOMMY',system-ui,sans-serif;font-weight:900;font-size:clamp(18px,4.6vw,26px);letter-spacing:-.01em;color:var(--plum);margin:0}
-@media(max-width:719px){.v21{width:min(61vw,260px)}.vmin-slot{width:28px;height:186px}.vmin{width:186px}.crys-title{margin-bottom:15px}.crys-wrap .crys-body{font-size:12px;line-height:1.58;max-width:23em}}
+@media(max-width:719px){.v21{width:min(51vw,214px)}.vmin-slot{width:23px;height:153px}.vmin{width:153px}.crys-title{margin-bottom:11px}.crys-wrap .crys-body{font-size:12px;line-height:1.56;max-width:22em}.crys-wrap .cb-lead{font-size:14px}}
 
 @keyframes cleofloat{0%,100%{translate:0 0}50%{translate:0 -20px}}
 .tl-row:nth-child(odd) .tl-text{order:1;text-align:right;padding-right:6px}
@@ -434,21 +441,28 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 
 /* mineral crystals */
 #mineralLayer{position:fixed;inset:0;z-index:41;pointer-events:none}
-/* crystals: ripple rings radiating out from under the mud stone */
-#crysRipple .cr-ring{fill:none;stroke:#8a63d8;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.16);animation:crRip 4.8s ease-out infinite}
-#crysRipple .cr-ring:nth-child(2){animation-delay:1.2s}
-#crysRipple .cr-ring:nth-child(3){animation-delay:2.4s}
-#crysRipple .cr-ring:nth-child(4){animation-delay:3.6s}
-@keyframes crRip{0%{transform:scale(.16);opacity:0}14%{opacity:.32}100%{transform:scale(1.05);opacity:0}}
-@media(prefers-reduced-motion:reduce){#crysRipple .cr-ring{animation:none;opacity:.16;transform:scale(.62)}}
-.crystal{position:absolute;z-index:30;width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease;
-  filter:drop-shadow(0 8px 15px rgba(80,40,120,.26))}
-.crystal .min-img{position:relative;z-index:1;width:62%;height:62%;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(60,30,100,.3))}
-.crystal .bub{position:absolute;inset:-5%;width:110%;height:110%;z-index:2;pointer-events:none} /* real photographed soap bubble, luminance baked to alpha */
-.crystal span{position:absolute;top:104%;left:50%;transform:translateX(-50%);z-index:3;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--plum-d);text-shadow:0 1px 7px rgba(244,239,251,.95),0 0 3px rgba(244,239,251,.9);white-space:nowrap}
-.crystal:hover{transform:scale(1.1)}
-.crystal.sel{transform:scale(1.14);filter:drop-shadow(0 8px 15px rgba(80,40,120,.26)) drop-shadow(0 0 9px rgba(130,90,200,.95));animation:tapPop .44s cubic-bezier(.34,1.56,.64,1)}
+/* crystals: the stone sits in a still, rippled pool — static concentric rings + a couple of live expanding ones */
+#crysRipple .cr-still ellipse{fill:none;stroke:rgba(255,255,255,.5);stroke-width:1.3}
+#crysRipple .cr-ring{fill:none;stroke:rgba(255,255,255,.6);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.14);animation:crRip 5.6s ease-out infinite}
+@keyframes crRip{0%{transform:scale(.14);opacity:0}16%{opacity:.3}100%{transform:scale(1);opacity:0}}
+@media(prefers-reduced-motion:reduce){#crysRipple .cr-ring{animation:none;opacity:.1;transform:scale(.6)}}
+.crystal{position:absolute;z-index:30;width:74px;height:74px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
+/* the clear glass sphere the crystal floats inside — layered speculars over a see-through lavender body */
+.crystal .orb{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;
+  background:
+    radial-gradient(42% 38% at 30% 25%,rgba(255,255,255,.95),rgba(255,255,255,0) 60%),
+    radial-gradient(150% 130% at 50% 3%,rgba(255,255,255,.52),rgba(255,255,255,0) 38%),
+    radial-gradient(closest-side at 50% 62%,rgba(240,233,251,.04),rgba(203,185,234,.38));
+  box-shadow:inset 0 -8px 14px rgba(150,116,202,.42),inset 0 8px 12px rgba(255,255,255,.72),inset 0 0 0 1px rgba(255,255,255,.5),0 16px 24px -12px rgba(78,42,128,.5)}
+.crystal .orb::after{content:"";position:absolute;top:16%;left:24%;width:14%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.96),transparent)}
+.crystal .min-img{position:relative;z-index:1;width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 4px 7px rgba(60,30,100,.42)) drop-shadow(0 1px 2px rgba(0,0,0,.22))}
+/* frosted cushion the sphere rests on */
+.crystal::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:64%;height:15px;border-radius:50%;z-index:-1;background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(214,201,238,.42) 60%,transparent);filter:blur(1px)}
+.crystal span{position:absolute;top:108%;left:50%;transform:translateX(-50%);z-index:3;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--plum-d);text-shadow:0 1px 7px rgba(244,239,251,.95),0 0 3px rgba(244,239,251,.9);white-space:nowrap}
+.crystal:hover{transform:scale(1.08)}
+.crystal.sel{transform:scale(1.12);animation:tapPop .44s cubic-bezier(.34,1.56,.64,1)}
+.crystal.sel .orb{box-shadow:inset 0 -8px 14px rgba(150,116,202,.42),inset 0 8px 12px rgba(255,255,255,.75),inset 0 0 0 1px rgba(255,255,255,.78),0 18px 28px -10px rgba(78,42,128,.55),0 0 18px rgba(150,110,222,.75)}
 @keyframes tapPop{0%{transform:scale(.9)}55%{transform:scale(1.22)}100%{transform:scale(1.14)}}
 /* scene 8: ancient + modern hands reaching toward the mud stone */
 #handsLayer{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;transition:opacity .7s ease}
@@ -481,11 +495,13 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .handsTxt .body .nb{white-space:normal}
 .handsTxt .lead{font-family:var(--disp);font-weight:600;font-size:15px;line-height:1.24;color:#2a1747;margin-top:9px}
 #tapHint{position:absolute;transform:translateX(-50%);opacity:0;transition:opacity .4s;z-index:31;pointer-events:none;
+  display:inline-flex;align-items:center;gap:8px;
   font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--plum-d);white-space:nowrap;
   text-shadow:0 1px 7px rgba(244,239,251,.95),0 0 3px rgba(244,239,251,.9)}
+#tapHint .tapic{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:var(--plum);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* mineral info bar (bottom) — image + what the mineral does */
 #mbar{position:fixed;left:50%;bottom:5vh;transform:translate(-50%,150%);z-index:60;width:min(440px,calc(100% - 28px));
-  display:flex;gap:15px;align-items:center;background:rgba(251,248,243,.95);border:1px solid var(--line);border-radius:18px;padding:13px 17px;
+  display:flex;gap:14px;align-items:center;background:rgba(251,248,243,.95);border:1px solid var(--line);border-radius:18px;padding:11px 16px;
   box-shadow:0 24px 60px -22px rgba(50,20,87,.4);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
 #mbar.show{transform:translate(-50%,0);opacity:1}
@@ -494,6 +510,10 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 #mbar h4{font-family:var(--disp);font-size:18px;color:var(--plum-d);line-height:1.05}
 #mbar .mbar-role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);margin:2px 0 5px}
 #mbar p{font-size:12.5px;line-height:1.5;color:var(--mute)}
+/* circular arrow — cycles to the next mineral */
+.mbar-arrow{margin-left:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:linear-gradient(180deg,#fff,rgba(240,234,250,.72));color:var(--plum);font-size:21px;line-height:1;display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:0 4px 11px -4px rgba(80,45,130,.32);transition:transform .2s ease,box-shadow .2s ease}
+.mbar-arrow:hover{transform:scale(1.08);box-shadow:0 6px 14px -4px rgba(80,45,130,.42)}
+.mbar-arrow:active{transform:scale(.95)}
 /* content swap animation each time a new mineral is tapped */
 @keyframes mbarTxtIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
 @keyframes mbarImgIn{0%{opacity:.25;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
@@ -722,12 +742,23 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
       <text x="500" y="687" font-size="96" letter-spacing="-3" transform="translate(0,687) scale(1,2.25) translate(0,-687)">POWERFUL</text>
     </g>
     <!-- THE STONE (real Promise mud-stone art, feathered into the purple stage) -->
-    <!-- ripple rings radiating out from the mud stone (crystals scene) — behind the stone so it sits on the ripples -->
+    <!-- the stone rests in a still, rippled pool (crystals scene) — behind the stone so it sits on the ripples -->
     <g id="crysRipple" opacity="0">
-      <ellipse class="cr-ring" cx="500" cy="500" rx="370" ry="150"/>
-      <ellipse class="cr-ring" cx="500" cy="500" rx="370" ry="150"/>
-      <ellipse class="cr-ring" cx="500" cy="500" rx="370" ry="150"/>
-      <ellipse class="cr-ring" cx="500" cy="500" rx="370" ry="150"/>
+      <defs><radialGradient id="poolGrad" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+        <stop offset="52%" stop-color="#efe8fb" stop-opacity="0.26"/>
+        <stop offset="100%" stop-color="#d8c9f2" stop-opacity="0"/>
+      </radialGradient></defs>
+      <ellipse cx="500" cy="500" rx="440" ry="190" fill="url(#poolGrad)"/>
+      <g class="cr-still">
+        <ellipse cx="500" cy="500" rx="140" ry="57" opacity="0.55"/>
+        <ellipse cx="500" cy="500" rx="220" ry="90" opacity="0.5"/>
+        <ellipse cx="500" cy="500" rx="300" ry="122" opacity="0.4"/>
+        <ellipse cx="500" cy="500" rx="380" ry="154" opacity="0.28"/>
+        <ellipse cx="500" cy="500" rx="460" ry="186" opacity="0.16"/>
+      </g>
+      <ellipse class="cr-ring" cx="500" cy="500" rx="460" ry="186"/>
+      <ellipse class="cr-ring" cx="500" cy="500" rx="460" ry="186" style="animation-delay:2.8s"/>
     </g>
     <!-- the mineral orbit path (behind the stone) -->
     <ellipse id="crysOrbit" cx="500" cy="500" rx="160" ry="130" fill="none" stroke="#8a63d8" stroke-width="1.4" stroke-opacity="0.55" opacity="0"/>
@@ -799,10 +830,11 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <div id="mbar">
   <img id="mbarImg" src="assets/minerals/raw/magnesium.webp" alt="">
   <div class="mbar-txt"><h4 id="mbarName">Magnesium</h4><div class="mbar-role" id="mbarRole">The barrier mineral</div><p id="mbarBody">Supports skin hydration and helps calm visible irritation.</p></div>
+  <button class="mbar-arrow" id="mbarNext" type="button" aria-label="Next mineral">›</button>
 </div>
 
 <!-- mineral crystals live above the scroll content so they're tappable -->
-<div id="mineralLayer"><div id="tapHint">Tap a crystal to explore</div></div>
+<div id="mineralLayer"><div id="tapHint"><svg class="tapic" viewBox="0 0 24 24"><path d="M10 10.5V6a1.6 1.6 0 0 1 3.2 0v4"/><path d="M13.2 10V8.2a1.5 1.5 0 0 1 3 0V11"/><path d="M16.2 11v-.8a1.5 1.5 0 0 1 3 0v4.3c0 2.9-2 5-5 5-1.6 0-2.8-.5-3.7-1.8l-2.3-3.2c-.5-.8-.2-1.7.7-2.1.6-.3 1.4-.1 1.9.5l.7.9"/><path d="M8 6.5a3.5 3.5 0 0 1 4.8-1.8"/></svg>Tap a crystal to explore</div></div>
 <!-- ancient (Cleopatra) reaches down + a modern hand reaches up toward the mud stone (scene 8) -->
 <div id="handsLayer" aria-hidden="true"><div id="handsStage">
   <img id="handTop" src="assets/hands/cleopatra-down.webp" alt="">
@@ -907,7 +939,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
       <div class="v21"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div>
       <div class="vmin-slot"><div class="vmin"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div></div>
     </div>
-    <p class="crys-body">No ocean on Earth is this concentrated. Dead Sea mud holds a rare, complete spectrum of minerals your skin can actually use. <strong class="crys-strong">Here are 7.</strong></p>
+    <div class="crys-div" aria-hidden="true"><i class="dl"></i><svg viewBox="0 0 24 24"><path d="M12 2c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/></svg><i class="dl"></i></div>
+    <p class="crys-body"><b class="cb-lead">No ocean on Earth is this concentrated.</b>Dead Sea mud holds a rare, complete spectrum of minerals your skin can actually use.<strong class="crys-strong">Here are 7.</strong></p>
   </div></div>
 </section>
 
@@ -1277,14 +1310,16 @@ function setBar(m,slug,d){
   mbar.classList.remove('swap'); void mbar.offsetWidth; mbar.classList.add('swap'); /* replay the content-swap animation */
   crystals.forEach(c=>c.classList.remove('sel')); if(d)d.classList.add('sel');
 }
-MIN.forEach((m)=>{
+let curMin=0;
+MIN.forEach((m,i)=>{
   const slug=m[0].toLowerCase();
   const d=document.createElement('div');d.className='crystal';
-  d.innerHTML='<img class="min-img" src="assets/minerals/cut/'+slug+'.webp" alt=""><img class="bub" src="assets/minerals/bubble.webp" alt=""><span>'+m[0]+'</span>';
-  d.onclick=()=>setBar(m,slug,d);
+  d.innerHTML='<div class="orb"><img class="min-img" src="assets/minerals/cut/'+slug+'.webp" alt=""></div><span>'+m[0]+'</span>';
+  d.onclick=()=>{curMin=i;setBar(m,slug,d);};
   mlayer.appendChild(d);crystals.push(d);
 });
 setBar(MIN[0],'magnesium',crystals[0]);
+document.getElementById('mbarNext').onclick=()=>{curMin=(curMin+1)%MIN.length;const m=MIN[curMin];setBar(m,m[0].toLowerCase(),crystals[curMin]);};
 
 /* ---- offer code copy ---- */
 codeBtn.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND');copiedMsg.style.opacity=1;
@@ -1441,7 +1476,7 @@ function frame(){
 
   /* STONE — centered, gentle float, drifts a little deeper as you descend */
   const g=act/(N-1);
-  const CRYS_OY=78;                                   /* crystals scene: drop the stone + ring so the big headline reads up top; sits centred between the lifted body copy and the lowered info card so everything breathes */
+  const CRYS_OY=94;                                   /* crystals scene: drop the stone + ring so the big headline + copy read up top; balanced so the top spheres clear the copy AND the bottom (Zinc) label + tap prompt clear the info card */
   let oy=lerp(0,34,g), ox=0; if(act===0)oy=-55; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
@@ -1502,7 +1537,7 @@ function frame(){
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=innerHeight/2;
   const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=Math.min(cw-64,164),Ry=innerHeight*0.132;
+  const Rx=Math.min(cw-56,170),Ry=innerHeight*0.107;
   if(crysOrbit){ crysOrbit.setAttribute('cy',(500+stoneOY+bob).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit ring sized to the mineral ring, follows the stone */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1516,14 +1551,14 @@ function frame(){
     const mv=outBack(bt);                                   /* travel with a soft pop past the seat, then settle */
     const op=smooth(clamp((bt-0.07)/0.34,0,1));            /* invisible at the stone's core, MATERIALISES as it clears the mud edge */
     const orbX=cw+Math.cos(a)*Rx, orbY=ccy+Math.sin(a)*Ry;
-    c.style.left=(lerp(cw,orbX,mv)-33+swx*bt)+'px';        /* born buried in the stone centre, flies out to its ring seat */
-    c.style.top=(lerp(ccy,orbY,mv)-33+bob*bt)+'px';
+    c.style.left=(lerp(cw,orbX,mv)-37+swx*bt)+'px';        /* born buried in the stone centre, flies out to its ring seat */
+    c.style.top=(lerp(ccy,orbY,mv)-37+bob*bt)+'px';
     c.style.scale=(0.34+0.66*mv).toFixed(3);               /* start small (but not a speck) and grow — independent scale prop, no transition lag */
     c.style.opacity=(op*crysExit).toFixed(3);
     c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
   });
   const hintR=smooth(clamp((burstP-0.7)/0.3,0,1));
-  tapHint.style.left=cw+'px'; tapHint.style.top=(ccy+Ry+72)+'px'; tapHint.style.opacity=(0.62*hintR*crysExit).toFixed(3); /* prompt appears last, below the bottom (Zinc) bubble */
+  tapHint.style.left=cw+'px'; tapHint.style.top=(ccy+Ry+84)+'px'; tapHint.style.opacity=(0.62*hintR*crysExit).toFixed(3); /* prompt appears last, below the bottom (Zinc) bubble + its label, clearing the info card */
   mbar.classList.toggle('show',crysOn&&burstP>0.85&&crysExit>0.5);       /* info card slides up once the burst settles, and slides back down as the section exits */
   /* only decode the masked shore video while the crystals scene is on screen — keeps the rest of the scroll light */
   if(crysMedia){ crysMedia.forEach(v=>{ if(crysOn&&v.paused)v.play().catch(()=>{}); else if(!crysOn&&!v.paused)v.pause(); }); }
