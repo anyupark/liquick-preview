@@ -446,23 +446,19 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .crysPoolB{animation-delay:-4.5s}
 @keyframes poolProp{0%{transform:scale(.76);opacity:0}20%{opacity:.8}60%{opacity:.62}100%{transform:scale(1.3);opacity:0}}
 @media(prefers-reduced-motion:reduce){.crysPool{animation:none;transform:scale(1);opacity:.95}.crysPoolB{display:none}}
-.crystal{position:absolute;z-index:30;width:74px;height:74px;display:flex;align-items:center;justify-content:center;
+.crystal{position:absolute;z-index:30;width:82px;height:82px;
   cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
-/* the clear glass sphere the crystal floats inside — layered speculars over a see-through lavender body */
-.crystal .orb{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;
-  background:
-    radial-gradient(42% 38% at 30% 25%,rgba(255,255,255,.95),rgba(255,255,255,0) 60%),
-    radial-gradient(150% 130% at 50% 3%,rgba(255,255,255,.52),rgba(255,255,255,0) 38%),
-    radial-gradient(closest-side at 50% 62%,rgba(240,233,251,.04),rgba(203,185,234,.38));
-  box-shadow:inset 0 -8px 14px rgba(150,116,202,.42),inset 0 8px 12px rgba(255,255,255,.72),inset 0 0 0 1px rgba(255,255,255,.5),0 16px 24px -12px rgba(78,42,128,.5)}
-.crystal .orb::after{content:"";position:absolute;top:16%;left:24%;width:14%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.96),transparent)}
-.crystal .min-img{position:relative;z-index:1;width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 4px 7px rgba(60,30,100,.42)) drop-shadow(0 1px 2px rgba(0,0,0,.22))}
-/* frosted cushion the sphere rests on */
-.crystal::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:64%;height:15px;border-radius:50%;z-index:-1;background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(214,201,238,.42) 60%,transparent);filter:blur(1px)}
-.crystal span{position:absolute;top:108%;left:50%;transform:translateX(-50%);z-index:3;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--plum-d);text-shadow:0 1px 7px rgba(244,239,251,.95),0 0 3px rgba(244,239,251,.9);white-space:nowrap}
-.crystal:hover{transform:scale(1.08)}
-.crystal.sel{transform:scale(1.12);animation:tapPop .44s cubic-bezier(.34,1.56,.64,1)}
-.crystal.sel .orb{box-shadow:inset 0 -8px 14px rgba(150,116,202,.42),inset 0 8px 12px rgba(255,255,255,.75),inset 0 0 0 1px rgba(255,255,255,.78),0 18px 28px -10px rgba(78,42,128,.55),0 0 18px rgba(150,110,222,.75)}
+/* photoreal glass ball (our mineral inside, generated + cut out) — sits on the water on its frosted pedestal */
+.crystal .ball-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(78,42,128,.22))}
+/* labels live in their own layer ABOVE every ball (z 44 > crystal z 30) so an adjacent ball never covers a neighbour's label */
+.crys-label{position:absolute;z-index:44;pointer-events:none;transform-origin:center top;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--plum-d);text-shadow:0 1px 6px rgba(244,239,251,.98),0 0 4px rgba(244,239,251,.95),0 0 10px rgba(244,239,251,.85);white-space:nowrap}
+/* soft Dead Sea salt-shore atmosphere behind the whole crystals scene (corners + bottom); revealed only in the crystals scene */
+#crysBg{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .9s ease;pointer-events:none;background:linear-gradient(180deg,#F1EAFB 0%,rgba(241,234,251,.55) 16%,rgba(241,234,251,0) 40%),url("assets/minerals/crys-bg.webp") center/cover no-repeat}
+/* small glowing nodes sitting on the orbit ring, between the balls */
+.crys-dot{position:absolute;z-index:29;width:5px;height:5px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#fff,rgba(200,180,240,.65) 55%,transparent);box-shadow:0 0 6px 1px rgba(180,150,235,.8);opacity:0}
+.crystal:hover{transform:scale(1.06)}
+.crystal.sel{transform:scale(1.09);animation:tapPop .44s cubic-bezier(.34,1.56,.64,1)}
+.crystal.sel .ball-img{filter:drop-shadow(0 8px 10px rgba(78,42,128,.22)) drop-shadow(0 0 13px rgba(150,110,222,.9))}
 @keyframes tapPop{0%{transform:scale(.9)}55%{transform:scale(1.22)}100%{transform:scale(1.14)}}
 /* scene 8: ancient + modern hands reaching toward the mud stone */
 #handsLayer{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;transition:opacity .7s ease}
@@ -659,6 +655,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 
 <!-- ======= FIXED STAGE ======= -->
 <div id="stage">
+  <!-- crystals scene atmosphere: soft out-of-focus Dead Sea salt shore bleeding in at the corners + bottom (generated), behind the whole scene -->
+  <div id="crysBg" aria-hidden="true"></div>
   <!-- the place: Dead Sea photos drift upward with parallax behind the stone (tiles built in JS) -->
   <div id="collage" aria-hidden="true"></div>
   <!-- distant hazy Dead Sea mountains behind the stone — only over the −350m water section -->
@@ -1286,9 +1284,9 @@ const MIN=[
  ['Iron','The vitality mineral','Contributes to a healthy, even-looking tone.'],
  ['Manganese','The defense mineral','Supports skin\'s natural resilience against daily stress.'],
  ['Strontium','The comfort mineral','Rare in skincare; known for its skin-soothing properties.']];
-const mlayer=document.getElementById('mineralLayer');const crystals=[];const tapHint=document.getElementById('tapHint');
+const mlayer=document.getElementById('mineralLayer');const crystals=[];const labels=[];const dots=[];const tapHint=document.getElementById('tapHint');
 const crysTitle=document.querySelector('.crys-title'),crysBody=document.querySelector('.crys-body');
-const crysRipple=document.getElementById('crysRipple'),crysOrbit=document.getElementById('crysOrbit');
+const crysRipple=document.getElementById('crysRipple'),crysOrbit=document.getElementById('crysOrbit'),crysBg=document.getElementById('crysBg');
 const mkFilter=document.getElementById('mkFilter'),mkBot=document.getElementById('mkBot'); /* the two overlaid copies of the merged make stop */
 const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};                                    /* smoothstep ease */
 const outBack=t=>{if(t<=0)return 0;if(t>=1)return 1;const c1=1.70158,c3=c1+1,u=t-1;return 1+c3*u*u*u+c1*u*u;}; /* easeOutBack → pops past then settles */
@@ -1303,9 +1301,11 @@ let curMin=0;
 MIN.forEach((m,i)=>{
   const slug=m[0].toLowerCase();
   const d=document.createElement('div');d.className='crystal';
-  d.innerHTML='<div class="orb"><img class="min-img" src="assets/minerals/cut/'+slug+'.webp" alt=""></div><span>'+m[0]+'</span>';
+  d.innerHTML='<img class="ball-img" src="assets/minerals/balls/'+slug+'.webp" alt="">';
   d.onclick=()=>{curMin=i;setBar(m,slug,d);};
   mlayer.appendChild(d);crystals.push(d);
+  const lbl=document.createElement('div');lbl.className='crys-label';lbl.textContent=m[0];mlayer.appendChild(lbl);labels.push(lbl);
+  const dt=document.createElement('div');dt.className='crys-dot';mlayer.appendChild(dt);dots.push(dt);   /* a glowing node on the orbit ring, at the midpoint after this ball */
 });
 setBar(MIN[0],'magnesium',crystals[0]);
 document.getElementById('mbarNext').onclick=()=>{curMin=(curMin+1)%MIN.length;const m=MIN[curMin];setBar(m,m[0].toLowerCase(),crystals[curMin]);};
@@ -1469,7 +1469,7 @@ function frame(){
   let oy=lerp(0,34,g), ox=0; if(act===0)oy=-55; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
-  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.46:sea?(innerWidth>719?0.72:0.51):1,k); /* recede so the fan / crystal ring / hands can frame it; float divider = big centered stone */
+  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.40:sea?(innerWidth>719?0.72:0.51):1,k); /* recede so the fan / crystal ring / hands can frame it; float divider = big centered stone */
   if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
   stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
   /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
@@ -1526,7 +1526,7 @@ function frame(){
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=innerHeight/2;
   const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=Math.min(cw-56,170),Ry=innerHeight*0.107;
+  const Rx=Math.min(cw-46,178),Ry=innerHeight*0.108;
   if(crysOrbit){ crysOrbit.setAttribute('cy',(500+stoneOY+bob).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit ring sized to the mineral ring, follows the stone */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1540,12 +1540,23 @@ function frame(){
     const mv=outBack(bt);                                   /* travel with a soft pop past the seat, then settle */
     const op=smooth(clamp((bt-0.07)/0.34,0,1));            /* invisible at the stone's core, MATERIALISES as it clears the mud edge */
     const orbX=cw+Math.cos(a)*Rx, orbY=ccy+Math.sin(a)*Ry;
-    c.style.left=(lerp(cw,orbX,mv)-37+swx*bt)+'px';        /* born buried in the stone centre, flies out to its ring seat */
-    c.style.top=(lerp(ccy,orbY,mv)-37+bob*bt)+'px';
-    c.style.scale=(0.34+0.66*mv).toFixed(3);               /* start small (but not a speck) and grow — independent scale prop, no transition lag */
+    const bcx=lerp(cw,orbX,mv)+swx*bt, scy=lerp(ccy,orbY,mv)+bob*bt, s=0.34+0.66*mv;
+    c.style.left=(bcx-41)+'px';                            /* offset = half the 82px ball box */
+    c.style.top=(scy-39)+'px';                             /* -39 so the SPHERE centre (not the box) lands on the orbit ring; thin base hangs below */
+    c.style.scale=s.toFixed(3);                            /* start small (but not a speck) and grow — independent scale prop, no transition lag */
     c.style.opacity=(op*crysExit).toFixed(3);
     c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
+    const L=labels[i];                                     /* labels ride in their own top layer so neighbours never cover them */
+    L.style.left=bcx.toFixed(1)+'px';
+    L.style.top=(scy+46*s).toFixed(1)+'px';
+    L.style.opacity=(op*crysExit).toFixed(3);
+    L.style.transform='translate(-50%,0) scale('+s.toFixed(3)+')';
+    const da=a+Math.PI/crystals.length, D=dots[i];         /* node sits on the orbit ring, midway to the next ball */
+    D.style.left=(cw+Math.cos(da)*Rx).toFixed(1)+'px';
+    D.style.top=(ccy+Math.sin(da)*Ry).toFixed(1)+'px';
+    D.style.opacity=(0.75*burstP*crysExit).toFixed(3);
   });
+  if(crysBg) crysBg.style.opacity=crysOn?'1':'0';           /* soft salt-shore atmosphere only in the crystals scene */
   const hintR=smooth(clamp((burstP-0.7)/0.3,0,1));
   tapHint.style.left=cw+'px'; tapHint.style.top=(ccy+Ry+84)+'px'; tapHint.style.opacity=(0.62*hintR*crysExit).toFixed(3); /* prompt appears last, below the bottom (Zinc) bubble + its label, clearing the info card */
   mbar.classList.toggle('show',crysOn&&burstP>0.85&&crysExit>0.5);       /* info card slides up once the burst settles, and slides back down as the section exits */
