@@ -441,8 +441,11 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 
 /* mineral crystals */
 #mineralLayer{position:fixed;inset:0;z-index:41;pointer-events:none}
-/* crystals: the stone sits in a photoreal rippled water pool (generated water surface, perspective-squashed, follows the stone) */
-#crysPool{opacity:.97}
+/* crystals: the stone sits in a photoreal rippled water pool — two cross-faded copies scale outward so the concentric rings continuously propagate outward like real ripples spreading from the stone */
+.crysPool{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;animation:poolProp 7.2s linear infinite}
+.crysPoolB{animation-delay:-3.6s}
+@keyframes poolProp{0%{transform:scale(.5);opacity:0}12%{opacity:.92}55%{opacity:.82}100%{transform:scale(1.42);opacity:0}}
+@media(prefers-reduced-motion:reduce){.crysPool{animation:none;transform:scale(1);opacity:.95}.crysPoolB{display:none}}
 .crystal{position:absolute;z-index:30;width:74px;height:74px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
 /* the clear glass sphere the crystal floats inside — layered speculars over a see-through lavender body */
@@ -739,9 +742,12 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
       <text x="500" y="687" font-size="96" letter-spacing="-3" transform="translate(0,687) scale(1,2.25) translate(0,-687)">POWERFUL</text>
     </g>
     <!-- THE STONE (real Promise mud-stone art, feathered into the purple stage) -->
-    <!-- the stone rests in a photoreal rippled water pool (crystals scene) — behind the stone so the ripples radiate from it and everything sits on the water -->
+    <!-- the stone rests in a photoreal rippled water pool (crystals scene) — behind the stone so the ripples radiate from it; two cross-faded copies scale outward so the rings continuously propagate like real water -->
     <g id="crysRipple" opacity="0">
-      <image id="crysPool" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" transform="translate(500,500) scale(1,0.6) translate(-500,-500)" preserveAspectRatio="xMidYMid meet"/>
+      <g transform="translate(500,500) scale(1,0.6) translate(-500,-500)">
+        <image class="crysPool" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" preserveAspectRatio="xMidYMid meet"/>
+        <image class="crysPool crysPoolB" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" preserveAspectRatio="xMidYMid meet"/>
+      </g>
     </g>
     <!-- the mineral orbit path (behind the stone) -->
     <ellipse id="crysOrbit" cx="500" cy="500" rx="160" ry="130" fill="none" stroke="#8a63d8" stroke-width="1.4" stroke-opacity="0.55" opacity="0"/>
