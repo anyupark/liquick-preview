@@ -54,8 +54,8 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 #seaLayer{position:fixed;left:0;right:0;bottom:0;height:52%;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
 /* HERO: moving water surface (video) below the floating stone; top edge feathers up into the light bg */
 #heroWater{position:fixed;left:0;right:0;bottom:0;height:47%;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
-#heroWaterVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 24%);mask-image:linear-gradient(to bottom,transparent 0,#000 24%)}
+#heroWaterVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%)}
 /* HERO: drifting dirt/stone particles around the mud stone */
 #heroDust{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity 1s ease}
 #heroDust span{position:absolute;width:var(--s,4px);height:var(--s,4px);border-radius:50%;
