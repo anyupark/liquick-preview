@@ -55,14 +55,17 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 /* HERO: moving water surface (video) below the floating stone; top edge feathers up into the light bg */
 #heroWater{position:fixed;left:0;right:0;bottom:0;height:47%;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
 #heroWaterVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%)}
-/* HERO: drifting dirt/stone particles around the mud stone */
-#heroDust{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity 1s ease}
-#heroDust span{position:absolute;width:var(--s,4px);height:var(--s,4px);border-radius:50%;
-  background:radial-gradient(circle at 34% 30%,#7c5838,#3a2314);box-shadow:0 1px 2px rgba(40,20,10,.28);opacity:.72;
-  animation:dustfloat var(--d,8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
-@keyframes dustfloat{0%,100%{transform:translate(0,0)}50%{transform:translate(var(--dx,5px),var(--dy,-9px))}}
-@media(prefers-reduced-motion:reduce){#heroDust span{animation:none}}
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%);mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%)}   /* keep the top fully transparent well past the stone so the clip's bright horizon never washes over it — the opaque waterline sits BELOW the floating stone */
+/* HERO: real drifting mineral-grain / dirt particles around the mud stone (photographic plate, cut to alpha) */
+#heroDust{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}
+.heroDustLayer{position:absolute;height:auto;will-change:transform;
+  -webkit-mask-image:radial-gradient(ellipse 54% 48% at 50% 47%,transparent 0 16%,#000 32%,#000 58%,transparent 95%);
+          mask-image:radial-gradient(ellipse 54% 48% at 50% 47%,transparent 0 16%,#000 32%,#000 58%,transparent 95%)}
+.heroDustLayer.near{width:132vw;left:calc(50% - 66vw);top:calc(47% - 66vw);opacity:.95;animation:dustDriftA 26s ease-in-out infinite}
+.heroDustLayer.far{width:88vw;left:calc(50% - 44vw);top:calc(47% - 44vw);opacity:.5;filter:blur(.5px);animation:dustDriftB 34s ease-in-out infinite}
+@keyframes dustDriftA{0%,100%{transform:translate(0,0)}50%{transform:translate(1.1%,-1.7%)}}
+@keyframes dustDriftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-1.4%,1.2%)}}
+@media(prefers-reduced-motion:reduce){.heroDustLayer{animation:none}}
 /* white base at the bottom so text reads cleanly; fades up to fully translucent */
 #seaScrim{position:fixed;left:0;right:0;bottom:0;height:40%;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;
   background:linear-gradient(to top,#ffffff 0,rgba(255,255,255,.92) 20%,rgba(255,255,255,0) 100%)}
@@ -134,24 +137,17 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   border-bottom:1px solid rgba(74,32,128,.07);box-shadow:0 4px 22px rgba(74,32,128,.05)}
 @media(max-width:719px){#topbar{height:46px}}
 /* ===== scroll progress bar — page-wide "descent" progress, invites deeper scroll ===== */
-#scrollbar{position:fixed;left:0;right:0;bottom:0;z-index:92;pointer-events:none;transition:opacity .55s ease}
-#scrollbar.gone{opacity:0}
-.sb-track{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(74,32,128,.06)}
-.sb-fill{position:absolute;left:0;bottom:0;height:3px;width:0;will-change:width;
-  background:linear-gradient(90deg,#b79ae8,#7c4dcc 40%,#57b6c9 74%,#f0c977);background-size:100vw 100%}
+/* the separate scroll bar was merged INTO the depth meter below — one bar that shows the −430 m descent, in the dot-on-track style */
 
 /* ============ DEPTH METER ============ */
-#depth{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:40;
-  display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .8s}
-#depth .track{width:2px;height:150px;background:rgba(50,20,87,.16);position:relative;border-radius:2px}
-#depth .fill{position:absolute;top:0;left:0;width:2px;background:var(--plum);border-radius:2px;height:var(--pct,0%)}
-#depth .num{font-family:var(--disp);font-size:15px;letter-spacing:.02em;color:var(--plum);min-width:52px;text-align:center}
-#depth .lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.45}
+/* DEPTH METER = the single full-width dot-on-track bar at the very bottom, counting the −430 m descent */
+#depth{position:fixed;left:0;right:0;bottom:0;height:16px;z-index:40;pointer-events:none;transition:opacity .6s ease}
+#depth .lbl{display:none}
+#depth .track{position:absolute;left:22px;right:62px;bottom:6px;height:1.5px;border-radius:2px;background:rgba(74,32,128,.13)}   /* faint full-width track, inset from the edges */
+#depth .fill{position:absolute;top:0;left:0;height:100%;width:var(--pct,0%);background:var(--plum);border-radius:2px;opacity:.55}   /* plum trail up to the dot */
+#depth .ddot{position:absolute;left:22px;bottom:2px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:var(--plum);box-shadow:0 1px 5px rgba(74,32,128,.45);will-change:transform}   /* the dot rides the track at the current depth */
+#depth .num{position:absolute;right:16px;bottom:1px;font-family:var(--disp);font-size:10.5px;font-weight:600;letter-spacing:.02em;color:var(--plum);line-height:1}   /* the −XXX m readout at the right */
 #depth.gone{opacity:0;pointer-events:none}
-@media(max-width:719px){#depth{left:12px;top:auto;bottom:16px;transform:none;flex-direction:row;gap:8px;align-items:center}
-  #depth .track{width:44px;height:2px}
-  #depth .fill{height:2px;width:var(--pct,0%)}
-  #depth .num{font-size:10.5px;min-width:auto}#depth .lbl{display:none}}
 
 /* ============ SCROLL SECTIONS (cinematic) ============ */
 .cine{position:relative;z-index:10}
@@ -191,7 +187,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .rv.seen .rv-underline::after{animation:fxDraw .55s .5s cubic-bezier(.6,0,.2,1) forwards}
 @media(prefers-reduced-motion:reduce){.rv-el{opacity:1!important;transform:none!important;animation:none!important}.rv-underline::after{transform:scaleX(1)}}
 @media(prefers-reduced-motion:reduce){.filter-copy .fx-l1,.filter-copy .fx-l2,.filter-copy .fx-body,.filter-copy .fx-pure{opacity:1;transform:none}.fx-pow::after{transform:scaleX(1)}}
-/* ===== merged "make" stop — two copies overlaid, crossfading on scroll ===== */
+/* ===== the two "making" stops (raw-mud filter, then botanicals) — each its own section, one copy per pin ===== */
 .make-copy{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);width:100%;max-width:600px;margin:0;padding:0 26px;text-align:center;pointer-events:none} /* mobile: copy sits below the mud cluster, not over it */
 /* botanicals half — the sensory list + emphasis */
 .bot-list{list-style:none;margin:2px auto 13px;padding:0;max-width:20em;font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--mute)} /* condensed: tight rows so the list reads as one compact block */
@@ -283,10 +279,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .hero-bot{gap:11px}
 .h-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--plum)}
 .h-hr{width:26px;height:1.5px;border-radius:2px;background:var(--plum);opacity:.5}
-.hero-h1{display:flex;flex-direction:column;align-items:center;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(48px,17vw,80px);line-height:.95;letter-spacing:-.022em;margin:6px 0 4px}
+.hero-edit .hero-h1{display:flex;flex-direction:column;align-items:center;font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(48px,17vw,80px);line-height:.92;letter-spacing:-.03em;margin:6px 0 4px}   /* .hero-edit .hero-h1 (0,2,0) so it out-specifies .copy h1 (0,1,1) for BOTH size and Black weight */
 .hero-h1 .hh-a{color:var(--plum)}
 .hero-h1 .hh-b{color:var(--plum-dd)}
-.hero-sub{font-family:var(--sans);color:var(--ink);font-size:clamp(14px,3.6vw,17px);line-height:1.5;max-width:19em;margin:6px auto 0}
+.hero-sub{font-family:var(--sans);font-weight:300;color:var(--ink);font-size:clamp(14px,3.6vw,17px);line-height:1.5;max-width:19em;margin:6px auto 0}   /* light weight — the delicate counter to the heavy headline (Earth. stays bold via <b>) */
 .hero-sub b{color:var(--plum-d)}
 .hero-depth{font-family:var(--disp);font-weight:600;font-size:clamp(20px,5.4vw,27px);color:var(--ink);letter-spacing:-.008em;margin:0}
 .hero-depth .hd-num{color:var(--plum);font-weight:800}
@@ -302,6 +298,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @media(max-width:719px){
   .copy{padding-top:16px;text-shadow:0 1px 18px rgba(244,239,251,.92),0 0 3px rgba(244,239,251,.7)}
   .copy h1,.copy h2{font-size:clamp(21px,6.2vw,30px)}
+  .hero-edit .hero-h1{font-size:clamp(40px,15.1vw,92px);letter-spacing:-.03em}   /* hero headline = POSTER scale on phones (overrides .copy h1 above) — matches the reference where POWERFUL fills ~84% of the width */
   .copy p{font-size:12px;line-height:1.58}
   .copy .big{font-size:clamp(17px,5vw,22px)}
   .lay-hero .pin{padding-top:9vh}
@@ -794,7 +791,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <!-- ======= DEAD SEA WATER (−350m section only) — the stone floats above it ======= -->
 <!-- HERO (scene 0): moving water surface below the floating stone + drifting dirt particles around it -->
 <div id="heroWater" aria-hidden="true"><video id="heroWaterVid" src="assets/sea/hero-water.mp4" muted loop playsinline preload="none"></video></div>
-<div id="heroDust" aria-hidden="true"></div>
+<div id="heroDust" aria-hidden="true"><img class="heroDustLayer far" src="assets/sea/particles.webp" alt="" decoding="async"><img class="heroDustLayer near" src="assets/sea/particles.webp" alt="" decoding="async"></div>
 <div id="seaLayer" aria-hidden="true">
   <video id="seaMedia" src="assets/sea/cross-water.mp4" poster="assets/sea/cross-water.webp" muted loop playsinline preload="none"></video>
   <!-- concentric ripple rings on the water surface, directly beneath the floating stone -->
@@ -832,8 +829,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 
 <!-- ======= DEPTH METER ======= -->
 <div id="depth">
-  <div class="lbl">Depth</div>
   <div class="track"><div class="fill" id="dfill"></div></div>
+  <div class="ddot" id="ddot"></div>
   <div class="num" id="dnum">0 m</div>
 </div>
 
@@ -974,14 +971,20 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
   <div class="pin"></div>
 </section>
 
-<!-- the making: ONE continuous stop — mud is filtered, then botanicals flow in from the sides as the copy changes -->
-<section class="cine makesec" data-scene="9" data-len="210" data-bg="#F1EAFB" data-depth="-430" data-vis="make">
+<!-- the making I — the raw mud is refined (its own stop; reveals on entry and holds) -->
+<section class="cine makesec" data-scene="9" data-len="150" data-bg="#F1EAFB" data-depth="-430" data-vis="make">
   <div class="pin">
     <div class="copy filter-copy make-copy" id="mkFilter">
       <h2 class="fx-head"><span class="fx-l1">Raw mud is <span class="fx-pow">powerful</span>.</span><span class="fx-l2">It is not <span class="fx-gentle">gentle</span>.</span></h2>
       <p class="fx-body">Through repeated filtration, we create a smoother, more refined texture while preserving both its mineral richness and the authentic Dead Sea water that makes this ecosystem unique.</p>
       <p class="big fx-pure"><em>82% pure</em>, multi-filtered Dead Sea mud.</p>
     </div>
+  </div>
+</section>
+
+<!-- the making II — botanicals are added (a separate stop the reader scrolls into) -->
+<section class="cine makesec" data-scene="10" data-len="155" data-bg="#F1EAFB" data-depth="-430" data-vis="makebot">
+  <div class="pin">
     <div class="copy botanicals-copy make-copy" id="mkBot">
       <h2 class="fx-head"><span class="fx-bl1">So we add what</span><span class="fx-bl2">the desert <span class="fx-gentle">cannot grow</span>.</span></h2>
       <ul class="bot-list">
@@ -1185,7 +1188,7 @@ onWidthResize(measure);
     document.body.classList.toggle('in-history', e.isIntersecting && e.intersectionRatio>0.3);
   }),{threshold:[0,0.3,0.6]}).observe(hs);})();
 
-/* the merged "make" stop drives both copies' staged reveals (.lqfx) from scroll progress in the frame loop */
+/* the two "making" stops each reveal their own copy's staged (.lqfx) animation on entry, in the frame loop */
 
 /* generic staged reveal: any .rv copy block plays its .rv-el children when it enters view (re-triggers on re-entry) */
 document.querySelectorAll('.rv:not(.handsTxt):not(.bottleTxt)').forEach(el=>{   /* the fixed hands + bottle copies are driven from the frame loop instead, so they sequence with the scene */
@@ -1317,7 +1320,7 @@ const MIN=[
 const mlayer=document.getElementById('mineralLayer');const crystals=[];const labels=[];const dots=[];const tapHint=document.getElementById('tapHint');
 const crysTitle=document.querySelector('.crys-title'),crysBody=document.querySelector('.crys-body'),crysDiv=document.querySelector('.crys-div');
 const crysRipple=document.getElementById('crysRipple'),crysOrbit=document.getElementById('crysOrbit'),crysBg=document.getElementById('crysBg');
-const mkFilter=document.getElementById('mkFilter'),mkBot=document.getElementById('mkBot'); /* the two overlaid copies of the merged make stop */
+const mkFilter=document.getElementById('mkFilter'),mkBot=document.getElementById('mkBot'); /* the copy of each making stop (filter / botanicals) */
 const smooth=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};                                    /* smoothstep ease */
 const outBack=t=>{if(t<=0)return 0;if(t>=1)return 1;const c1=1.70158,c3=c1+1,u=t-1;return 1+c3*u*u*u+c1*u*u;}; /* easeOutBack → pops past then settles */
 const mbar=document.getElementById('mbar'),mbarImg=document.getElementById('mbarImg'),
@@ -1341,18 +1344,7 @@ setBar(MIN[0],'magnesium',crystals[0]);
 document.getElementById('mbarNext').onclick=()=>{curMin=(curMin+1)%MIN.length;const m=MIN[curMin];setBar(m,m[0].toLowerCase(),crystals[curMin]);};
 
 /* ---- hero: a dense field of drifting dirt / stone particles clustered around the mud stone ---- */
-(function(){const hd=document.getElementById('heroDust');if(!hd)return;
-  for(let i=0;i<30;i++){const s=document.createElement('span');
-    const a=Math.random()*Math.PI*2, r=0.34+Math.pow(Math.random(),0.6)*0.42;    /* ring biased OUTWARD so debris sits around the stone, not on its face */
-    const x=50+Math.cos(a)*r*52, y=47+Math.sin(a)*r*35;                          /* elliptical cluster around the stone, wider horizontally */
-    const sz=2+Math.pow(Math.random(),1.5)*7, dark=Math.random()<0.4;
-    s.style.cssText='top:'+y.toFixed(1)+'%;left:'+x.toFixed(1)+'%;--s:'+sz.toFixed(1)+'px;'+
-      '--dx:'+(Math.random()*14-7).toFixed(0)+'px;--dy:'+(-6-Math.random()*9).toFixed(0)+'px;'+
-      '--d:'+(7+Math.random()*5).toFixed(1)+'s;--dl:'+(-Math.random()*9).toFixed(1)+'s;'+
-      'opacity:'+(0.5+Math.random()*0.35).toFixed(2)+(dark?';background:radial-gradient(circle at 34% 30%,#5a4230,#241608)':'');
-    hd.appendChild(s);
-  }
-})();
+/* hero dust particles are now real photographic grain plates (see #heroDust markup / .heroDustLayer CSS) — no JS build needed */
 /* hero scroll button → glide down into the first section */
 {const ha=document.getElementById('heroArrow'); if(ha)ha.onclick=()=>{const t=document.getElementById('historySec')||document.querySelector('.cine[data-scene="2"]'); if(t)t.scrollIntoView({behavior:'smooth'});};}
 
@@ -1401,7 +1393,7 @@ const stage=document.getElementById('stage'),stoneG=document.getElementById('sto
  bScale=document.getElementById('bScale'),liquid=document.getElementById('liquid'),
  glassStack=document.getElementById('glassStack'),realBottle=document.getElementById('realBottle'),
  blabel=document.getElementById('blabel'),depthEl=document.getElementById('depth'),
- dnum=document.getElementById('dnum'),dfill=document.getElementById('dfill'),
+ dnum=document.getElementById('dnum'),dfill=document.getElementById('dfill'),ddot=document.getElementById('ddot'),
  brand=document.getElementById('brand'),
  col=document.getElementById('collage'),
  handsLayer=document.getElementById('handsLayer'),handTop=document.getElementById('handTop'),handBot=document.getElementById('handBot'),handMud=document.getElementById('handMud'),
@@ -1485,13 +1477,13 @@ function frame(){
       if(crysBody){crysBody.style.opacity=bR.toFixed(3);crysBody.style.transform='none';}
       return;
     }
-    if(b.el.dataset.vis==='make'){
-      /* two overlaid copies that can't both show at once — auto-crossfade on ENTRY (time): filter reads first, then botanicals fades in and HOLDS as the resting state */
-      const mkc=(i===act)?clamp((nowT-revEnterT)/2200,0,1):(i<act?1:0);
+    if(b.el.dataset.vis==='make'||b.el.dataset.vis==='makebot'){
+      /* each making stop is now its OWN section (raw-mud filter, then botanicals) — reveal on ENTRY and HOLD, like every other beat; no auto-timer crossfade between them */
+      const appear=(i===act)?clamp(tr/0.4,0,1):(i<act?1:0);
       const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;
-      const fO=clamp(1-(mkc-0.42)/0.18,0,1)*exitF, bO=clamp((mkc-0.5)/0.18,0,1)*exitF;
-      if(mkFilter){mkFilter.style.opacity=fO.toFixed(3);mkFilter.classList.toggle('lqfx',mkc>0.02&&mkc<0.66);}
-      if(mkBot){mkBot.style.opacity=bO.toFixed(3);mkBot.classList.toggle('lqfx',mkc>0.5);}
+      b.copy.style.opacity=clamp(appear*exitF,0,1).toFixed(3);
+      /* NB: do NOT reset transform here — .make-copy relies on its CSS translateX/translateY(-50%) for centering */
+      b.copy.classList.toggle('lqfx', i<=act);   /* fire the staged reveal once this stop is reached, then hold */
       return;
     }
     const appear=(i===act)?clamp(tr/0.4,0,1):(i<act?1:0);    /* copy fades in on ENTRY (time), then holds — no scroll-scrubbing */
@@ -1502,8 +1494,10 @@ function frame(){
   /* depth meter — smooth count-down toward the active stop */
   const targetDepth=parseFloat(el.dataset.depth||0);
   curDepth=ez(curDepth,targetDepth,k*1.3);
+  const dpf=clamp(-curDepth/430,0,1);
   dnum.textContent=Math.round(curDepth)+' m';
-  dfill.style.setProperty('--pct',clamp(-curDepth/430*100,0,100)+'%');
+  dfill.style.setProperty('--pct',(dpf*100).toFixed(1)+'%');
+  ddot.style.transform='translateX(calc('+dpf.toFixed(4)+' * (100vw - 84px)))';   /* dot rides the track to the current depth (track spans 22px..100vw-62px) */
   /* the descent ENDS at the bottle: once we arrive at −430 and the reveal begins, retire the depth HUD */
   depthEl.classList.toggle('gone', (vis==='bottle' && p[act]>0.42) || y>cineEnd+innerHeight*0.3);
   const heroEnd=bounds[0].top+bounds[0].el.offsetHeight;           // hero's own bottom (where the timeline begins)
@@ -1515,7 +1509,7 @@ function frame(){
   const CRYS_OY=94;                                   /* crystals scene: drop the stone + ring so the big headline + copy read up top; balanced so the top spheres clear the copy AND the bottom (Zinc) label + tap prompt clear the info card */
   let oy=lerp(0,34,g), ox=0; if(act===0)oy=16; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
-  stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make')?0:1,k); /* SVG stone hides for the mud scene and the making */
+  stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make'||vis==='makebot')?0:1,k); /* SVG stone hides for the mud scene and both making stops (the particle cluster stands in for the mud) */
   stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.40:sea?(innerWidth>719?0.72:0.51):(act===0?0.82:1),k); /* recede so the fan / crystal ring / hands can frame it; hero = medium floating stone between the headline and the scroll block */
   if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
   stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
@@ -1634,9 +1628,9 @@ function frame(){
   }
 
   /* the making: mud breaks into fine particles (filter) → botanicals join → bottle forms */
-  const isMake=(vis==='make'), mp=isMake?clamp((nowT-revEnterT)/2000,0,1):0;   /* mud→droplets→bottle morph plays on ENTRY over ~2s (time-based), not scrubbed — so it always completes without precise scrolling */
+  const isMake=(vis==='make'||vis==='makebot');   /* both making stops keep the filtered-mud cluster on screen */
   oFilter=ez(oFilter,isMake?1:0,k);
-  oBot=ez(oBot,isMake?smooth(clamp((mp-0.46)/0.18,0,1)):0,k); /* botanicals flow in across the 2nd half of the make stop */
+  oBot=ez(oBot,(vis==='makebot')?1:0,k); /* botanicals join ONLY at the second stop — they ease in from the sides as you scroll into it */
   const cloud=Math.max(oFilter,oBot);
   /* whole cluster scales in as it forms; during the pour it neutralises so particles land on the real bottle mouth */
   const cs=lerp(0.72,1,Math.max(cloud,oBottle)), rock=Math.sin(nowT*0.00016)*6*(1-oBottle);
@@ -1673,20 +1667,7 @@ addEventListener('load',measure);
 
 /* free-flowing scroll — the scene-by-scene snap has been removed so the whole page scrolls like a normal site */
 
-/* scroll progress — a single subtle gradient line at the very bottom edge.
-   page height is cached (measured only on resize/load) so scrolling never forces a reflow */
-(function(){
-  const bar=document.createElement('div'); bar.id='scrollbar';
-  bar.innerHTML='<div class="sb-track"></div><div class="sb-fill" id="sbFill"></div>';
-  document.body.appendChild(bar);
-  const fill=bar.querySelector('#sbFill');
-  let maxScroll=1, ticking=false;
-  function paint(){ let p=scrollY/maxScroll; p=p<0?0:p>1?1:p; fill.style.width=(p*100)+'%'; }
-  function measure(){ maxScroll=Math.max(1, document.documentElement.scrollHeight-innerHeight); paint(); }
-  addEventListener('scroll',()=>{ if(!ticking){ticking=true;requestAnimationFrame(()=>{ticking=false;paint();});} },{passive:true});
-  addEventListener('resize',measure); addEventListener('load',measure);
-  measure(); setTimeout(measure,700); setTimeout(measure,2200);   // catch late height changes as media loads
-})();
+/* (the standalone scroll-progress bar was merged into the depth meter #depth — one dot-on-track bar that shows the −430 m descent, driven in the frame loop) */
 </script>
 </body>
 </html>
