@@ -1210,28 +1210,36 @@ document.querySelectorAll('.rv:not(.handsTxt):not(.bottleTxt)').forEach(el=>{   
   const fill=document.getElementById('tlFill'),mud=document.getElementById('tlMud'),pct=document.getElementById('tlPct');
   const veil=tl.querySelector('.hist-veil');
   const TOP=8,BOT=30;                                  // matches the spine ::before top/bottom insets
-  let ticking=false;
-  function upd(){
-    ticking=false;
-    const r=tl.getBoundingClientRect(),usable=r.height-TOP-BOT;
-    if(usable<=0)return;
+  /* the stone eases toward your scroll position with its OWN rhythm instead of tracking 1:1 (which felt laggy / "pointed exactly at you"). curP chases targetP with a time-constant ease → gentle, smooth lag. RATE lower = slower/smoother follow. */
+  let curP=0,targetP=0,usable=0,raf=0,lastT=0; const RATE=2.6;
+  function readTarget(){
+    const r=tl.getBoundingClientRect(); usable=r.height-TOP-BOT;
+    if(usable<=0){targetP=0;return;}
     const sec=document.getElementById('historySec').getBoundingClientRect();
-    const mid=VPH*0.5;                          // stone starts mid-viewport as the timeline arrives...
-    const span=sec.bottom-r.top-mid;                    // ...and eases down to the bottom, hitting 100% at the section end
-    let p=span>0?(mid-r.top)/span:0;
-    p=clamp(p,0,1);
-    const y=TOP+p*usable;
+    const mid=VPH*0.5;                                   // stone sits mid-viewport as the timeline arrives...
+    const span=sec.bottom-r.top-mid;                     // ...and reaches 100% at the section end
+    targetP=clamp(span>0?(mid-r.top)/span:0,0,1);
+  }
+  function apply(p){
+    if(usable<=0)return;
     fill.style.height=(p*usable)+'px';
-    mud.style.top=y+'px';
+    mud.style.top=(TOP+p*usable)+'px';
     pct.textContent=Math.round(p*100)+'%';
     if(veil)veil.style.opacity=document.body.classList.contains('in-history')?String(clamp(1-(p-0.78)/0.22,0,1)):'0';
-    /* stone arrives big at the top (echoing the descending hero stone), then shrinks to a small travelling marker — grows only on entry, never on exit, so it never covers row copy */
+    /* stone arrives big at the top (echoing the descending hero stone), then shrinks to a small travelling marker — grows only on entry */
     const edge=Math.max(0,1-p/0.07);
     mud.style.setProperty('--mscale',(1+edge*1.28).toFixed(2));
   }
-  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
-  onWidthResize(upd);   /* ignore address-bar height toggles (see onWidthResize) */
-  upd();
+  function tick(t){
+    const dt=Math.min((t-lastT)/1000,0.05); lastT=t;
+    readTarget();
+    curP += (targetP-curP)*(1-Math.exp(-dt*RATE));       // eased follow — lags gently behind the scroll, smoother than 1:1
+    apply(curP);
+    if(Math.abs(targetP-curP)>0.0004){ raf=requestAnimationFrame(tick); } else { curP=targetP; apply(curP); raf=0; }
+  }
+  addEventListener('scroll',()=>{ if(!raf){ lastT=performance.now(); raf=requestAnimationFrame(tick); } },{passive:true});
+  onWidthResize(()=>{ readTarget(); apply(curP); });     // ignore address-bar height toggles (see onWidthResize)
+  readTarget(); curP=targetP; apply(curP);               // init at rest (no drift-in on load)
   const rows=[...tl.querySelectorAll('.tl-row')];
   if('IntersectionObserver' in window){
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}}),{threshold:0.16,rootMargin:'0px 0px -6% 0px'});
