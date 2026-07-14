@@ -453,7 +453,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 /* labels live in their own layer ABOVE every ball (z 44 > crystal z 30) so an adjacent ball never covers a neighbour's label */
 .crys-label{position:absolute;z-index:44;pointer-events:none;transform-origin:center top;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--plum-d);text-shadow:0 1px 6px rgba(244,239,251,.98),0 0 4px rgba(244,239,251,.95),0 0 10px rgba(244,239,251,.85);white-space:nowrap}
 /* soft Dead Sea salt-shore atmosphere behind the whole crystals scene (corners + bottom); revealed only in the crystals scene */
-#crysBg{position:absolute;left:0;right:0;bottom:0;height:38%;z-index:0;opacity:0;transition:opacity .9s ease;pointer-events:none;background:url("assets/minerals/crys-shore.webp") center bottom/cover no-repeat;-webkit-mask-image:linear-gradient(to top,#000 0,#000 22%,transparent 96%);mask-image:linear-gradient(to top,#000 0,#000 22%,transparent 96%)}
+#crysBg{position:absolute;left:0;right:0;bottom:0;height:44%;z-index:0;opacity:0;transition:opacity .9s ease;pointer-events:none;background:linear-gradient(180deg,#F1EAFB 0%,rgba(241,234,251,.72) 24%,rgba(230,220,247,.16) 62%,rgba(230,220,247,0) 100%),url("assets/minerals/crys-shore.webp") center bottom/cover no-repeat}
 /* small glowing nodes sitting on the orbit ring, between the balls */
 .crys-dot{position:absolute;z-index:29;width:5px;height:5px;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#fff,rgba(200,180,240,.65) 55%,transparent);box-shadow:0 0 6px 1px rgba(180,150,235,.8);opacity:0}
 .crystal:hover{transform:scale(1.06)}
