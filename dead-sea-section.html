@@ -32,18 +32,17 @@ html,body{background:#0e0b1a}
 /* --- z10 mountain atmosphere: 28-54% height, low contrast, sits on the horizon --- */
 .ds-mtn{position:absolute;left:-4%;right:-4%;width:108%;bottom:46%;z-index:10;pointer-events:none;
   aspect-ratio:1376/430;background:url('assets/sea/mountains.webp') center bottom/cover no-repeat;
-  opacity:.5;filter:saturate(.75) brightness(1.06);
+  opacity:.68;filter:saturate(.9) brightness(1.02);
   -webkit-mask:linear-gradient(180deg,transparent 0,#000 34%,#000 78%,transparent 100%);
           mask:linear-gradient(180deg,transparent 0,#000 34%,#000 78%,transparent 100%)}
 
 /* --- z20 underwater volume: 54-100%, pale turquoise gradient + bubbles --- */
-.ds-underwater{position:absolute;left:0;right:0;top:54%;bottom:0;z-index:20;pointer-events:none;
-  background:linear-gradient(180deg,
-    rgba(182,219,223,0) 0%,
-    #B6DBDF 4%,
-    #C4E4E1 26%,
-    #D3ECE9 58%,
-    #E1F0EF 100%)}
+.ds-underwater{position:absolute;left:0;right:0;top:53.6%;bottom:0;z-index:20;pointer-events:none;
+  background:url('assets/sea/ds-underwater.webp') center top/cover no-repeat,linear-gradient(180deg,#C7E4E1 0,#DCEEEA 55%,#EAF3EF 100%);
+  filter:saturate(.44) brightness(1.12) contrast(.94)}   /* pale it toward the reference's soft turquoise */
+/* soft blend of the underwater's top edge into the water surface */
+.ds-underwater::before{content:"";position:absolute;left:0;right:0;top:0;height:8%;background:linear-gradient(180deg,#BFE1DD,rgba(191,225,221,0))}
+.ds-underwater::after{content:"";position:absolute;left:0;right:0;bottom:0;height:52%;background:linear-gradient(180deg,rgba(234,243,239,0),rgba(234,243,239,.55) 60%,#EDF4F0)}
 
 /* --- z25 water surface + concentric ripple, at ~54% --- */
 .ds-surface{position:absolute;left:0;right:0;top:53.4%;height:2.4%;z-index:25;pointer-events:none;
@@ -65,13 +64,12 @@ html,body{background:#0e0b1a}
   12%{opacity:.85}85%{opacity:.7}100%{transform:translateY(-560px) translateX(var(--dx,10px));opacity:0}}
 
 /* --- z35 salt foreground: bottom 17-20%, white salt cutout --- */
-/* tall spiky white salt crystals rising from the bottom (salt-b), a denser layer in front (salt-a) — brightened to the reference's high-key white */
+/* generated tall white salt-crystal cutout (transparent) rising from the bottom */
 .ds-salt{position:absolute;left:-3%;right:-3%;width:106%;bottom:0;z-index:35;pointer-events:none;
-  height:28%;background:url('assets/sea/salt-b.webp') center bottom/cover no-repeat;filter:brightness(1.14) contrast(1.04) saturate(.85);
-  -webkit-mask:linear-gradient(180deg,transparent 0,#000 46%);mask:linear-gradient(180deg,transparent 0,#000 46%)}
-.ds-salt2{position:absolute;left:-4%;right:-4%;width:108%;bottom:0;z-index:36;pointer-events:none;
-  height:21%;background:url('assets/sea/salt-a.webp') center bottom/cover no-repeat;filter:brightness(1.15) contrast(1.03) saturate(.85);
-  -webkit-mask:linear-gradient(180deg,transparent 0,#000 44%);mask:linear-gradient(180deg,transparent 0,#000 44%)}
+  height:18%;background:url('assets/sea/ds-salt.webp') center bottom/cover no-repeat;
+  filter:brightness(1.05) contrast(.94) saturate(.9);opacity:.96;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%);mask-image:linear-gradient(180deg,transparent 0,#000 30%)}
+.ds-salt2{display:none}
 
 /* --- z40 floating mudstone: 32-51% height, centered; spec width 30-36vw @ 1024 --- */
 .ds-stone-wrap{position:absolute;left:50%;top:41.5%;z-index:40;transform:translate(-50%,-50%);pointer-events:none}
