@@ -441,11 +441,8 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 
 /* mineral crystals */
 #mineralLayer{position:fixed;inset:0;z-index:41;pointer-events:none}
-/* crystals: the stone sits in a still, rippled pool — static concentric rings + a couple of live expanding ones */
-#crysRipple .cr-still ellipse{fill:none;stroke:rgba(255,255,255,.5);stroke-width:1.3}
-#crysRipple .cr-ring{fill:none;stroke:rgba(255,255,255,.6);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.14);animation:crRip 5.6s ease-out infinite}
-@keyframes crRip{0%{transform:scale(.14);opacity:0}16%{opacity:.3}100%{transform:scale(1);opacity:0}}
-@media(prefers-reduced-motion:reduce){#crysRipple .cr-ring{animation:none;opacity:.1;transform:scale(.6)}}
+/* crystals: the stone sits in a photoreal rippled water pool (generated water surface, perspective-squashed, follows the stone) */
+#crysPool{opacity:.97}
 .crystal{position:absolute;z-index:30;width:74px;height:74px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
 /* the clear glass sphere the crystal floats inside — layered speculars over a see-through lavender body */
@@ -742,23 +739,9 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
       <text x="500" y="687" font-size="96" letter-spacing="-3" transform="translate(0,687) scale(1,2.25) translate(0,-687)">POWERFUL</text>
     </g>
     <!-- THE STONE (real Promise mud-stone art, feathered into the purple stage) -->
-    <!-- the stone rests in a still, rippled pool (crystals scene) — behind the stone so it sits on the ripples -->
+    <!-- the stone rests in a photoreal rippled water pool (crystals scene) — behind the stone so the ripples radiate from it and everything sits on the water -->
     <g id="crysRipple" opacity="0">
-      <defs><radialGradient id="poolGrad" cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
-        <stop offset="52%" stop-color="#efe8fb" stop-opacity="0.26"/>
-        <stop offset="100%" stop-color="#d8c9f2" stop-opacity="0"/>
-      </radialGradient></defs>
-      <ellipse cx="500" cy="500" rx="440" ry="190" fill="url(#poolGrad)"/>
-      <g class="cr-still">
-        <ellipse cx="500" cy="500" rx="140" ry="57" opacity="0.55"/>
-        <ellipse cx="500" cy="500" rx="220" ry="90" opacity="0.5"/>
-        <ellipse cx="500" cy="500" rx="300" ry="122" opacity="0.4"/>
-        <ellipse cx="500" cy="500" rx="380" ry="154" opacity="0.28"/>
-        <ellipse cx="500" cy="500" rx="460" ry="186" opacity="0.16"/>
-      </g>
-      <ellipse class="cr-ring" cx="500" cy="500" rx="460" ry="186"/>
-      <ellipse class="cr-ring" cx="500" cy="500" rx="460" ry="186" style="animation-delay:2.8s"/>
+      <image id="crysPool" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" transform="translate(500,500) scale(1,0.6) translate(-500,-500)" preserveAspectRatio="xMidYMid meet"/>
     </g>
     <!-- the mineral orbit path (behind the stone) -->
     <ellipse id="crysOrbit" cx="500" cy="500" rx="160" ry="130" fill="none" stroke="#8a63d8" stroke-width="1.4" stroke-opacity="0.55" opacity="0"/>
