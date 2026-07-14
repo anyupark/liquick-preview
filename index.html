@@ -158,10 +158,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .filter-copy.lqfx .fx-l2{animation:fxRise .75s .98s cubic-bezier(.2,.85,.25,1) forwards}
 .filter-copy.lqfx .fx-body{animation:fxRise .8s 1.5s cubic-bezier(.2,.85,.25,1) forwards}
 .filter-copy.lqfx .fx-pure{animation:fxRise .8s 1.92s cubic-bezier(.2,.85,.25,1) forwards}
-@keyframes fxRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fxRise{from{opacity:0}to{opacity:1}}   /* fade in place — text no longer rises up ("comes up") from below */
 @keyframes fxDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 /* ===== reusable staged reveal — add .rv to a copy block, .rv-el (+ inline --rd delay) to each element ===== */
-.rv-el{opacity:0;transform:translateY(18px)}
+.rv-el{opacity:0}   /* no translateY — text is already in place, just fades in */
 .rv.seen .rv-el{animation:fxRise .78s var(--rd,0s) cubic-bezier(.2,.85,.25,1) both}
 .rv-underline{position:relative;display:inline-block}
 .rv-underline::after{content:"";position:absolute;left:-.01em;right:-.01em;bottom:-.05em;height:.07em;border-radius:.07em;background:linear-gradient(90deg,var(--plum),#9a6cff);transform:scaleX(0);transform-origin:left center}
@@ -267,7 +267,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   .copy p{font-size:12px;line-height:1.58}
   .copy .big{font-size:clamp(17px,5vw,22px)}
   .lay-hero .pin{padding-top:9vh}
-  .txt-left .pin,.txt-right .pin{justify-content:center;align-items:flex-end;padding-bottom:6vh}
+  .txt-left .pin,.txt-right .pin{justify-content:center;align-items:flex-start;padding-top:8vh}   /* sea: copy sits at the TOP (was bottom), so the headline is there on arrival, not down over the water */
   .placesec .pin{padding-bottom:12vh}   /* Dead Sea: lift the copy up off the bottom */
   .txt-left .copy,.txt-right .copy{max-width:560px;margin:0;text-align:center;padding:0 26px}
   .lay-split .pin{align-items:flex-end;padding-bottom:6vh}
@@ -1374,8 +1374,8 @@ function frame(){
       const bR=smooth(clamp((R-0.28)/0.34,0,1));                   /* 2) body copy */
       b.copy.style.opacity=clamp(t>.9?(1-t)/.1:1,0,1);            /* only fade the group on the way out */
       b.copy.style.transform='none';
-      if(crysTitle){crysTitle.style.opacity=hR.toFixed(3);crysTitle.style.transform='translateY('+lerp(30,0,hR).toFixed(1)+'px)';}
-      if(crysBody){crysBody.style.opacity=bR.toFixed(3);crysBody.style.transform='translateY('+lerp(20,0,bR).toFixed(1)+'px)';}
+      if(crysTitle){crysTitle.style.opacity=hR.toFixed(3);crysTitle.style.transform='none';}   /* fixed in place at the top — no rise */
+      if(crysBody){crysBody.style.opacity=bR.toFixed(3);crysBody.style.transform='none';}
       return;
     }
     if(b.el.dataset.vis==='make'){
@@ -1390,7 +1390,7 @@ function frame(){
     const appear=(i===act)?clamp(tr/0.4,0,1):(i<act?1:0);    /* copy fades in on ENTRY (time), then holds — no scroll-scrubbing */
     const exitF=(t>0.82)?clamp((1-t)/0.18,0,1):1;            /* fades out only as you scroll toward the next section */
     b.copy.style.opacity=clamp(appear*exitF,0,1);
-    b.copy.style.transform='translateY('+(appear<1?lerp(14,0,appear):0).toFixed(1)+'px)';});   /* rise in once, then stay still (no drift) */
+    b.copy.style.transform='none';});   /* fixed in place — fades in, does not rise */
 
   /* depth meter — smooth count-down toward the active stop */
   const targetDepth=parseFloat(el.dataset.depth||0);
