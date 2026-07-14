@@ -79,7 +79,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .salt-l{left:2%;height:12vh}
 .salt-r{right:2%;transform:scaleX(-1);height:10vh}
 /* water drops floating gently around the tags in the water */
-#dropLayer{position:fixed;inset:0;z-index:7;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}
+#dropLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:7;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* svh-locked: stable frame, no URL-bar jump */
 .drop{position:absolute;aspect-ratio:1;opacity:.7;will-change:transform,scale;
   animation-name:drop-float,drop-wobble;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
 @keyframes drop-float{
@@ -93,7 +93,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   50%{scale:.93 1.07}
   75%{scale:1.05 .95}}
 /* benefit tags — refined frosted-glass chips, each with an icon medallion, floating in the water */
-#tagLayer{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;transition:opacity 1s ease}
+#tagLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:8;pointer-events:none;opacity:0;transition:opacity 1s ease}   /* svh-locked */
 .mtag{position:absolute;display:inline-flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border-radius:100px;
   background:linear-gradient(180deg,rgba(255,255,255,.74),rgba(255,255,255,.48));
   -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);
@@ -463,7 +463,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 }
 
 /* mineral crystals */
-#mineralLayer{position:fixed;inset:0;z-index:41;pointer-events:none}
+#mineralLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:41;pointer-events:none}   /* svh-locked: crystals glass balls stay put on URL-bar toggle */
 /* crystals: the stone sits in a photoreal rippled water pool — two cross-faded copies scale outward so the concentric rings continuously propagate outward like real ripples spreading from the stone */
 .crysPool{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;animation:poolProp 9s linear infinite}
 .crysPoolB{animation-delay:-4.5s}
@@ -484,7 +484,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .crystal.sel .ball-img{filter:drop-shadow(0 8px 10px rgba(78,42,128,.22)) drop-shadow(0 0 13px rgba(150,110,222,.9))}
 @keyframes tapPop{0%{transform:scale(.9)}55%{transform:scale(1.22)}100%{transform:scale(1.14)}}
 /* scene 8: ancient + modern hands reaching toward the mud stone */
-#handsLayer{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;transition:opacity .7s ease}
+#handsLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:6;pointer-events:none;opacity:0;transition:opacity .7s ease}   /* svh-locked */
 /* the whole hand-off is one centred, aspect-locked box so it reads identically on mobile and desktop (just gains lilac margins on wide screens) — every child is sized/placed in % of this box, so both axes scale together */
 #handsStage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(96vw,430px);aspect-ratio:43/80}
 #handsStage img{position:absolute;will-change:transform;z-index:3}
@@ -1172,10 +1172,15 @@ document.querySelectorAll('[data-messenger]').forEach(el=>{el.href=window.MESSEN
 /* ---- scene layout ---- */
 const scenes=[...document.querySelectorAll('.cine')];
 scenes.forEach(s=>s.style.height=s.dataset.len+'vh');
+/* SITE-WIDE RULE — stable viewport height. The mobile URL bar hiding/showing must never move anything, so read the small-viewport height (svh, which is STATIC) into VPH and use VPH everywhere instead of the live window.VPH (which jumps as the bar toggles). Refreshed only on a real width/orientation change. */
+let VPH=0;
+function measureVPH(){ const p=document.createElement('div'); p.style.cssText='position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none'; document.body.appendChild(p); VPH=Math.round(p.getBoundingClientRect().height)||document.documentElement.clientHeight||800; p.remove(); }
+measureVPH();
 let bounds=[];
 function measure(){
+  measureVPH();
   bounds=scenes.map(s=>{const r=s.getBoundingClientRect(),y=r.top+scrollY;
-    return{el:s,top:y,len:r.height-innerHeight,copy:s.querySelector('.copy'),bg:s.dataset.bg,depth:s.dataset.depth};});
+    return{el:s,top:y,len:r.height-VPH,copy:s.querySelector('.copy'),bg:s.dataset.bg,depth:s.dataset.depth};});
 }
 /* Only re-measure on a real (width) resize. Mobile address-bar hide/show changes ONLY the height —
    re-measuring then rewrites each section's scrub length and remaps scroll→progress mid-scroll,
@@ -1211,7 +1216,7 @@ document.querySelectorAll('.rv:not(.handsTxt):not(.bottleTxt)').forEach(el=>{   
     const r=tl.getBoundingClientRect(),usable=r.height-TOP-BOT;
     if(usable<=0)return;
     const sec=document.getElementById('historySec').getBoundingClientRect();
-    const mid=innerHeight*0.5;                          // stone starts mid-viewport as the timeline arrives...
+    const mid=VPH*0.5;                          // stone starts mid-viewport as the timeline arrives...
     const span=sec.bottom-r.top-mid;                    // ...and eases down to the bottom, hitting 100% at the section end
     let p=span>0?(mid-r.top)/span:0;
     p=clamp(p,0,1);
@@ -1416,7 +1421,7 @@ const PLACE_ROWS=[
 ];
 const SLROWS=[];
 (function(){
-  const RN=3, W=innerWidth, H=innerHeight;
+  const RN=3, W=innerWidth, H=VPH;
   const gap=Math.round(W*0.035), rowH=Math.round(H*0.15), rowYf=[0.07,0.25,0.43];
   const ratios=[1.25,0.8,1.25,0.8,1.0];   /* mix 5:4 landscape · 4:5 portrait · square */
   for(let ri=0;ri<RN;ri++){
@@ -1446,9 +1451,9 @@ const SLROWS=[];
 function frame(){
   if(!bounds.length){requestAnimationFrame(frame);return;}
   const y=scrollY,N=bounds.length;
-  cineEnd=bounds[N-1].top+bounds[N-1].el.offsetHeight-innerHeight;
+  cineEnd=bounds[N-1].top+bounds[N-1].el.offsetHeight-VPH;
   const p=bounds.map(b=>clamp((y-b.top)/Math.max(b.len,1),0,1));
-  let act=0;for(let i=0;i<N;i++){if(y>=bounds[i].top-innerHeight*1.0)act=i;}   /* next scene takes over ~a viewport earlier — right as the current copy finishes fading — so its content fills the space instead of leaving the stone alone in empty scroll */
+  let act=0;for(let i=0;i<N;i++){if(y>=bounds[i].top-VPH*1.0)act=i;}   /* next scene takes over ~a viewport earlier — right as the current copy finishes fading — so its content fills the space instead of leaving the stone alone in empty scroll */
   const el=bounds[act].el, vis=el.dataset.vis||'none', mud=el.classList.contains('mudsec'), sea=el.dataset.scene==='7';
   const nowT=performance.now(),dt=Math.min((nowT-lastT)/1000,.05);lastT=nowT;
   const k=1-Math.exp(-dt*4);
@@ -1459,8 +1464,8 @@ function frame(){
 
   stage.style.background=bounds[act].bg;
   stage.classList.toggle('flat',sea);
-  brand.classList.toggle('on-light',y>cineEnd+innerHeight*.3);
-  stage.classList.toggle('hidden',y>cineEnd+innerHeight*.3);
+  brand.classList.toggle('on-light',y>cineEnd+VPH*.3);
+  stage.classList.toggle('hidden',y>cineEnd+VPH*.3);
 
   /* copy fades — hero always on; the crystals stop sits higher so the orbit shows below */
   bounds.forEach((b,i)=>{const t=p[i]; if(!b.copy)return;
@@ -1499,9 +1504,9 @@ function frame(){
   dfill.style.setProperty('--pct',(dpf*100).toFixed(1)+'%');
   ddot.style.transform='translateX(calc('+dpf.toFixed(4)+' * (100vw - 84px)))';   /* dot rides the track to the current depth (track spans 22px..100vw-62px) */
   /* the descent ENDS at the bottle: once we arrive at −430 and the reveal begins, retire the depth HUD */
-  depthEl.classList.toggle('gone', (vis==='bottle' && p[act]>0.42) || y>cineEnd+innerHeight*0.3);
+  depthEl.classList.toggle('gone', (vis==='bottle' && p[act]>0.42) || y>cineEnd+VPH*0.3);
   const heroEnd=bounds[0].top+bounds[0].el.offsetHeight;           // hero's own bottom (where the timeline begins)
-  const heroVis=clamp((heroEnd-y)/(innerHeight*0.75),0,1);         // giant headline is fully gone before the timeline, never re-shows
+  const heroVis=clamp((heroEnd-y)/(VPH*0.75),0,1);         // giant headline is fully gone before the timeline, never re-shows
   heroBig.style.opacity=(clamp(1-(-curDepth)/55,0,1)*heroVis).toFixed(3);
 
   /* STONE — centered, gentle float, drifts a little deeper as you descend */
@@ -1523,7 +1528,7 @@ function frame(){
   heroWater.style.opacity=heroOn?'1':'0';
   heroDust.style.opacity=heroOn?'1':'0';
   if(heroOn&&heroWaterVid.paused)heroWaterVid.play().catch(()=>{}); else if(!heroOn&&!heroWaterVid.paused)heroWaterVid.pause();  /* only decode the hero water video while the hero is on screen */
-  if(seaRipple&&sea){ seaRipple.style.setProperty('--ox',(stoneOX*Math.max(innerWidth,innerHeight)/1000).toFixed(1)+'px'); }  /* keep the surface ripple centred under the stone (stone shifts right on desktop) */
+  if(seaRipple&&sea){ seaRipple.style.setProperty('--ox',(stoneOX*Math.max(innerWidth,VPH)/1000).toFixed(1)+'px'); }  /* keep the surface ripple centred under the stone (stone shifts right on desktop) */
   mtnLayer.style.opacity=sea?'1':'0';
   seaScrim.style.opacity=sea?'1':'0';
   saltLayer.style.opacity=sea?'1':'0';
@@ -1536,7 +1541,7 @@ function frame(){
     handMud.style.transform='translate(-50%,-50%) translateY('+mf.toFixed(1)+'px)';
     handBot.style.transform='translateY('+(-fl).toFixed(1)+'px) scaleX(-1)'; }
   /* intro: hold the stone tiny, let the headline read, then grow it in with a soft pop */
-  if(introStart<0){introStart=nowT;introAtTop=(y<innerHeight*0.6);}
+  if(introStart<0){introStart=nowT;introAtTop=(y<VPH*0.6);}
   let introS=1,introA=1;
   if(introAtTop){
     const DELAY=650,DUR=1000,e=(nowT-introStart-DELAY);
@@ -1569,9 +1574,9 @@ function frame(){
   const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
   if(crysRipple){ crysRipple.setAttribute('transform','translate(0,'+CRYS_OY+')'); crysRipple.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* ripple is FIXED at the scene's resting position (water already there); the stone floats DOWN into it. Do NOT follow stoneOY/bob — a moving full-width pool sweeps its edge across as a 'border'. */
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
-  const cw=innerWidth/2,ch=innerHeight/2;
-  const svgScale=Math.max(innerWidth,innerHeight)/1000, ccy=(innerHeight-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=Math.min(cw-46,178),Ry=innerHeight*0.108;
+  const cw=innerWidth/2,ch=VPH/2;
+  const svgScale=Math.max(innerWidth,VPH)/1000, ccy=(VPH-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
+  const Rx=Math.min(cw-46,178),Ry=VPH*0.108;
   if(crysOrbit){ crysOrbit.setAttribute('cy',(500+CRYS_OY).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit is FIXED at the scene's resting position (already there) — like the ripple, it must NOT follow stoneOY/bob or it 'comes down with the mud'; the stone settles at CRYS_OY so it aligns at rest */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1622,7 +1627,7 @@ function frame(){
   const gAct=(vis==='bottle'&&worldE>0.02); galTick++;
   if(gAct!==galActive || (gAct && galTick%14===0)){   /* only decode the clips actually on screen — keeps concurrent video decode low despite 30 tiles */
     galActive=gAct; const Wv=innerWidth, mg=Wv*0.18;
-    const on=galTiles.map(t=>{const r=t.el.getBoundingClientRect();return r.right>-mg && r.left<Wv+mg && r.bottom>0 && r.top<innerHeight;});
+    const on=galTiles.map(t=>{const r=t.el.getBoundingClientRect();return r.right>-mg && r.left<Wv+mg && r.bottom>0 && r.top<VPH;});
     galTiles.forEach((t,i)=>{ if(!t.v)return; const want=gAct&&on[i];
       if(want){ if(t.v.paused){const q=t.v.play();if(q&&q.catch)q.catch(()=>{});} } else if(!t.v.paused) t.v.pause(); });
   }
