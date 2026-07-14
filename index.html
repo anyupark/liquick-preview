@@ -442,9 +442,9 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 /* mineral crystals */
 #mineralLayer{position:fixed;inset:0;z-index:41;pointer-events:none}
 /* crystals: the stone sits in a photoreal rippled water pool — two cross-faded copies scale outward so the concentric rings continuously propagate outward like real ripples spreading from the stone */
-.crysPool{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;animation:poolProp 7.2s linear infinite}
-.crysPoolB{animation-delay:-3.6s}
-@keyframes poolProp{0%{transform:scale(.5);opacity:0}12%{opacity:.92}55%{opacity:.82}100%{transform:scale(1.42);opacity:0}}
+.crysPool{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;animation:poolProp 9s linear infinite}
+.crysPoolB{animation-delay:-4.5s}
+@keyframes poolProp{0%{transform:scale(.76);opacity:0}20%{opacity:.8}60%{opacity:.62}100%{transform:scale(1.3);opacity:0}}
 @media(prefers-reduced-motion:reduce){.crysPool{animation:none;transform:scale(1);opacity:.95}.crysPoolB{display:none}}
 .crystal{position:absolute;z-index:30;width:74px;height:74px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
