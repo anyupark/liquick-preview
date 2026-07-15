@@ -63,8 +63,8 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
           mask-image:radial-gradient(ellipse 54% 48% at 50% 47%,transparent 0 16%,#000 32%,#000 58%,transparent 95%)}
 .heroDustLayer.near{width:132vw;left:calc(50% - 66vw);top:calc(47% - 66vw);opacity:.95;animation:dustDriftA 26s ease-in-out infinite}
 .heroDustLayer.far{width:88vw;left:calc(50% - 44vw);top:calc(47% - 44vw);opacity:.5;filter:blur(.5px);animation:dustDriftB 34s ease-in-out infinite}
-@keyframes dustDriftA{0%,100%{transform:translate(0,0)}50%{transform:translate(1.1%,-1.7%)}}
-@keyframes dustDriftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-1.4%,1.2%)}}
+@keyframes dustDriftA{0%,100%{transform:translate(0,0)}25%{transform:translate(2.4%,-1.8%)}50%{transform:translate(-1.6%,-3.4%)}75%{transform:translate(2%,-1.5%)}}
+@keyframes dustDriftB{0%,100%{transform:translate(0,0)}25%{transform:translate(-2.6%,2%)}50%{transform:translate(1.8%,3.4%)}75%{transform:translate(-1.8%,1.4%)}}
 @media(prefers-reduced-motion:reduce){.heroDustLayer{animation:none}}
 /* white base at the bottom so text reads cleanly; fades up to fully translucent */
 #seaScrim{position:fixed;left:0;right:0;top:60vh;top:60svh;bottom:0;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;
@@ -728,6 +728,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
     <div class="mg-row" id="mgRowA"></div>
     <div class="mg-row mg-rev" id="mgRowB"></div>
   </div>
+  <!-- hero dirt particles — sit BEHIND the stone (before #stageSvg in DOM), drifting -->
+  <div id="heroDust" aria-hidden="true"><img class="heroDustLayer far" src="assets/sea/particles.webp" alt="" decoding="async"><img class="heroDustLayer near" src="assets/sea/particles.webp" alt="" decoding="async"></div>
   <svg id="stageSvg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <defs>
       <radialGradient id="fth" cx="0" cy="0" r="230" gradientUnits="userSpaceOnUse">
@@ -830,7 +832,6 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <!-- ======= DEAD SEA WATER (−350m section only) — the stone floats above it ======= -->
 <!-- HERO (scene 0): moving water surface below the floating stone + drifting dirt particles around it -->
 <div id="heroWater" aria-hidden="true"><video id="heroWaterVid" src="assets/sea/hero-water.mp4" muted loop playsinline preload="none"></video></div>
-<div id="heroDust" aria-hidden="true"><img class="heroDustLayer far" src="assets/sea/particles.webp" alt="" decoding="async"><img class="heroDustLayer near" src="assets/sea/particles.webp" alt="" decoding="async"></div>
 <div id="seaLayer" aria-hidden="true">
   <video id="seaMedia" src="assets/sea/cross-water.mp4" poster="assets/sea/cross-water.webp" muted loop playsinline preload="none"></video>
   <!-- concentric ripple rings on the water surface, directly beneath the floating stone -->
@@ -1013,7 +1014,6 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
       <div class="v21"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div>
       <div class="vmin-slot"><div class="vmin"><video class="vtext-media" src="assets/sea/shore.mp4" poster="assets/sea/shore.webp" muted loop playsinline preload="none"></video></div></div>
     </div>
-    <div class="crys-div" aria-hidden="true"><i class="dl"></i><svg viewBox="0 0 24 24"><path d="M12 2c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/></svg><i class="dl"></i></div>
     <p class="crys-body"><b class="cb-lead">No ocean on Earth is this concentrated.</b>Dead Sea mud holds a rare, complete spectrum of minerals your skin can actually use.<strong class="crys-strong">Here are 7.</strong></p>
   </div></div>
 </section>
