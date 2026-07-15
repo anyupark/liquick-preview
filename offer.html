@@ -19,7 +19,7 @@
   --lav:#EDE5F6;         /* lavender surface */
   --line:#C9B5E4;        /* dividers */
   --body:#6D6380;        /* body text */
-  --bg:#ECE4F6;          /* section background */
+  --bg:#E7DFEE;          /* section background (matches generated scene) */
   --disp:'MADE TOMMY',system-ui,sans-serif;
   --sans:'MADE TOMMY',system-ui,sans-serif;
   --sh-prod:0 28px 48px rgba(42,17,72,.22);
@@ -56,7 +56,8 @@ img{max-width:100%;display:block}
 .support{font-size:clamp(14px,4.2vw,17px);line-height:1.4;color:var(--body);max-width:22em;margin:0 auto;letter-spacing:-.01em}
 
 /* product stage */
-.stage{position:relative;height:clamp(322px,85vw,362px);margin:clamp(6px,2vw,10px) 0 clamp(14px,4vw,18px)}
+.stage{position:relative;width:calc(100% + 40px);margin:clamp(2px,1.5vw,6px) -20px clamp(4px,1.5vw,8px)}
+.scene{width:100%;display:block;-webkit-mask:linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent)}
 .pedestal{position:absolute;left:50%;bottom:1%;transform:translateX(-50%);width:80%;height:15%;
   background:radial-gradient(58% 100% at 50% 40%, rgba(255,255,255,.96), rgba(224,214,240,.6) 52%, transparent 74%);
   filter:blur(.5px);z-index:0}
@@ -64,7 +65,7 @@ img{max-width:100%;display:block}
 .bottle--front{left:14%;width:41%;bottom:3%;z-index:4}
 .bottle--rear{left:40%;width:35%;bottom:9%;z-index:3;opacity:.95;filter:drop-shadow(0 20px 22px rgba(42,17,72,.2))}
 .gift{position:absolute;right:2%;bottom:5%;width:25%;z-index:5;filter:drop-shadow(0 16px 20px rgba(42,17,72,.24))}
-.gift-badge{position:absolute;right:-2%;bottom:3%;z-index:6;width:clamp(74px,20.5vw,86px);aspect-ratio:1;border-radius:50%;
+.gift-badge{position:absolute;left:59%;bottom:24%;z-index:6;width:clamp(74px,20.5vw,86px);aspect-ratio:1;border-radius:50%;
   background:rgba(255,255,255,.94);box-shadow:var(--sh-card),var(--rim);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   font-weight:700;color:var(--purple);letter-spacing:.12em;line-height:1.15;font-size:clamp(8px,2.3vw,9.5px)}
@@ -133,8 +134,6 @@ img{max-width:100%;display:block}
 <body>
 <section class="offer" aria-label="LIQUICK two-bottle offer">
   <div class="offer__bg" aria-hidden="true"></div>
-  <img class="offer__salt offer__salt--r" src="assets/offer/salt-right.webp" alt="" aria-hidden="true">
-  <img class="offer__salt offer__salt--l" src="assets/offer/salt-left.webp" alt="" aria-hidden="true">
 
   <header class="offer__brand">PROMISE&reg;</header>
 
@@ -144,11 +143,8 @@ img{max-width:100%;display:block}
     <p class="support">60 mineral-rich treatments for the price of 30.</p>
   </div>
 
-  <div class="stage" role="img" aria-label="Two LIQUICK bottles with a surprise gift">
-    <div class="pedestal" aria-hidden="true"></div>
-    <img class="bottle bottle--rear" src="assets/offer/bottle.png" alt="" aria-hidden="true">
-    <img class="bottle bottle--front" src="assets/offer/bottle.png" alt="Two LIQUICK Multi-Effect liquid mud mask bottles">
-    <img class="gift" src="assets/offer/gift.png" alt="" aria-hidden="true">
+  <div class="stage">
+    <img class="scene" src="assets/offer/scene.webp" alt="Two LIQUICK Multi-Effect liquid mud mask bottles with a surprise gift">
     <div class="gift-badge"><span>Surprise</span><b>GIFT</b><span>· Value ·</span>&#3647;600</div>
   </div>
 
