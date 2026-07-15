@@ -85,8 +85,9 @@ img{max-width:100%;display:block}
   border-radius:100px;box-shadow:0 10px 22px -8px rgba(42,17,72,.5);white-space:nowrap}
 .regular{font-weight:600;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;color:var(--purple2);text-transform:uppercase}
 .regular s{opacity:.6;text-decoration-thickness:1.5px}
+.reg-price{font-family:var(--disp);font-weight:700;font-size:clamp(56px,17.9vw,74px);line-height:.9;letter-spacing:-.045em;color:#a294bd;text-decoration:line-through;text-decoration-thickness:clamp(3px,.9vw,5px);text-decoration-color:#b98aa8;margin:clamp(4px,1.4vw,7px) 0 clamp(4px,1.6vw,8px)}
 .today{font-weight:700;font-size:clamp(13px,3.8vw,15px);letter-spacing:.16em;color:var(--purple);margin-top:clamp(6px,1.8vw,8px)}
-.price{font-family:var(--disp);font-weight:700;font-size:clamp(56px,17.9vw,74px);line-height:.92;letter-spacing:-.045em;
+.price{font-family:var(--disp);font-weight:700;font-size:clamp(45px,14.4vw,60px);line-height:.92;letter-spacing:-.045em;
   color:var(--purple);margin:clamp(2px,1vw,4px) 0 clamp(8px,2.4vw,10px)}
 .price .cur{font-size:.66em;vertical-align:.06em;margin-right:.02em}
 .saving{font-weight:600;font-size:clamp(10px,3vw,12px);letter-spacing:.05em;color:var(--purple2)}
@@ -153,7 +154,8 @@ img{max-width:100%;display:block}
   <div class="offer__body">
   <section class="card price-card">
     <div class="ribbon">BUY 1 · GET 1 FREE</div>
-    <p class="regular">Regular value <s>&#3647;3,500</s></p>
+    <p class="regular">Regular value</p>
+    <div class="reg-price">&#3647;3,500</div>
     <p class="today">TODAY</p>
     <div class="price"><span class="cur">&#3647;</span>1,650</div>
     <p class="saving">TOTAL BUNDLE VALUE &#3647;4,100 · YOU SAVE &#3647;2,450</p>
@@ -182,7 +184,7 @@ img{max-width:100%;display:block}
     <div><strong>30-day money-back guarantee</strong><span>Try it at home. If it is not right for your skin, send it back.</span></div>
   </section>
 
-  <button class="cta" type="button">CLAIM THE 2-BOTTLE OFFER · &#3647;1,650</button>
+  <button class="cta" type="button"><svg class="msgr" viewBox="0 0 36 36" aria-hidden="true"><path fill="#fff" d="M18 2C9.16 2 2 8.65 2 16.85c0 4.67 2.32 8.84 5.95 11.57V34l5.44-2.99c1.45.4 2.99.62 4.61.62 8.84 0 16-6.65 16-14.85S26.84 2 18 2z"/><path fill="#0A6BFF" d="M8.4 22.05l4.7-7.45c.75-1.19 2.35-1.49 3.48-.65l3.74 2.8c.34.26.81.26 1.15 0l5.05-3.83c.67-.51 1.55.29 1.1 1.01l-4.7 7.45c-.75 1.19-2.35 1.49-3.48.65l-3.74-2.8a.96.96 0 0 0-1.15 0l-5.05 3.83c-.67.51-1.55-.29-1.1-1.01z"/></svg><span>CLAIM THE 2-BOTTLE OFFER · &#3647;1,650</span></button>
   <p class="reassurance"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>Secure</b>&nbsp;checkout · Limited bundle availability</p>
   </div>
 </section>
