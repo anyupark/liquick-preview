@@ -512,7 +512,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 /* crystals: the stone sits in a photoreal rippled water pool — two cross-faded copies scale outward so the concentric rings continuously propagate outward like real ripples spreading from the stone */
 .crysPool{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;animation:poolProp 9s linear infinite}
 .crysPoolB{animation-delay:-4.5s}
-@keyframes poolProp{0%{transform:scale(.76);opacity:0}20%{opacity:.9}60%{opacity:.72}100%{transform:scale(1.3);opacity:0}}
+@keyframes poolProp{0%{transform:scale(.8);opacity:0}20%{opacity:.9}60%{opacity:.72}100%{transform:scale(1.65);opacity:0}}
 @media(prefers-reduced-motion:reduce){.crysPool{animation:none;transform:scale(1);opacity:.95}.crysPoolB{display:none}}
 .crystal{position:absolute;z-index:30;width:58px;height:58px;
   cursor:pointer;pointer-events:auto;opacity:0;transition:transform .34s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
@@ -819,8 +819,8 @@ details p{padding:0 20px 16px;font-size:clamp(12px,3.72vw,22px);line-height:1.7;
     <!-- the stone rests in a photoreal rippled water pool (crystals scene) — behind the stone so the ripples radiate from it; two cross-faded copies scale outward so the rings continuously propagate like real water -->
     <g id="crysRipple" opacity="0">
       <g transform="translate(500,500) scale(1,0.6) translate(-500,-500)">
-        <image class="crysPool" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" preserveAspectRatio="xMidYMid meet"/>
-        <image class="crysPool crysPoolB" href="assets/minerals/water-pool.webp" x="150" y="150" width="700" height="700" preserveAspectRatio="xMidYMid meet"/>
+        <image class="crysPool" href="assets/minerals/water-pool.webp" x="10" y="10" width="980" height="980" preserveAspectRatio="xMidYMid meet"/>
+        <image class="crysPool crysPoolB" href="assets/minerals/water-pool.webp" x="10" y="10" width="980" height="980" preserveAspectRatio="xMidYMid meet"/>
       </g>
     </g>
     <!-- the mineral orbit path (behind the stone) -->
@@ -1601,7 +1601,7 @@ function frame(){
   let oy=lerp(0,34,g), ox=0; if(act===0)oy=30; else if(vis==='crystals')oy=CRYS_OY; else if(vis==='place')oy=-160; else if(mud){oy=0;ox=0;} else if(sea){ if(innerWidth>719){ox=205;oy=-170;}else{ox=0;oy=-80;} }   /* sea: floats in the air above the water — desktop shifted right of the copy, mobile below the copy */
   const bob=Math.sin(y*.0016)*7, sway=Math.sin(nowT*.0004)*4;
   stoneO=ez(stoneO,(mud||vis==='bottle'||vis==='make'||vis==='makebot')?0:1,k); /* SVG stone hides for the mud scene and both making stops (the particle cluster stands in for the mud) */
-  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.40:sea?(innerWidth>719?0.72:0.51):(act===0?0.82:1),k); /* recede so the fan / crystal ring / hands can frame it; hero = medium floating stone between the headline and the scroll block */
+  stoneScale=ez(stoneScale,mud?0.6:vis==='place'?0.86:vis==='crystals'?0.36:sea?(innerWidth>719?0.72:0.51):(act===0?0.82:1),k); /* recede so the fan / crystal ring / hands can frame it; hero = medium floating stone between the headline and the scroll block */
   if(introStart<0){stoneOX=ox;stoneOY=oy;}                 /* on load: start the stone at the current scene (no drift-in) */
   stoneOX=ez(stoneOX,ox,k); stoneOY=ez(stoneOY,oy,k);      /* glide the stone between scenes instead of snapping — smooths the "jump" */
   /* scene 8: ancient (Cleopatra) + modern hands reach toward the mud stone, with a slow breathing float */
@@ -1671,7 +1671,7 @@ function frame(){
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
   const cw=innerWidth/2,ch=VPH/2,cScale=Math.min(600,Math.max(320,innerWidth))/390;
   const svgScale=Math.max(innerWidth,VPH)/1000, ccy=(VPH-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=149*cScale,Ry=VPH*0.108;
+  const Rx=134.1*cScale,Ry=VPH*0.0972;
   if(crysOrbit){ crysOrbit.setAttribute('cy',(500+CRYS_OY).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit is FIXED at the scene's resting position (already there) — like the ripple, it must NOT follow stoneOY/bob or it 'comes down with the mud'; the stone settles at CRYS_OY so it aligns at rest */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1688,12 +1688,12 @@ function frame(){
     const bcx=lerp(cw,orbX,mv)+swx*bt, scy=lerp(ccy,orbY,mv)+bob*bt, s=0.34+0.66*mv;
     /* position via the composited `translate`/`scale` props (NOT left/top) — left/top forces a layout recalc on all 21 elements every frame and lags the whole section */
     c.style.translate=(bcx-29).toFixed(1)+'px '+(scy-28).toFixed(1)+'px';   /* offset = half the 58px ball box; -28 lands the SPHERE centre on the orbit */
-    c.style.scale=(s*cScale).toFixed(3);                            /* start small (but not a speck) and grow; cScale keeps the ball proportional to viewport */
+    c.style.scale=(s*cScale*0.9).toFixed(3);                            /* start small (but not a speck) and grow; cScale keeps the ball proportional to viewport */
     c.style.opacity=(op*crysExit).toFixed(3);
     c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
     const L=labels[i];                                     /* labels ride in their own top layer so neighbours never cover them */
-    L.style.translate='calc(-50% + '+bcx.toFixed(1)+'px) '+(scy+34*s*cScale).toFixed(1)+'px';
-    L.style.scale=(s*cScale).toFixed(3);
+    L.style.translate='calc(-50% + '+bcx.toFixed(1)+'px) '+(scy+34*s*cScale*0.9).toFixed(1)+'px';
+    L.style.scale=(s*cScale*0.9).toFixed(3);
     L.style.opacity=(op*crysExit).toFixed(3);
     const da=a+Math.PI/crystals.length, D=dots[i];         /* node sits on the orbit ring, midway to the next ball */
     D.style.translate=(cw+Math.cos(da)*Rx).toFixed(1)+'px '+(ccy+Math.sin(da)*Ry).toFixed(1)+'px';
