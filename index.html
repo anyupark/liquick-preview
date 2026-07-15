@@ -266,10 +266,11 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .txt-left .copy,.txt-right .copy{max-width:min(44%,500px);text-align:left;padding:0}
 .txt-left .copy{margin-left:max(7vw,80px)}
 .txt-right .copy{margin-right:7vw}
-.cine[data-scene="7"] .pin{align-items:flex-start;padding-top:11vh;padding-bottom:0} /* −350m: headline sits at the top; tags go under the water */
-@media(max-width:719px){.cine[data-scene="7"] .pin{padding-top:11vh}
-  .cine[data-scene="7"] .copy h2{font-size:clamp(22px,7vw,30px);margin-bottom:12px}
-  .cine[data-scene="7"] .copy p{font-size:12px;line-height:1.58}}
+.cine[data-scene="7"] .pin{align-items:flex-start;padding-top:15vh;padding-bottom:0} /* −350m: headline sits lower from the top; tags go under the water */
+.cine[data-scene="7"] .copy p{font-weight:300;font-size:16px;line-height:1.68;margin-bottom:15px} /* bigger, light-weight, roomier body */
+@media(max-width:719px){.cine[data-scene="7"] .pin{padding-top:15vh}
+  .cine[data-scene="7"] .copy h2{font-size:clamp(22px,7vw,30px);margin-bottom:14px}
+  .cine[data-scene="7"] .copy p{font-size:15px;line-height:1.64;font-weight:300;margin-bottom:14px}}
 .lay-split .copy{max-width:none;width:100%;display:flex;justify-content:space-between;padding:0 6vw;text-align:left}
 .lay-split .col{flex:1;max-width:300px}
 .lay-split .col:last-child{align-self:flex-end;padding-bottom:4vh}
@@ -319,7 +320,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   .lay-hero .pin{padding-top:9vh}
   .txt-left .pin,.txt-right .pin{justify-content:center;align-items:flex-end;padding-bottom:6vh}
   .placesec .pin{padding-bottom:12vh}   /* Dead Sea "place": copy stays lower (its original spot), NOT at the top over the collage */
-  .cine[data-scene="7"] .pin{align-items:flex-start;padding-top:8vh;padding-bottom:0}   /* sea ONLY: copy at the top */
+  .cine[data-scene="7"] .pin{align-items:flex-start;padding-top:12vh;padding-bottom:0}   /* sea ONLY: copy lower from the top */
   .txt-left .copy,.txt-right .copy{max-width:560px;margin:0;text-align:center;padding:0 26px}
   .lay-split .pin{align-items:flex-end;padding-bottom:6vh}
   .lay-split .copy{flex-direction:column;gap:10px;align-items:center;text-align:center}
@@ -1021,7 +1022,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 <section class="cine txt-left" data-scene="7" data-len="150" data-bg="#F3EEF7" data-depth="-350" data-vis="none">
   <div class="pin"><div class="copy rv">
     <h2 class="rv-el" style="--rd:.05s">Authentic Dead Sea Water</h2>
-    <p class="rv-el" style="--rd:.3s">As one of Earth’s most extraordinary natural ecosystems, its water is just as much a part of what makes this place unlike anywhere else on Earth. Its remarkable salinity and mineral-rich composition have drawn people here for thousands of years.</p>
+    <p class="rv-el" style="--rd:.3s">As one of Earth’s most extraordinary natural ecosystems, its water is just as much a part of what makes this place unlike anywhere else on Earth.</p>
+    <p class="rv-el" style="--rd:.42s">Its remarkable salinity and mineral-rich composition have drawn people here for thousands of years.</p>
   </div></div>
 </section>
 
