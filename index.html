@@ -71,13 +71,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   background:linear-gradient(to top,#ffffff 0,rgba(255,255,255,.92) 20%,rgba(255,255,255,0) 100%)}
 /* Dead Sea salt formations — a faint, hazy hint under the water (kept subtle, like the distant mountains) */
 #saltLayer{position:fixed;left:0;right:0;bottom:0;height:28%;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}
-#saltLayer .salt{position:absolute;bottom:-1.5%;width:auto;display:block;opacity:.6;
-  filter:blur(.35px) saturate(.5) brightness(1.2) contrast(1.02);
-  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 42%,transparent 100%);
-          mask-image:linear-gradient(to bottom,#000 0,#000 42%,transparent 100%)}
-.salt-c{left:50%;transform:translateX(-50%);height:15vh}
-.salt-l{left:2%;height:12vh}
-.salt-r{right:2%;transform:scaleX(-1);height:10vh}
+#saltLayer .salt-u{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;display:block;opacity:.92;
+  filter:brightness(1.02) saturate(.95) contrast(1.0);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 32%,#000 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 32%,#000 100%)}
 /* water drops floating gently around the tags in the water */
 #dropLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:7;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* svh-locked: stable frame, no URL-bar jump */
 .drop{position:absolute;aspect-ratio:1;opacity:.7;will-change:transform,scale;
@@ -826,9 +823,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
 </div>
 <div id="seaScrim" aria-hidden="true"></div>
 <div id="saltLayer" aria-hidden="true">
-  <img class="salt salt-c" src="assets/sea/salt-b.webp" alt="">
-  <img class="salt salt-l" src="assets/sea/salt-a.webp" alt="">
-  <img class="salt salt-r" src="assets/sea/salt-a.webp" alt="">
+  <img class="salt-u" src="assets/sea/salt-u.webp" alt="">
 </div>
 <!-- water drops floating gently around the tags in the water -->
 <div id="dropLayer" aria-hidden="true">
