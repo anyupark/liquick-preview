@@ -734,6 +734,118 @@ details p{padding:0 20px 16px;font-size:clamp(12px,3.72vw,22px);line-height:1.7;
   .hist-title{font-size:clamp(25px,7.92vw,33px)}
   #close h2{font-size:clamp(20px,5.4vw,32px)}
 }
+
+/* ===== LIQUICK offer section (swapped in from offer.html; scoped under .offer) ===== */
+.offer,.offer *{box-sizing:border-box}
+.offer *{margin:0;padding:0}
+.offer img{max-width:100%;display:block}
+.offer{--purple:#35166F;      /* primary */
+  --purple2:#5B3290;     /* secondary */
+  --ink:#2c1257;         /* headline */
+  --surface:#FBF8FC;     /* warm card */
+  --lav:#EDE5F6;         /* lavender surface */
+  --line:#C9B5E4;        /* dividers */
+  --body:#6D6380;        /* body text */
+  --bg:#E7DFEE;          /* section background (matches generated scene) */
+  --disp:'MADE TOMMY',system-ui,sans-serif;
+  --sans:'MADE TOMMY',system-ui,sans-serif;
+  --sh-prod:0 28px 48px rgba(42,17,72,.22);
+  --sh-card:0 14px 36px rgba(64,34,100,.10);
+  --rim:inset 0 1px 0 rgba(255,255,255,.88);}
+.offer{position:relative;width:100%;max-width:430px;background:var(--bg);overflow:clip;
+  padding:0 20px calc(24px + env(safe-area-inset-bottom));isolation:isolate}
+.offer .hero{position:relative;width:calc(100% + 40px);margin:0 -20px}
+.offer .hero__img{width:100%;display:block}
+.offer .hero__text{position:absolute;top:0;left:0;right:0;z-index:2;padding:calc(22px + env(safe-area-inset-top)) 22px 0;text-align:center}
+.offer__body{position:relative;z-index:2;width:calc(100% + 40px);margin:clamp(-280px,-62vw,-190px) -20px 0;padding:clamp(50px,14vw,70px) 20px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#FBF8FE 13%,#F1EBF9 100%)}
+.offer /* ambient water caustics */
+.offer__bg{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(120% 80% at 50% -8%, rgba(255,255,255,.6), transparent 60%),
+  url(assets/offer/water.webp) top center/140% auto no-repeat;
+  opacity:.16;pointer-events:none;mix-blend-mode:normal}
+.offer>*{position:relative;z-index:1}
+.offer /* salt foreground */
+.offer__salt{position:absolute;z-index:0;pointer-events:none;opacity:1}
+.offer__salt--r{right:-18px;top:34%;width:38%;-webkit-mask:radial-gradient(80% 70% at 60% 50%,#000 55%,transparent);mask:radial-gradient(80% 70% at 60% 50%,#000 55%,transparent)}
+.offer__salt--l{left:-20px;top:46%;width:36%;-webkit-mask:radial-gradient(80% 70% at 40% 50%,#000 55%,transparent);mask:radial-gradient(80% 70% at 40% 50%,#000 55%,transparent)}
+.offer /* brand + intro */
+.offer__brand{font-family:var(--disp);font-weight:700;font-size:clamp(14px,4vw,17px);letter-spacing:.42em;
+  color:var(--purple);text-align:center;padding-left:.42em}
+.offer__intro{text-align:center;margin-top:clamp(2px,1vw,6px)}
+.offer .eyebrow{font-weight:700;font-size:clamp(9.5px,2.85vw,12px);letter-spacing:.22em;color:var(--purple2);text-transform:uppercase}
+.offer .headline{font-family:var(--disp);font-weight:800;font-size:clamp(27px,8.4vw,39px);line-height:1.04;letter-spacing:-.04em;
+  color:var(--ink);margin:clamp(10px,3vw,14px) 0 clamp(9px,2.6vw,12px);text-wrap:balance}
+.offer .support{font-size:clamp(14px,4.2vw,17px);line-height:1.4;color:var(--body);max-width:22em;margin:0 auto;letter-spacing:-.01em}
+.offer /* product stage */
+.stage{position:relative;width:calc(100% + 40px);margin:clamp(2px,1.5vw,6px) -20px clamp(4px,1.5vw,8px)}
+.offer .scene{width:100%;display:block;-webkit-mask:linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent)}
+.offer .pedestal{position:absolute;left:50%;bottom:1%;transform:translateX(-50%);width:80%;height:15%;
+  background:radial-gradient(58% 100% at 50% 40%, rgba(255,255,255,.96), rgba(224,214,240,.6) 52%, transparent 74%);
+  filter:blur(.5px);z-index:0}
+.offer .bottle{position:absolute;filter:drop-shadow(0 26px 26px rgba(42,17,72,.28))}
+.offer .bottle--front{left:14%;width:41%;bottom:3%;z-index:4}
+.offer .bottle--rear{left:40%;width:35%;bottom:9%;z-index:3;opacity:.95;filter:drop-shadow(0 20px 22px rgba(42,17,72,.2))}
+.offer .gift{position:absolute;right:2%;bottom:5%;width:25%;z-index:5;filter:drop-shadow(0 16px 20px rgba(42,17,72,.24))}
+.offer .gift-badge{position:absolute;left:68%;bottom:38%;z-index:6;opacity:.8;width:clamp(94px,26vw,112px);aspect-ratio:1;border-radius:50%;
+  background:rgba(255,255,255,.98);box-shadow:0 10px 26px -8px rgba(42,17,72,.34),var(--rim);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  font-weight:700;color:var(--purple);letter-spacing:.1em;line-height:1.2;font-size:clamp(10px,3vw,12.5px)}
+.offer .gift-badge b{font-size:1.9em;letter-spacing:.02em;margin:.06em 0}
+.offer .gift-badge span{font-size:.82em;letter-spacing:.18em;opacity:.8}
+.offer /* cards shared */
+.card{background:var(--surface);border:1px solid rgba(255,255,255,.9);border-radius:20px;box-shadow:var(--sh-card),var(--rim)}
+.offer /* price card */
+.price-card{position:relative;margin-top:clamp(6px,2vw,10px);padding:clamp(30px,8vw,38px) 20px clamp(16px,4.5vw,20px);text-align:center}
+.offer .ribbon{position:absolute;top:0;left:50%;transform:translate(-50%,-46%);background:var(--purple);color:#fff;
+  font-weight:700;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;padding:clamp(8px,2.3vw,11px) clamp(16px,4.6vw,24px);
+  border-radius:100px;box-shadow:0 10px 22px -8px rgba(42,17,72,.5);white-space:nowrap}
+.offer .regular{font-weight:600;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;color:var(--purple2);text-transform:uppercase;display:flex;align-items:baseline;justify-content:center;gap:.5em}
+.offer .regular s{font-size:1.5em;opacity:.5;text-decoration-thickness:2px;text-decoration-color:#c58aa6;letter-spacing:-.01em;margin-left:.15em}
+.offer .today{font-weight:700;font-size:clamp(13px,3.8vw,15px);letter-spacing:.16em;color:var(--purple);margin-top:clamp(6px,1.8vw,8px)}
+.offer .price{font-family:var(--disp);font-weight:700;font-size:clamp(42px,13.1vw,54px);line-height:.92;letter-spacing:-.045em;
+  color:var(--purple);margin:clamp(2px,1vw,4px) 0 clamp(8px,2.4vw,10px)}
+.offer .price .cur{font-size:.66em;vertical-align:.06em;margin-right:.02em}
+.offer .saving{font-weight:600;font-size:clamp(10px,3vw,12px);letter-spacing:.05em;color:var(--purple2)}
+.offer /* per-use card */
+.use-card{margin-top:clamp(12px,3.4vw,16px);background:var(--lav);border:1px solid rgba(255,255,255,.7);border-radius:20px;
+  box-shadow:var(--rim);padding:clamp(16px,4.6vw,22px) clamp(16px,4.6vw,22px) clamp(12px,3.4vw,16px)}
+.offer .use-row{display:flex;align-items:center;gap:clamp(12px,3.6vw,18px)}
+.offer .use-price{font-family:var(--disp);font-weight:650;font-size:clamp(38px,12.3vw,50px);line-height:.9;letter-spacing:-.04em;color:var(--purple);flex:0 0 auto}
+.offer .use-price .cur{font-size:.62em;vertical-align:.08em}
+.offer .use-div{width:1px;align-self:stretch;background:var(--line);margin:2px 0}
+.offer .use-copy{font-weight:700;font-size:clamp(13px,3.9vw,16px);line-height:1.18;letter-spacing:.05em;color:var(--purple);text-transform:uppercase}
+.offer .use-sub{text-align:center;font-size:clamp(12px,3.6vw,14.5px);color:var(--body);margin-top:clamp(8px,2.4vw,11px);letter-spacing:-.01em}
+.offer /* benefits */
+.benefits{margin-top:clamp(14px,4vw,18px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(7px,2.1vw,9px)}
+.offer .benefit{display:flex;align-items:center;gap:clamp(8px,2.4vw,11px);background:rgba(255,255,255,.72);
+  border:1px solid rgba(255,255,255,.9);border-radius:14px;box-shadow:var(--rim);
+  padding:clamp(10px,2.9vw,13px) clamp(10px,3vw,13px)}
+.offer .benefit svg{width:clamp(19px,5.4vw,23px);height:clamp(19px,5.4vw,23px);flex:0 0 auto;stroke:var(--purple);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.offer .benefit span{font-weight:550;font-size:clamp(11.5px,3.5vw,13.5px);line-height:1.16;letter-spacing:-.01em;color:#3d3355}
+@media(max-width:359px){.offer .benefits{grid-template-columns:1fr}}
+.offer /* guarantee */
+.guarantee{margin-top:clamp(12px,3.4vw,16px);display:flex;align-items:center;gap:clamp(12px,3.6vw,16px);
+  background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);border-radius:16px;box-shadow:var(--rim);
+  padding:clamp(12px,3.4vw,15px) clamp(14px,4vw,18px)}
+.offer .guarantee svg{width:clamp(34px,9.5vw,44px);height:clamp(34px,9.5vw,44px);flex:0 0 auto;stroke:var(--purple);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.offer .guarantee strong{display:block;font-weight:700;font-size:clamp(12px,3.6vw,14px);letter-spacing:.05em;color:var(--purple);text-transform:uppercase}
+.offer .guarantee span{display:block;font-size:clamp(11.5px,3.4vw,13px);line-height:1.35;color:var(--body);margin-top:2px}
+.offer /* CTA + reassurance */
+.cta{width:100%;margin-top:clamp(14px,4vw,18px);min-height:56px;border:none;cursor:pointer;
+  background:linear-gradient(180deg,#12A7FF,#0A6BFF);color:#fff;font-family:var(--disp);font-weight:750;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.4vw,11px);
+  font-size:clamp(13px,3.9vw,15px);letter-spacing:.07em;border-radius:16px;
+  box-shadow:0 16px 30px -12px rgba(0,92,255,.5),var(--rim);transition:transform .15s ease,box-shadow .15s ease}
+.offer .cta .msgr{width:clamp(21px,5.8vw,26px);height:auto;flex:0 0 auto}
+.offer .cta:hover{transform:translateY(-1px);box-shadow:0 20px 36px -12px rgba(0,92,255,.6)}
+.offer .cta:active{transform:translateY(0)}
+.offer .cta:focus-visible{outline:3px solid #a98cff;outline-offset:3px}
+.offer .reassurance{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:clamp(10px,2.8vw,13px);
+  font-size:clamp(11px,3.3vw,12.5px);color:var(--body);letter-spacing:.01em}
+.offer .reassurance svg{width:14px;height:14px;stroke:var(--body);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.offer .reassurance b{font-weight:700;color:var(--purple2)}
+@media(prefers-reduced-motion:reduce){.offer *{animation:none!important;transition:none!important}}
+.offer .cta{text-decoration:none}
+
 </style>
 </head>
 <body>
@@ -1189,49 +1301,55 @@ details p{padding:0 20px 16px;font-size:clamp(12px,3.72vw,22px);line-height:1.7;
 </div>
 
 <!-- ======= OFFER ======= -->
-<div id="offer">
-  <section class="sect" style="text-align:center">
-    <div class="eyebrow">Buried for you</div>
-    <h2>You descended 430 meters.<br>We buried something here for you.</h2>
-    <style>
-      /* --- second-bottle-free: product hero + gold-foil corner ribbon (scoped) --- */
-      #rub{box-shadow:0 26px 62px -28px rgba(26,9,46,.62)}
-      #tablet{box-shadow:inset 0 0 0 1px rgba(201,139,78,.16),inset 0 46px 92px -48px rgba(0,0,0,.66)}
-      .ob-wrap{position:relative;margin:-30px -18px 14px;line-height:0}
-      .ob-hero{display:block;width:100%;height:auto;
-        -webkit-mask:radial-gradient(126% 82% at 50% 43%,#000 46%,rgba(0,0,0,.5) 72%,transparent 100%);
-                mask:radial-gradient(126% 82% at 50% 43%,#000 46%,rgba(0,0,0,.5) 72%,transparent 100%)}
-      #rub .ribbon{position:absolute;top:30px;right:-58px;width:220px;transform:rotate(45deg);z-index:6;
-        text-align:center;padding:8px 0;font:700 9px/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#3a2109;
-        background:linear-gradient(180deg,#f8dea6 0%,#eec384 24%,#dca75f 50%,#c08b45 76%,#a67231 100%);
-        text-shadow:0 1px 0 rgba(255,255,255,.4);
-        box-shadow:0 7px 16px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(105,68,26,.6)}
-    </style>
-    <div id="rub">
-      <div class="ribbon">Second bottle free</div>
-      <div id="tablet">
-        <div class="ob-wrap">
-          <img class="ob-hero" src="images/offer-bundle.webp" alt="Two bottles of LIQUICK Dead Sea Mineral Mask — second bottle free" loading="lazy">
-        </div>
-        <div class="lbl">For those who made the descent</div>
-        <div class="amt" style="font-size:clamp(24px,7.44vw,45px);line-height:1.35;max-width:320px;margin:0 auto">The second bottle<br>is on us.</div>
-        <div style="font-size:clamp(11px,3.46vw,21px);color:#c9c2dc;margin-top:12px;line-height:1.6">One to begin.<br>One to continue — or to give.</div>
-        <div class="code" id="codeBtn" title="Tap to copy">Mention <b style="color:var(--ochre);border-bottom:1px dotted var(--ochre)">DESCEND</b> at checkout</div>
-        <span class="copied" id="copiedMsg">Copied to clipboard</span>
+<section class="offer" aria-label="LIQUICK two-bottle offer">
+  <div class="hero">
+    <img class="hero__img" src="assets/offer/hero.webp" alt="Two LIQUICK Multi-Effect liquid mud mask bottles with a surprise gift">
+    <div class="hero__text">
+      <div class="offer__intro">
+        <p class="eyebrow">The complete mineral reset</p>
+        <h2 class="headline">One bottle to start.<br>A second one is on us.</h2>
+        <p class="support">60 mineral-rich treatments for the price of 30.</p>
       </div>
     </div>
-    <div class="vstack">
-      <div class="vrow"><span>LIQUICK Dead Sea Mineral Mask</span><span>฿1,650</span></div>
-      <div class="vrow"><span>A second bottle</span><span><span class="strike">฿1,650</span><b style="color:var(--ochre);font-weight:600">free</b></span></div>
-      <div class="vrow"><span>Silicone applicator</span><span><span class="strike">฿200</span>included</span></div>
-      <div class="vrow total"><span>You pay</span><span><span class="strike">฿3,500</span>฿1,650</span></div>
-    </div>
-    <p style="max-width:440px;margin:22px auto 0">Two bottles is about 60 masks — two months of daily ritual. That works out to about <strong style="color:#321457">฿28 per mask</strong>, less than your morning coffee, for the step that makes your ฿2,000 serum actually work.</p>
-    <p style="max-width:440px;margin:14px auto 0"><strong style="color:#321457">Try it 5 times.</strong> If your skincare doesn't absorb better, send it back. Full refund.</p>
-    <a class="bigbtn" data-messenger href="#">Begin the ritual · ฿1,650</a>
-    <p class="finemud">Ships nationwide · Cash on delivery · Every batch travels 7,000 km — when it's gone, the next one makes the same journey.</p>
+    <div class="gift-badge"><span>Surprise</span><b>GIFT</b><span>· Value ·</span>&#3647;600</div>
+  </div>
+
+  <div class="offer__body">
+  <section class="card price-card">
+    <div class="ribbon">BUY 1 · GET 1 FREE</div>
+    <p class="regular">Regular value <s>&#3647;3,500</s></p>
+    <p class="today">TODAY</p>
+    <div class="price"><span class="cur">&#3647;</span>1,650</div>
+    <p class="saving">TOTAL BUNDLE VALUE &#3647;4,100 · YOU SAVE &#3647;2,450</p>
   </section>
-</div>
+
+  <section class="use-card">
+    <div class="use-row">
+      <div class="use-price"><span class="cur">&#3647;</span>27.50</div>
+      <div class="use-div" aria-hidden="true"></div>
+      <div class="use-copy">Per 5–10 minute<br>treatment</div>
+    </div>
+    <p class="use-sub">Two bottles. Approximately 60 uses.</p>
+  </section>
+
+  <section class="benefits" aria-label="Benefits">
+    <div class="benefit"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 3l-2 2M12 3l2 2"/><path d="M4 20c2-4 5-6 8-6s6 2 8 6"/><circle cx="7" cy="12" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r=".6" fill="currentColor" stroke="none"/><circle cx="17" cy="12" r=".6" fill="currentColor" stroke="none"/></svg><span>Lift daily buildup</span></div>
+    <div class="benefit"><svg viewBox="0 0 24 24"><path d="M12 3c3.6 4.2 6 7.2 6 10a6 6 0 0 1-12 0c0-2.8 2.4-5.8 6-10Z"/></svg><span>Clear the look of pores</span></div>
+    <div class="benefit"><svg viewBox="0 0 24 24"><path d="M12 4v15M7 19h10"/><path d="M4 9h16"/><path d="M4 9l-2 4a3 3 0 0 0 6 0Z"/><path d="M20 9l-2 4a3 3 0 0 0 6 0Z"/></svg><span>Balance excess oil</span></div>
+    <div class="benefit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="9" cy="10" r="1.3"/><circle cx="14.5" cy="9.5" r="1"/><circle cx="13" cy="14.5" r="1.5"/><circle cx="8.5" cy="14.5" r=".9"/></svg><span>Support microbiome balance</span></div>
+    <div class="benefit"><svg viewBox="0 0 24 24"><path d="M9 21l-3-9 4-9 4 5 3 4-2 9Z"/><path d="M10 3l0 18M6 12l12 0"/></svg><span>Replenish with minerals</span></div>
+    <div class="benefit"><svg viewBox="0 0 24 24"><path d="M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><circle cx="6" cy="19" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="19.5" r=".6" fill="currentColor" stroke="none"/><circle cx="18" cy="19" r=".6" fill="currentColor" stroke="none"/></svg><span>Smooth rough texture</span></div>
+  </section>
+
+  <section class="guarantee">
+    <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6Z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
+    <div><strong>30-day money-back guarantee</strong><span>Try it at home. If it is not right for your skin, send it back.</span></div>
+  </section>
+
+  <a class="cta" data-messenger href="#"><svg class="msgr" viewBox="0 0 36 36" aria-hidden="true"><path fill="#fff" d="M18 2C9.16 2 2 8.65 2 16.85c0 4.67 2.32 8.84 5.95 11.57V34l5.44-2.99c1.45.4 2.99.62 4.61.62 8.84 0 16-6.65 16-14.85S26.84 2 18 2z"/><path fill="#0A6BFF" d="M8.4 22.05l4.7-7.45c.75-1.19 2.35-1.49 3.48-.65l3.74 2.8c.34.26.81.26 1.15 0l5.05-3.83c.67-.51 1.55.29 1.1 1.01l-4.7 7.45c-.75 1.19-2.35 1.49-3.48.65l-3.74-2.8a.96.96 0 0 0-1.15 0l-5.05 3.83c-.67.51-1.55-.29-1.1-1.01z"/></svg><span>CLAIM THE 2-BOTTLE OFFER · &#3647;1,650</span></a>
+  <p class="reassurance"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>Secure</b>&nbsp;checkout · Limited bundle availability</p>
+  </div>
+</section>
 
 <!-- ======= FAQ ======= -->
 <div id="body2" style="background:var(--paper);color:var(--ink);position:relative;z-index:20">
@@ -1458,8 +1576,8 @@ document.getElementById('mbarNext').onclick=()=>{curMin=(curMin+1)%MIN.length;co
 {const ha=document.getElementById('heroArrow'); if(ha)ha.onclick=()=>{const t=document.getElementById('historySec')||document.querySelector('.cine[data-scene="2"]'); if(t)t.scrollIntoView({behavior:'smooth'});};}
 
 /* ---- offer code copy ---- */
-codeBtn.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND');copiedMsg.style.opacity=1;
-  setTimeout(()=>copiedMsg.style.opacity=0,1800);};
+{const cb=document.getElementById('codeBtn'),cm=document.getElementById('copiedMsg');if(cb&&cm)cb.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText('DESCEND');cm.style.opacity=1;
+  setTimeout(()=>cm.style.opacity=0,1800);};}
 
 /* ---- UGC gallery: build 4:5 tiles into two marquee rows (duplicated for a seamless loop) ---- */
 (function(){
