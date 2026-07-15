@@ -1723,7 +1723,7 @@ function frame(){
   if(gAct!==galActive || (gAct && galTick%14===0)){   /* only decode the clips actually on screen — keeps concurrent video decode low despite 30 tiles */
     galActive=gAct; const Wv=innerWidth, mg=Wv*0.18;
     const on=galTiles.map(t=>{const r=t.el.getBoundingClientRect();return r.right>-mg && r.left<Wv+mg && r.bottom>0 && r.top<VPH;});
-    galTiles.forEach((t,i)=>{ if(!t.v)return; const want=gAct&&on[i]&&!isPhone;   /* phones: gallery on posters (iOS decoder limit) */
+    galTiles.forEach((t,i)=>{ if(!t.v)return; const want=gAct&&on[i];   /* phones too: these are .mp4/H.264 (iOS-decodable) and only on-screen tiles play — same ~6-8 concurrent as the -100 collage */
       if(want){ if(t.v.paused){const q=t.v.play();if(q&&q.catch)q.catch(()=>{});} } else if(!t.v.paused) t.v.pause(); });
   }
 
