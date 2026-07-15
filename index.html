@@ -383,7 +383,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @keyframes mudbob{0%,100%{transform:translateY(-2px) rotate(-5deg) scale(var(--mscale,1))}50%{transform:translateY(2px) rotate(5deg) scale(var(--mscale,1))}}
 /* staged reveal per row: the image settles in first, then era → name → body → source rise in turn */
 .tl-row .tl-img{opacity:0;transform:translateY(20px);position:relative;overflow:hidden;align-self:stretch}
-.tl-row .tl-year,.tl-row .tl-name,.tl-row .tl-body,.tl-row .tl-src{opacity:0;transform:translateY(14px)}
+.tl-row .tl-year,.tl-row .tl-name,.tl-row .tl-body,.tl-row .tl-src{opacity:0}   /* fade in place — fxRise is opacity-only; the old translateY(14px) leftover was permanently shoving the text down 14px (top-heavy) */
 .tl-row.revealed .tl-img{animation:tlIn .85s .02s cubic-bezier(.2,.85,.25,1) forwards}
 .tl-row.revealed .tl-year{animation:fxRise .6s .24s cubic-bezier(.2,.85,.25,1) forwards}
 .tl-row.revealed .tl-name{animation:fxRise .65s .36s cubic-bezier(.2,.85,.25,1) forwards}
