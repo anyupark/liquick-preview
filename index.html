@@ -320,7 +320,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   .copy .big{font-size:clamp(17px,5vw,22px)}
   .lay-hero .pin{padding-top:9svh}
   .txt-left .pin,.txt-right .pin{justify-content:center;align-items:flex-end;padding-bottom:6svh}
-  .placesec .pin{padding-bottom:12svh}   /* Dead Sea "place": copy stays lower (its original spot), NOT at the top over the collage */
+  .placesec .pin{padding-bottom:7svh}   /* Dead Sea "place": copy near the bottom; smaller gap so it doesn't leave a big empty band on tall phones */
   .cine[data-scene="7"] .pin{align-items:flex-start;padding-top:12svh;padding-bottom:0}   /* sea ONLY: copy lower from the top */
   .txt-left .copy,.txt-right .copy{max-width:560px;margin:0;text-align:center;padding:0 26px}
   .lay-split .pin{align-items:flex-end;padding-bottom:6svh}
@@ -576,6 +576,11 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
   .mtag{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(255,255,255,.9)}
   #topbar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(255,255,255,.96)}
   #mbar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(251,248,243,.98)}
+  /* history-section scroll lag: the timeline images each hold a permanent compositor layer (will-change) + micro-float animation — drop both on phones so scrolling the −430 m navigator stays smooth */
+  .kings-scene,.cleo-stack .cleo-portrait,.cleo-stack .cleo-portrait img,.tl-img.tl-modern img,.tl-img img,.kings-statue,.cleo-stone,#tlMud img,.hist-vid{will-change:auto!important}
+  .kings-statue,.cleo-stone,.tl-img img,.kings-scene{animation:none!important}
+  /* hands (−430 m) scene: keep the top headline clear of the fixed PROMISE header (was top:3.5% → hidden under the bar on notched phones) */
+  #handsCopyTop{top:calc(56px + env(safe-area-inset-top))!important}
 }
 #mbar img{width:58px;height:58px;flex:0 0 auto;border-radius:12px;object-fit:contain;padding:6px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(214,201,238,.28));border:1px solid var(--line)}
 #mbar .mbar-txt{min-width:0}
