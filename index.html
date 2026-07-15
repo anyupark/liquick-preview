@@ -716,6 +716,24 @@ details p{padding:0 20px 16px;font-size:clamp(12px,3.72vw,22px);line-height:1.7;
 #close img.logo{height:16px;opacity:.8;margin-bottom:30px}
 .protonote{background:var(--lavender);color:var(--mute);text-align:center;font-size:11px;padding:16px;line-height:1.6}
 @media(prefers-reduced-motion:reduce){.copy .cue{animation:none}}
+/* ===== small screens (iPhone SE / mini and below): text is proportionally too big for the short/narrow viewport — reduce ~12% below 385px (390+ standard iPhones unaffected) ===== */
+@media(max-width:385px){
+  :root{--body:clamp(10px,3.17vw,14px);--body-lg:clamp(11px,3.61vw,15px)}
+  .copy h1,.copy h2{font-size:clamp(17px,5.46vw,23px)}
+  .copy .big{font-size:clamp(14px,4.4vw,18px)}
+  .cine[data-scene="7"] .copy h2{font-size:clamp(19px,6.16vw,26px)}
+  .split-tag{font-size:clamp(10px,3.39vw,15px)}
+  .handsTxt h3{font-size:clamp(18px,5.87vw,24px)}
+  .handsTxt .hook{font-size:clamp(13px,4.29vw,18px)}
+  .handsTxt .lead{font-size:clamp(10px,3.39vw,14px)}
+  .handsTxt .eyebrow{font-size:clamp(8px,2.48vw,10px)}
+  .handsTxt .closer{font-size:clamp(11px,3.61vw,15px)}
+  #handsCopyBot .hook{font-size:clamp(12px,3.84vw,16px)}
+  .tl-name{font-size:clamp(15px,4.96vw,21px)}
+  .sect h2{font-size:clamp(18px,5.87vw,24px)}
+  .hist-title{font-size:clamp(25px,7.92vw,33px)}
+  #close h2{font-size:clamp(20px,5.4vw,32px)}
+}
 </style>
 </head>
 <body>
