@@ -481,7 +481,11 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .tl-row .tl-img.cleo-stack .cleo-portrait img{transform:none}   /* fill: the base cleo img had translateY(28%) scale(1.08) that the fill rule didn't reset → left a lavender gap at the top */
 .kings-stack .kings-statue{display:block;position:absolute;left:-7%;bottom:-1%;width:60%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;object-position:bottom;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:kingfloat 7.4s ease-in-out infinite;will-change:translate;opacity:1;filter:drop-shadow(-6px 14px 20px rgba(20,10,30,.5))}
 @keyframes kingfloat{0%,100%{translate:0 0}50%{translate:0 -15px}}   /* clearly-visible float for the pop-out composites (statue + fresco) */
-.cleo-stack .cleo-stone{display:block;position:absolute;right:-12%;bottom:3%;width:56%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;rotate:-30deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:kingfloat 6.5s ease-in-out infinite;will-change:translate;opacity:1;border-radius:6px;box-shadow:0 12px 24px rgba(20,10,30,.32)}
+.cleo-stack .cleo-stone{display:block;position:absolute;right:-20%;bottom:-20%;width:50%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;rotate:-10deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:kingfloat 6.5s ease-in-out infinite;will-change:translate;opacity:1;border-radius:6px;box-shadow:0 16px 30px rgba(20,10,30,.34)}
+/* Cleopatra card: let the fresco break out and flow DOWN into the next section (3D layer). Card overflow opened; portrait keeps its own rounded corners */
+.tl-row:nth-of-type(2){overflow:visible;z-index:5}
+.tl-row .tl-img.cleo-stack{overflow:visible}
+.cleo-stack .cleo-portrait{border-radius:22px 0 0 22px}
 .tl-row:nth-child(2) .tl-img img{animation-duration:7.5s;animation-delay:-2.3s}
 .tl-row:nth-child(3) .tl-img img{animation-duration:6.0s;animation-delay:-3.7s}
 .tl-row:nth-child(4) .tl-img img{animation-duration:7.1s;animation-delay:-1.2s}
