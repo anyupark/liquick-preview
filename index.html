@@ -30,7 +30,7 @@
   --paper:#FBF8F3;
   /* whole site set in MADE TOMMY (display + body); Fraunces/Geist kept only as load-failure fallbacks */
   --disp:'MADE TOMMY','Fraunces',serif; --sans:'MADE TOMMY',system-ui,sans-serif;
-  --body:clamp(13px,3.6vw,15px); --body-lg:clamp(15px,4.1vw,16.5px);   /* fluid body scale — one rhythm across every zone, scales smoothly 375px→430px */
+  --body:clamp(12px,3.6vw,22px); --body-lg:clamp(13px,4.1vw,25px);   /* fluid body scale — one rhythm across every zone, scales smoothly 375px→430px */
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}   /* each .cine is a discrete snap stop (proximity + snap-stop:always) — the history timeline & sales body (no snap-align) still scroll freely */
@@ -110,18 +110,18 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   75%{scale:1.05 .95}}
 /* benefit tags — refined frosted-glass chips, each with an icon medallion, floating in the water */
 #tagLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:8;pointer-events:none;opacity:0;transition:opacity 1s ease}   /* svh-locked */
-.mtag{position:absolute;display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:100px;
+.mtag{position:absolute;display:inline-flex;align-items:center;gap:clamp(7px,2.05vw,12px);padding:clamp(5px,1.54vw,9px) clamp(11px,3.59vw,22px) clamp(5px,1.54vw,9px) clamp(5px,1.54vw,9px);border-radius:100px;
   background:linear-gradient(180deg,rgba(255,255,255,.74),rgba(255,255,255,.48));
   -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);
   border:1px solid rgba(255,255,255,.62);
   box-shadow:0 18px 42px -16px rgba(74,48,120,.34),0 2px 5px rgba(74,48,120,.07),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 1px rgba(120,92,168,.05);
-  font-family:var(--sans);font-size:11.5px;font-weight:400;letter-spacing:.004em;color:var(--plum);white-space:nowrap;
+  font-family:var(--sans);font-size:clamp(9px,2.95vw,18px);font-weight:400;letter-spacing:.004em;color:var(--plum);white-space:nowrap;
   animation:tagfloat 5.8s ease-in-out infinite}
-.mtag-ic{flex:0 0 auto;width:27px;height:27px;border-radius:9px;display:grid;place-items:center;
+.mtag-ic{flex:0 0 auto;width:clamp(22px,6.92vw,42px);height:clamp(22px,6.92vw,42px);border-radius:clamp(7px,2.31vw,14px);display:grid;place-items:center;
   background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.56));
   border:1px solid rgba(255,255,255,.78);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 6px -2px rgba(74,48,120,.24)}
-.mtag-ic svg{width:14.5px;height:14.5px;fill:none;stroke:var(--plum);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mtag-ic svg{width:clamp(12px,3.72vw,22px);height:clamp(12px,3.72vw,22px);fill:none;stroke:var(--plum);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 @keyframes tagfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 /* translucent Dead Sea water cross-section (edge-on): surface line sits at the very top of the band, see-through water fills below — no above-water haze to fog the stone */
 #seaMedia{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
@@ -146,12 +146,12 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 /* ============ BRAND MARK ============ */
 #brand{position:fixed;top:calc(20px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:45;height:16px;
   opacity:.9;transition:opacity .4s;pointer-events:none}
-@media(max-width:719px){#brand{height:13px;top:calc(15px + env(safe-area-inset-top))}}
+@media(max-width:719px){#brand{height:clamp(11px,3.33vw,20px);top:calc(clamp(12px,3.85vw,23px) + env(safe-area-inset-top))}}
 /* site header bar */
 #topbar{position:fixed;top:0;left:0;right:0;height:calc(56px + env(safe-area-inset-top));z-index:44;
   background:rgba(255,255,255,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(74,32,128,.07);box-shadow:0 4px 22px rgba(74,32,128,.05)}
-@media(max-width:719px){#topbar{height:calc(46px + env(safe-area-inset-top))}}
+@media(max-width:719px){#topbar{height:calc(clamp(38px,11.79vw,71px) + env(safe-area-inset-top))}}
 /* ===== scroll progress bar — page-wide "descent" progress, invites deeper scroll ===== */
 /* the separate scroll bar was merged INTO the depth meter below — one bar that shows the −430 m descent, in the dot-on-track style */
 
@@ -161,19 +161,19 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 #depth .lbl{display:none}
 #depth .track{position:absolute;left:22px;right:62px;bottom:6px;height:1.5px;border-radius:2px;background:rgba(74,32,128,.13)}   /* faint full-width track, inset from the edges */
 #depth .fill{position:absolute;top:0;left:0;height:100%;width:var(--pct,0%);background:var(--plum);border-radius:2px;opacity:.55}   /* plum trail up to the dot */
-#depth .ddot{position:absolute;left:22px;bottom:2px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:var(--plum);box-shadow:0 1px 5px rgba(74,32,128,.45);will-change:transform}   /* the dot rides the track at the current depth */
-#depth .num{position:absolute;right:16px;bottom:1px;font-family:var(--disp);font-size:10.5px;font-weight:600;letter-spacing:.02em;color:var(--plum);line-height:1}   /* the −XXX m readout at the right */
+#depth .ddot{position:absolute;left:22px;bottom:2px;width:clamp(7px,2.31vw,14px);height:clamp(7px,2.31vw,14px);margin-left:calc(clamp(7px,2.31vw,14px) / -2);border-radius:50%;background:var(--plum);box-shadow:0 1px 5px rgba(74,32,128,.45);will-change:transform}   /* the dot rides the track at the current depth */
+#depth .num{position:absolute;right:16px;bottom:1px;font-family:var(--disp);font-size:clamp(9px,2.69vw,16px);font-weight:600;letter-spacing:.02em;color:var(--plum);line-height:1}   /* the −XXX m readout at the right */
 #depth.gone{opacity:0;pointer-events:none}
 
 /* ============ SCROLL SECTIONS (cinematic) ============ */
 .cine{position:relative;z-index:10}
 .cine .pin{position:fixed;top:0;left:0;right:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;pointer-events:none}   /* FIXED (was sticky): copy sits at its screen position the moment the scene is active — it no longer rides up from below as you scroll in; the frame loop fades each scene's copy so only the active one shows */
 .copy{max-width:620px;padding:0 28px;text-align:center;opacity:0;transform:translateY(24px);will-change:opacity,transform}
-.copy .stagelbl{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--plum);margin-bottom:20px;opacity:.9}
-.copy h1,.copy h2{font-family:var(--disp);font-weight:500;font-size:clamp(26px,5.4vw,44px);line-height:1.16;margin-bottom:18px;text-wrap:balance}
+.copy .stagelbl{font-size:clamp(8px,2.56vw,15px);letter-spacing:.28em;text-transform:uppercase;color:var(--plum);margin-bottom:clamp(16px,5.13vw,31px);opacity:.9}
+.copy h1,.copy h2{font-family:var(--disp);font-weight:500;font-size:clamp(26px,5.4vw,44px);line-height:1.16;margin-bottom:clamp(15px,4.62vw,28px);text-wrap:balance}
 .copy h2.tommy{font-family:'MADE TOMMY','Poppins',sans-serif;font-weight:900;letter-spacing:-.01em;line-height:1.04;text-transform:none} /* same display face as the hero headline */
-.copy p{font-size:var(--body);line-height:1.62;color:var(--mute);margin-bottom:12px;text-wrap:pretty} /* unified body size — same across the whole page */
-.copy .cue{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:26px;animation:cue 2.4s ease-in-out infinite}
+.copy p{font-size:var(--body);line-height:1.62;color:var(--mute);margin-bottom:clamp(10px,3.08vw,18px);text-wrap:pretty} /* unified body size — same across the whole page */
+.copy .cue{font-size:clamp(10px,3.08vw,18px);letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-top:clamp(21px,6.67vw,40px);animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:.85}}
 .copy .big{font-family:var(--disp);font-size:clamp(20px,3.6vw,30px);line-height:1.3}
 .copy em{color:var(--plum);font-style:normal}
@@ -204,12 +204,12 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @media(prefers-reduced-motion:reduce){.rv-el{opacity:1!important;transform:none!important;animation:none!important}.rv-underline::after{transform:scaleX(1)}}
 @media(prefers-reduced-motion:reduce){.filter-copy .fx-l1,.filter-copy .fx-l2,.filter-copy .fx-body,.filter-copy .fx-pure{opacity:1;transform:none}.fx-pow::after{transform:scaleX(1)}}
 /* ===== the two "making" stops (raw-mud filter, then botanicals) — each its own section, one copy per pin ===== */
-.make-copy{position:absolute;left:50%;bottom:6svh;transform:translateX(-50%);width:100%;max-width:600px;margin:0;padding:0 26px;text-align:center;pointer-events:none} /* mobile: copy sits below the mud cluster, not over it */
+.make-copy{position:absolute;left:50%;bottom:6svh;transform:translateX(-50%);width:100%;max-width:600px;margin:0;padding:0 clamp(21px,6.67vw,40px);text-align:center;pointer-events:none} /* mobile: copy sits below the mud cluster, not over it */
 /* botanicals half — the sensory list + emphasis */
-.bot-list{list-style:none;margin:2px auto 13px;padding:0;max-width:20em;font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--mute)} /* condensed: tight rows so the list reads as one compact block */
+.bot-list{list-style:none;margin:2px auto clamp(11px,3.33vw,20px);padding:0;max-width:20em;font-family:var(--sans);font-size:clamp(11px,3.33vw,20px);line-height:1.5;color:var(--mute)} /* condensed: tight rows so the list reads as one compact block */
 .bot-list b{font-weight:700;color:var(--plum)}
 .botanicals-copy .fx-bl1,.botanicals-copy .fx-bl2{display:block}
-.botanicals-copy .fx-head{line-height:1.06;margin-bottom:12px}       /* condensed headline */
+.botanicals-copy .fx-head{line-height:1.06;margin-bottom:clamp(10px,3.08vw,18px)}       /* condensed headline */
 .botanicals-copy .bot-close{line-height:1.26}                          /* condensed closing couplet */
 .botanicals-copy .big em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;color:var(--plum-d)}
 /* staged reveal: headline (2 beats) → each botanical rises in turn → closing line */
@@ -236,7 +236,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
           mask-image:linear-gradient(180deg,#000 0,#000 44%,transparent 59%)} /* crisp top; the bottom row dissolves over a long soft gradient (no hard tile edge) and white flows up into the videos */
 .mg-row{display:flex;width:max-content;will-change:transform;animation:mgSlideL 95s linear infinite}
 .mg-row.mg-rev{animation:mgSlideR 122s linear infinite} /* second row drifts the other way */
-.mg-tile{flex:0 0 auto;height:clamp(150px,26svh,240px);aspect-ratio:9/16;margin-right:clamp(12px,2.8vw,22px);
+.mg-tile{flex:0 0 auto;height:clamp(180px,26svh,337px);aspect-ratio:9/16;margin-right:clamp(12px,2.8vw,22px);
   overflow:hidden;position:relative;background:#d6c9ea;
   box-shadow:0 10px 26px -20px rgba(46,20,84,.38)}
 .mg-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -270,17 +270,17 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .cine[data-scene="7"] .pin{align-items:flex-start;padding-top:15svh;padding-bottom:0} /* −350m: headline sits lower from the top; tags go under the water */
 .cine[data-scene="7"] .copy p{font-weight:300;font-size:14px;line-height:1.64;margin-bottom:12px} /* a touch bigger, light-weight */
 @media(max-width:719px){.cine[data-scene="7"] .pin{padding-top:15svh}
-  .cine[data-scene="7"] .copy h2{font-size:clamp(22px,7vw,30px);margin-bottom:14px}
-  .cine[data-scene="7"] .copy p{font-size:13px;line-height:1.6;font-weight:300;margin-bottom:11px}}
+  .cine[data-scene="7"] .copy h2{font-size:clamp(22px,7vw,42px);margin-bottom:clamp(11px,3.59vw,22px)}
+  .cine[data-scene="7"] .copy p{font-size:clamp(11px,3.33vw,20px);line-height:1.6;font-weight:300;margin-bottom:clamp(9px,2.82vw,17px)}}
 .lay-split .copy{max-width:none;width:100%;display:flex;justify-content:space-between;padding:0 6vw;text-align:left}
 .lay-split .col{flex:1;max-width:300px}
 .lay-split .col:last-child{align-self:flex-end;padding-bottom:4svh}
 .tm{font-size:.4em;vertical-align:.72em;font-weight:600;letter-spacing:0} /* small trademark on the headline */
-.lay-split .bottle-claim{margin-top:14px}
-.split-tag{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(15px,2.7vw,20px);line-height:1.44;color:var(--plum-d)} /* poetic low→high bookend, elegant serif */
+.lay-split .bottle-claim{margin-top:clamp(11px,3.59vw,22px)}
+.split-tag{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(12px,3.85vw,23px);line-height:1.44;color:var(--plum-d)} /* poetic low→high bookend, elegant serif */
 .lay-hero{scroll-snap-align:start}
 .lay-hero .pin{align-items:flex-start;padding-top:13svh}
-.lay-hero .copy{min-height:80svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:24px}
+.lay-hero .copy{min-height:80svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:clamp(20px,6.15vw,37px)}
 /* SOAR-style hero — big plum headline + puffy dark-plum sticker on the light lilac brand bg */
 .hero-soar h1{color:var(--plum-d);font-weight:600;font-size:clamp(34px,8.4vw,64px);line-height:1.04;letter-spacing:-.012em;margin-bottom:22px;
   text-shadow:0 2px 22px rgba(255,255,255,.7)}
@@ -292,10 +292,10 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 /* editorial hero: stacked ANCIENT./POWERFUL. headline (top) + reason/depth + scroll button (bottom); stone floats in the gap */
 .hero-edit{text-align:center;justify-content:space-between}
 .hero-top,.hero-bot{display:flex;flex-direction:column;align-items:center}
-.hero-top{gap:12px}
-.hero-bot{gap:11px}
-.h-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--plum)}
-.h-hr{width:26px;height:1.5px;border-radius:2px;background:var(--plum);opacity:.5}
+.hero-top{gap:clamp(10px,3.08vw,18px)}
+.hero-bot{gap:clamp(9px,2.82vw,17px)}
+.h-eyebrow{font-family:var(--sans);font-size:clamp(9px,2.82vw,17px);letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--plum)}
+.h-hr{width:clamp(21px,6.67vw,40px);height:1.5px;border-radius:2px;background:var(--plum);opacity:.5}
 .hero-edit .hero-h1{display:flex;flex-direction:column;align-items:center;font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(48px,17vw,80px);line-height:.92;letter-spacing:-.03em;margin:6px 0 4px}   /* .hero-edit .hero-h1 (0,2,0) so it out-specifies .copy h1 (0,1,1) for BOTH size and Black weight */
 .hero-h1 .hh-a{color:var(--plum)}
 .hero-h1 .hh-b{color:var(--plum-dd)}
@@ -303,9 +303,9 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .hero-sub b{color:var(--plum-d)}
 .hero-depth{font-family:var(--disp);font-weight:600;font-size:clamp(20px,5.4vw,27px);color:var(--ink);letter-spacing:-.008em;margin:0}
 .hero-depth .hd-num{color:var(--plum);font-weight:800}
-.hero-arrow{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;pointer-events:auto;
+.hero-arrow{width:clamp(38px,11.79vw,71px);height:clamp(38px,11.79vw,71px);border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;pointer-events:auto;
   box-shadow:0 10px 26px -10px rgba(80,45,130,.4),inset 0 1px 0 rgba(255,255,255,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);margin:5px 0 1px}
-.hero-arrow svg{width:20px;height:20px;fill:none;stroke:var(--plum);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:heroBob 2.4s ease-in-out infinite}
+.hero-arrow svg{width:clamp(16px,5.13vw,31px);height:clamp(16px,5.13vw,31px);fill:none;stroke:var(--plum);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:heroBob 2.4s ease-in-out infinite}
 @keyframes heroBob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
 @media(prefers-reduced-motion:reduce){.hero-arrow svg{animation:none}}
 @media(max-width:440px){
@@ -314,17 +314,17 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 }
 @media(max-width:719px){
   .copy{padding-top:16px;text-shadow:0 1px 18px rgba(244,239,251,.92),0 0 3px rgba(244,239,251,.7)}
-  .copy h1,.copy h2{font-size:clamp(21px,6.2vw,30px)}
+  .copy h1,.copy h2{font-size:clamp(20px,6.2vw,37px)}
   .hero-edit .hero-h1{font-size:clamp(40px,15.1vw,92px);letter-spacing:-.03em}   /* hero headline = POSTER scale on phones (overrides .copy h1 above) — matches the reference where POWERFUL fills ~84% of the width */
   .copy p{line-height:1.58}
-  .copy .big{font-size:clamp(17px,5vw,22px)}
+  .copy .big{font-size:clamp(16px,5vw,30px)}
   .lay-hero .pin{padding-top:9svh}
   .txt-left .pin,.txt-right .pin{justify-content:center;align-items:flex-end;padding-bottom:6svh}
   .placesec .pin{padding-bottom:7svh}   /* Dead Sea "place": copy near the bottom; smaller gap so it doesn't leave a big empty band on tall phones */
   .cine[data-scene="7"] .pin{align-items:flex-start;padding-top:12svh;padding-bottom:0}   /* sea ONLY: copy lower from the top */
-  .txt-left .copy,.txt-right .copy{max-width:560px;margin:0;text-align:center;padding:0 26px}
+  .txt-left .copy,.txt-right .copy{max-width:560px;margin:0;text-align:center;padding:0 clamp(21px,6.67vw,40px)}
   .lay-split .pin{align-items:flex-end;padding-bottom:6svh}
-  .lay-split .copy{flex-direction:column;gap:10px;align-items:center;text-align:center}
+  .lay-split .copy{flex-direction:column;gap:clamp(8px,2.56vw,15px);align-items:center;text-align:center}
   .lay-split .col{max-width:560px}
   .lay-split .col:last-child{align-self:center;padding-bottom:0}
 }
@@ -389,11 +389,11 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .hist-veil{position:fixed;left:0;right:0;bottom:0;height:30vh;height:30svh;z-index:4;pointer-events:none;opacity:0;
   transition:opacity .4s ease;
   background:linear-gradient(to bottom,rgba(244,239,251,0) 0%,rgba(244,239,251,.4) 48%,rgba(244,239,251,.8) 80%,rgba(244,239,251,.95) 100%)}
-.tl-year{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--plum);margin:0 0 10px;display:block}
+.tl-year{font-family:var(--sans);font-weight:600;font-size:clamp(9px,2.82vw,17px);letter-spacing:.2em;text-transform:uppercase;color:var(--plum);margin:0 0 10px;display:block}
 .tl-cap{font-family:var(--disp);font-weight:400;font-size:15px;color:var(--ink-soft);margin:6px 0 9px}
-.tl-name{font-family:var(--disp);font-weight:700;font-size:clamp(22px,5.4vw,29px);line-height:1.12;letter-spacing:-.01em;color:var(--ink);margin:0 0 16px}
+.tl-name{font-family:var(--disp);font-weight:700;font-size:clamp(18px,5.64vw,34px);line-height:1.12;letter-spacing:-.01em;color:var(--ink);margin:0 0 16px}
 .tl-body{font-family:var(--sans);font-size:var(--body);line-height:1.62;color:var(--mute)}
-.tl-src{font-family:var(--sans);font-size:10px;line-height:1.4;letter-spacing:.02em;color:var(--mute);opacity:.55;margin:9px 0 0}
+.tl-src{font-family:var(--sans);font-size:clamp(8px,2.56vw,15px);line-height:1.4;letter-spacing:.02em;color:var(--mute);opacity:.55;margin:9px 0 0}
 .tl-src em{font-style:italic}
 .tl-text{min-width:0}
 .tl-img{min-width:0}
@@ -457,12 +457,12 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .crys-wrap .cb-lead{display:block;font-weight:800;color:var(--plum-d);font-size:15px;letter-spacing:-.005em;margin-bottom:6px}
 .crys-strong{display:block;color:var(--plum);font-weight:800;white-space:nowrap;margin-top:7px}
 /* champagne sparkle divider between the headline and the copy */
-.crys-div{display:flex;align-items:center;justify-content:center;gap:12px;max-width:212px;margin:2px auto 15px}
-.crys-div .dl{height:1px;flex:1;max-width:68px;background:linear-gradient(90deg,transparent,rgba(176,146,104,.6))}
+.crys-div{display:flex;align-items:center;justify-content:center;gap:clamp(10px,3.08vw,18px);max-width:clamp(174px,54.36vw,326px);margin:2px auto clamp(12px,3.85vw,23px)}
+.crys-div .dl{height:1px;flex:1;max-width:clamp(56px,17.44vw,105px);background:linear-gradient(90deg,transparent,rgba(176,146,104,.6))}
 .crys-div .dl:last-child{background:linear-gradient(90deg,rgba(176,146,104,.6),transparent)}
-.crys-div svg{width:15px;height:15px;fill:#c1a069;flex:0 0 auto}
+.crys-div svg{width:clamp(12px,3.85vw,23px);height:clamp(12px,3.85vw,23px);fill:#c1a069;flex:0 0 auto}
 .crys-lead{font-family:'MADE TOMMY',system-ui,sans-serif;font-weight:900;font-size:clamp(18px,4.6vw,26px);letter-spacing:-.01em;color:var(--plum);margin:0}
-@media(max-width:719px){.crys-title{--mh:min(44vw,162px);margin-bottom:11px}.crys-wrap .crys-body{line-height:1.56;max-width:22em}.crys-wrap .cb-lead{font-size:14px}}
+@media(max-width:719px){.crys-title{--mh:clamp(133px,41.54vw,249px);margin-bottom:clamp(9px,2.82vw,17px)}.crys-wrap .crys-body{line-height:1.56;max-width:22em}.crys-wrap .cb-lead{font-size:clamp(11px,3.59vw,22px)}}
 
 @keyframes cleofloat{0%,100%{translate:0 0}50%{translate:0 -20px}}
 .tl-text{align-self:stretch;display:flex;flex-direction:column;justify-content:center;text-align:left;padding:26px 22px}
@@ -543,29 +543,29 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 /* text sits BEHIND the hands (lower z-index) so the arm overlaps it */
 .handsTxt{position:absolute;left:50%;transform:translateX(-50%);text-align:center;z-index:1}
 /* ancient-hand copy — long block at the top, tucked behind Cleopatra's arm */
-#handsCopyTop{top:3.5%;left:auto;right:4%;transform:none;width:68%;max-width:292px;text-align:right}
+#handsCopyTop{top:3.5%;left:auto;right:4%;transform:none;width:68%;max-width:410px;text-align:right}
 /* invisible diagonal that follows Cleopatra's arm — the copy flows down alongside the hand */
-#handsCopyTop::before{content:"";float:left;width:54%;height:215px;shape-outside:polygon(0 0,18% 0,92% 100%,0 100%);shape-margin:10px}
-.handsTxt .closer{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-style:italic;font-size:16px;line-height:1.32;color:#4a3570;margin-top:14px;max-width:158px;margin-left:auto} /* narrow right-hugging pull-quote so it clears Cleopatra's fingers */
+#handsCopyTop::before{content:"";float:left;width:54%;height:clamp(176px,55.13vw,331px);shape-outside:polygon(0 0,18% 0,92% 100%,0 100%);shape-margin:10px}
+.handsTxt .closer{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-style:italic;font-size:clamp(13px,4.1vw,25px);line-height:1.32;color:#4a3570;margin-top:14px;max-width:158px;margin-left:auto} /* narrow right-hugging pull-quote so it clears Cleopatra's fingers */
 /* modern-hand copy — long block dropped to the bottom, tucked behind the arm */
 #handsCopyBot{top:74%;left:4%;width:92%;max-width:384px;transform:none;text-align:left}
 /* shape matched to the modern hand's measured silhouette — copy hugs the fingers up top, then fills full width once the hand recedes right */
 #handsCopyBot::before{content:"";float:right;width:100%;height:140px;shape-outside:polygon(42% 0,100% 0,100% 100%,98% 86%,96% 75%,92% 64%,89% 54%,87% 43%,83% 32%,58% 21%,51% 11%);shape-margin:8px}
-#handsCopyBot .hook{font-size:17px}
-.handsTxt .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.34em;font-weight:600;color:#8a6fb8;margin-bottom:11px}
-.handsTxt h3{font-family:var(--disp);font-weight:700;font-size:26px;line-height:1.06;letter-spacing:-.01em;color:#2a1747}
-.handsTxt .hook{font-family:var(--disp);font-weight:700;font-size:19px;line-height:1.14;letter-spacing:-.01em;color:#2a1747;margin-bottom:9px}
+#handsCopyBot .hook{font-size:clamp(14px,4.36vw,26px)}
+.handsTxt .eyebrow{font-family:var(--sans);font-size:clamp(9px,2.82vw,17px);letter-spacing:.34em;font-weight:600;color:#8a6fb8;margin-bottom:clamp(9px,2.82vw,17px)}
+.handsTxt h3{font-family:var(--disp);font-weight:700;font-size:clamp(21px,6.67vw,40px);line-height:1.06;letter-spacing:-.01em;color:#2a1747}
+.handsTxt .hook{font-family:var(--disp);font-weight:700;font-size:clamp(16px,4.87vw,29px);line-height:1.14;letter-spacing:-.01em;color:#2a1747;margin-bottom:clamp(7px,2.31vw,14px)}
 .handsTxt .body{font-family:var(--sans);font-size:var(--body);line-height:1.48;color:#6a5686;margin-top:8px}
 .handsTxt .body .nb{white-space:normal}
-.handsTxt .lead{font-family:var(--disp);font-weight:600;font-size:15px;line-height:1.24;color:#2a1747;margin-top:9px}
+.handsTxt .lead{font-family:var(--disp);font-weight:600;font-size:clamp(12px,3.85vw,23px);line-height:1.24;color:#2a1747;margin-top:clamp(7px,2.31vw,14px)}
 #tapHint{position:absolute;transform:translateX(-50%);opacity:0;transition:opacity .4s;z-index:31;pointer-events:none;
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--plum-d);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:clamp(7px,2.05vw,12px);
+  font-size:clamp(10px,3.08vw,18px);letter-spacing:.16em;text-transform:uppercase;color:var(--plum-d);white-space:nowrap;
   text-shadow:0 1px 7px rgba(244,239,251,.95),0 0 3px rgba(244,239,251,.9)}
-#tapHint .tapic{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:var(--plum);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#tapHint .tapic{width:clamp(14px,4.36vw,26px);height:clamp(14px,4.36vw,26px);flex:0 0 auto;fill:none;stroke:var(--plum);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* mineral info bar (bottom) — image + what the mineral does */
 #mbar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 14px);transform:translate(-50%,150%);z-index:60;width:min(440px,calc(100% - 28px));
-  display:flex;gap:14px;align-items:center;background:rgba(251,248,243,.95);border:1px solid var(--line);border-radius:18px;padding:11px 16px;
+  display:flex;gap:clamp(11px,3.59vw,22px);align-items:center;background:rgba(251,248,243,.95);border:1px solid var(--line);border-radius:clamp(15px,4.62vw,28px);padding:clamp(9px,2.82vw,17px) clamp(13px,4.1vw,25px);
   box-shadow:0 24px 60px -22px rgba(50,20,87,.4);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
 #mbar.show{transform:translate(-50%,0);opacity:1}
@@ -578,15 +578,15 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
   .kings-scene,.cleo-stack .cleo-portrait,.cleo-stack .cleo-portrait img,.tl-img.tl-modern img,.tl-img img,.kings-statue,.cleo-stone,#tlMud img,.hist-vid{will-change:auto!important}
   .tl-img.tl-modern img,.cleo-stack .cleo-portrait,.kings-scene{animation:none!important}   /* keep the FILL card images static on phones, but let the pop-out composites (statue + fresco) float */
   /* hands (−430 m) scene: keep the top headline clear of the fixed PROMISE header (was top:3.5% → hidden under the bar on notched phones) */
-  #handsCopyTop{top:calc(56px + env(safe-area-inset-top))!important}
+  #handsCopyTop{top:calc(clamp(46px,14.36vw,86px) + env(safe-area-inset-top))!important}
 }
-#mbar img{width:58px;height:58px;flex:0 0 auto;border-radius:12px;object-fit:contain;padding:6px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(214,201,238,.28));border:1px solid var(--line)}
+#mbar img{width:clamp(48px,14.87vw,89px);height:clamp(48px,14.87vw,89px);flex:0 0 auto;border-radius:clamp(10px,3.08vw,18px);object-fit:contain;padding:clamp(5px,1.54vw,9px);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(214,201,238,.28));border:1px solid var(--line)}
 #mbar .mbar-txt{min-width:0}
-#mbar h4{font-family:var(--disp);font-size:18px;color:var(--plum-d);line-height:1.05}
-#mbar .mbar-role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);margin:2px 0 5px}
-#mbar p{font-size:12.5px;line-height:1.5;color:var(--mute)}
+#mbar h4{font-family:var(--disp);font-size:clamp(15px,4.62vw,28px);color:var(--plum-d);line-height:1.05}
+#mbar .mbar-role{font-size:clamp(8px,2.56vw,15px);letter-spacing:.16em;text-transform:uppercase;color:var(--plum);margin:2px 0 5px}
+#mbar p{font-size:clamp(10px,3.21vw,19px);line-height:1.5;color:var(--mute)}
 /* circular arrow — cycles to the next mineral */
-.mbar-arrow{margin-left:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:linear-gradient(180deg,#fff,rgba(240,234,250,.72));color:var(--plum);font-size:21px;line-height:1;display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:0 4px 11px -4px rgba(80,45,130,.32);transition:transform .2s ease,box-shadow .2s ease}
+.mbar-arrow{margin-left:auto;flex:0 0 auto;width:clamp(31px,9.74vw,58px);height:clamp(31px,9.74vw,58px);border-radius:50%;border:1px solid var(--line);background:linear-gradient(180deg,#fff,rgba(240,234,250,.72));color:var(--plum);font-size:clamp(17px,5.38vw,32px);line-height:1;display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:0 4px 11px -4px rgba(80,45,130,.32);transition:transform .2s ease,box-shadow .2s ease}
 .mbar-arrow:hover{transform:scale(1.08);box-shadow:0 6px 14px -4px rgba(80,45,130,.42)}
 .mbar-arrow:active{transform:scale(.95)}
 /* content swap animation each time a new mineral is tapped */
@@ -598,31 +598,31 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 /* ============ SALES BODY ============ */
 #body{position:relative;z-index:20;background:var(--paper);color:var(--ink)}
 .sect{max-width:720px;margin:0 auto;padding:88px 28px;content-visibility:auto;contain-intrinsic-size:auto 700px}
-.sect .eyebrow{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--purple);margin-bottom:18px}
-.sect h2{font-family:var(--disp);font-weight:500;font-size:clamp(26px,4.6vw,38px);line-height:1.18;margin-bottom:22px;text-wrap:balance;color:var(--purple-d)}
+.sect .eyebrow{font-size:clamp(9px,2.69vw,16px);letter-spacing:.26em;text-transform:uppercase;color:var(--purple);margin-bottom:18px}
+.sect h2{font-family:var(--disp);font-weight:500;font-size:clamp(21px,6.67vw,40px);line-height:1.18;margin-bottom:22px;text-wrap:balance;color:var(--purple-d)}
 .sect p{font-size:var(--body-lg);line-height:1.8;color:#4a4460;margin-bottom:16px;text-wrap:pretty}
 .sect .lead{font-family:var(--disp);font-size:clamp(19px,3vw,24px);line-height:1.45;color:var(--ink)}
 .steps{display:grid;gap:16px;margin:28px 0}
 .step{background:#fff;border:1px solid #e5e0ef;border-radius:14px;padding:22px 24px}
 .step h3{font-family:var(--disp);font-size:19px;margin-bottom:8px;color:var(--purple-d)}
 .step h3 b{color:var(--ochre-d);font-weight:500;margin-right:6px}
-.step p{font-size:14.5px;margin:0;line-height:1.7}
+.step p{font-size:clamp(12px,3.72vw,22px);margin:0;line-height:1.7}
 
 /* wipe slider */
 .wipe{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/10;margin:26px 0;user-select:none;border:1px solid #e5e0ef}
 .wipe .pane{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px}
-.wipe .pane b{font-size:11px;letter-spacing:.2em;text-transform:uppercase;background:rgba(20,8,40,.5);color:#fff;padding:5px 10px;border-radius:20px}
+.wipe .pane b{font-size:clamp(9px,2.82vw,17px);letter-spacing:.2em;text-transform:uppercase;background:rgba(20,8,40,.5);color:#fff;padding:5px 10px;border-radius:20px}
 .wipe .before{background:#caa183 url(assets/lower/tex-clay.webp) center/cover}
 .wipe .after{background:#3a2a5c url(assets/lower/tex-mud.webp) center/cover;clip-path:inset(0 0 0 35%)}
 .wipe .handle{position:absolute;top:0;bottom:0;left:35%;width:3px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.35)}
 .wipe .knob{position:absolute;top:50%;left:35%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;
-  background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#28271f;box-shadow:0 3px 12px rgba(0,0,0,.3)}
+  background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(11px,3.33vw,20px);color:#28271f;box-shadow:0 3px 12px rgba(0,0,0,.3)}
 .wipe input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 .wipe .cap{font-size:12.5px;color:var(--ink-soft)}
 
 /* whole-mineral list */
 .iso{display:flex;flex-direction:column;gap:6px;margin:4px 0 18px;padding-left:18px;border-left:2px solid #ddd5ee}
-.iso span{font-size:15px;color:#8d879e;font-style:italic}
+.iso span{font-size:clamp(12px,3.85vw,23px);color:#8d879e;font-style:italic}
 
 /* before/after grid */
 .bagrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 10px}
@@ -631,7 +631,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .ba .pair{position:relative;border-radius:14px;overflow:hidden;border:1px solid #e5e0ef;aspect-ratio:1/1;background:#efe9f6}
 .ba .pair img{width:100%;height:100%;object-fit:cover;display:block}
 .ba .pair::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:rgba(255,255,255,.7)}
-.ba .lb{position:absolute;bottom:10px;z-index:2;font-size:10px;letter-spacing:.16em;text-transform:uppercase;background:rgba(20,8,40,.52);color:#fff;padding:4px 9px;border-radius:14px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.ba .lb{position:absolute;bottom:10px;z-index:2;font-size:clamp(8px,2.56vw,15px);letter-spacing:.16em;text-transform:uppercase;background:rgba(20,8,40,.52);color:#fff;padding:4px 9px;border-radius:14px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .ba .lb.b{left:10px}
 .ba .lb.a{right:10px;background:rgba(93,58,150,.72)}
 
@@ -650,10 +650,10 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .rgrid{columns:2;column-gap:14px}
 @media(max-width:560px){.rgrid{columns:1}}
 .rev{break-inside:avoid;background:#fff;border:1px solid #e5e0ef;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-.rev .stars{color:#d99a3c;font-size:13px;letter-spacing:2px;margin-bottom:8px}
-.rev p{font-size:14px;line-height:1.65;margin-bottom:10px}
+.rev .stars{color:#d99a3c;font-size:clamp(11px,3.33vw,20px);letter-spacing:2px;margin-bottom:8px}
+.rev p{font-size:clamp(11px,3.59vw,22px);line-height:1.65;margin-bottom:10px}
 .rev .who{font-size:12px;color:var(--ink-soft)}
-.rev .vb{display:inline-block;font-size:10px;letter-spacing:.08em;background:#eef4ea;color:#4a7a3a;border-radius:20px;padding:3px 9px;margin-left:8px;vertical-align:1px}
+.rev .vb{display:inline-block;font-size:clamp(8px,2.56vw,15px);letter-spacing:.08em;background:#eef4ea;color:#4a7a3a;border-radius:20px;padding:3px 9px;margin-left:8px;vertical-align:1px}
 
 /* UGC gallery — full-bleed, two rows drifting in opposite directions */
 .ugc{position:relative;left:50%;width:100vw;margin-left:-50vw;overflow:hidden;
@@ -663,7 +663,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .ugc-row{display:flex;gap:16px;width:max-content;will-change:transform;animation:ugcScroll 68s linear infinite}
 .ugc-row.rev2{animation-direction:reverse;animation-duration:86s}
 .ugc:hover .ugc-row{animation-play-state:paused}
-.ugc-tile{flex:0 0 auto;width:clamp(150px,40vw,208px);aspect-ratio:4/5;border-radius:18px;overflow:hidden;
+.ugc-tile{flex:0 0 auto;width:clamp(128px,40vw,240px);aspect-ratio:4/5;border-radius:18px;overflow:hidden;
   position:relative;box-shadow:0 12px 34px rgba(50,20,87,.12);background:#e7ddf4}
 .ugc-tile .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
 .ugc-tile .ph svg{width:30%;max-width:58px;height:auto;opacity:.6}
@@ -671,9 +671,9 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 .ugc-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ugc-tile .meta{position:absolute;inset:auto 0 0 0;padding:12px 13px 12px;color:#fff;
   background:linear-gradient(transparent,rgba(24,10,44,.62));z-index:2}
-.ugc-tile .h{font:600 12px/1.2 'MADE TOMMY',system-ui,sans-serif;display:flex;align-items:center;gap:5px}
-.ugc-tile .h .tick{font-size:10px}
-.ugc-tile .q{font-size:11px;line-height:1.35;opacity:.94;margin-top:4px}
+.ugc-tile .h{font:600 clamp(10px,3.08vw,18px)/1.2 'MADE TOMMY',system-ui,sans-serif;display:flex;align-items:center;gap:5px}
+.ugc-tile .h .tick{font-size:clamp(8px,2.56vw,15px)}
+.ugc-tile .q{font-size:clamp(9px,2.82vw,17px);line-height:1.35;opacity:.94;margin-top:4px}
 @keyframes ugcScroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
 @media(prefers-reduced-motion:reduce){.ugc-row{animation:none}}
 
@@ -686,18 +686,18 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 #tablet{background:#241041;text-align:center;padding:44px 24px}
 #tablet .lbl{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ochre);margin-bottom:12px}
 #tablet .amt{font-family:var(--disp);font-size:46px;color:#efe9f7}
-#tablet .code{display:inline-block;margin-top:18px;font-size:12.5px;letter-spacing:.04em;color:#a8a3b8;cursor:pointer}
+#tablet .code{display:inline-block;margin-top:clamp(15px,4.62vw,28px);font-size:clamp(10px,3.21vw,19px);letter-spacing:.04em;color:#a8a3b8;cursor:pointer}
 #tablet .code b{font-weight:600}
-#tablet .copied{display:block;font-size:11px;margin-top:8px;color:#8fb573;opacity:0;transition:opacity .3s}
+#tablet .copied{display:block;font-size:clamp(9px,2.82vw,17px);margin-top:8px;color:#8fb573;opacity:0;transition:opacity .3s}
 #rubCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
 #rubHint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
-  font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(236,231,220,.85);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  font-size:clamp(10px,3.08vw,18px);letter-spacing:.22em;text-transform:uppercase;color:rgba(236,231,220,.85);text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .vstack{max-width:440px;margin:26px auto 0;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:16px;padding:24px 26px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.vrow{display:flex;justify-content:space-between;font-size:14.5px;padding:7px 0;color:var(--mute)}
-.vrow.total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;color:var(--plum-d);font-weight:600;font-size:16px}
+.vrow{display:flex;justify-content:space-between;font-size:clamp(12px,3.72vw,22px);padding:7px 0;color:var(--mute)}
+.vrow.total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;color:var(--plum-d);font-weight:600;font-size:clamp(13px,4.1vw,25px)}
 .vrow .strike{text-decoration:line-through;opacity:.55;margin-right:8px}
 .bigbtn{display:block;max-width:440px;margin:26px auto 0;text-align:center;background:var(--plum);color:#fff;
-  font-weight:600;font-size:15px;letter-spacing:.05em;padding:17px 20px;border-radius:50px;text-decoration:none;transition:background .3s;box-shadow:0 14px 30px -12px rgba(50,20,87,.55)}
+  font-weight:600;font-size:clamp(12px,3.85vw,23px);letter-spacing:.05em;padding:clamp(14px,4.36vw,26px) clamp(16px,5.13vw,31px);border-radius:50px;text-decoration:none;transition:background .3s;box-shadow:0 14px 30px -12px rgba(50,20,87,.55)}
 .bigbtn:hover{background:var(--plum-d)}
 .finemud{text-align:center;font-size:12px;color:var(--mute);margin-top:14px}
 
@@ -706,12 +706,12 @@ details{background:#fff;border:1px solid #e5e0ef;border-radius:12px;margin-botto
 summary{cursor:pointer;padding:16px 20px;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:12px;color:var(--purple-d)}
 summary::after{content:"+";font-family:var(--disp);font-size:20px;color:var(--purple)}
 details[open] summary::after{content:"–"}
-details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
+details p{padding:0 20px 16px;font-size:clamp(12px,3.72vw,22px);line-height:1.7;color:#4a4460}
 
 /* close */
 #close{background:linear-gradient(180deg,var(--violet),var(--lilac));color:var(--ink);text-align:center;padding:120px 28px}
 #close h2{font-family:var(--disp);font-weight:500;font-size:clamp(24px,4.4vw,36px);line-height:1.25;max-width:560px;margin:26px auto 10px}
-#close p{font-size:16px;opacity:.8;margin-bottom:30px}
+#close p{font-size:clamp(13px,4.1vw,25px);opacity:.8;margin-bottom:30px}
 #close img.bottle{width:auto;height:210px;filter:drop-shadow(0 30px 50px rgba(0,0,0,.5))}
 #close img.logo{height:16px;opacity:.8;margin-bottom:30px}
 .protonote{background:var(--lavender);color:var(--mute);text-align:center;font-size:11px;padding:16px;line-height:1.6}
@@ -1196,8 +1196,8 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
           <img class="ob-hero" src="images/offer-bundle.webp" alt="Two bottles of LIQUICK Dead Sea Mineral Mask — second bottle free" loading="lazy">
         </div>
         <div class="lbl">For those who made the descent</div>
-        <div class="amt" style="font-size:29px;line-height:1.35;max-width:320px;margin:0 auto">The second bottle<br>is on us.</div>
-        <div style="font-size:13.5px;color:#c9c2dc;margin-top:12px;line-height:1.6">One to begin.<br>One to continue — or to give.</div>
+        <div class="amt" style="font-size:clamp(24px,7.44vw,45px);line-height:1.35;max-width:320px;margin:0 auto">The second bottle<br>is on us.</div>
+        <div style="font-size:clamp(11px,3.46vw,21px);color:#c9c2dc;margin-top:12px;line-height:1.6">One to begin.<br>One to continue — or to give.</div>
         <div class="code" id="codeBtn" title="Tap to copy">Mention <b style="color:var(--ochre);border-bottom:1px dotted var(--ochre)">DESCEND</b> at checkout</div>
         <span class="copied" id="copiedMsg">Copied to clipboard</span>
       </div>
@@ -1669,9 +1669,9 @@ function frame(){
   const crysExit=crysOn?clamp(p[act]>0.9?(1-p[act])/0.1:1,0,1):0;  /* fade the ring + hint + card out in sync with the copy as the section exits — nothing lingers */
   if(crysRipple){ crysRipple.setAttribute('transform','translate(0,'+CRYS_OY+')'); crysRipple.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* ripple is FIXED at the scene's resting position (water already there); the stone floats DOWN into it. Do NOT follow stoneOY/bob — a moving full-width pool sweeps its edge across as a 'border'. */
   const R=crysOn?tr:0;                                     /* burst fires on ENTRY (time-based), so all 7 minerals always pop out — not gated behind scrolling further */
-  const cw=innerWidth/2,ch=VPH/2;
+  const cw=innerWidth/2,ch=VPH/2,cScale=Math.min(600,Math.max(320,innerWidth))/390;
   const svgScale=Math.max(innerWidth,VPH)/1000, ccy=(VPH-1000*svgScale)/2+(500+stoneOY)*svgScale;   /* follow the stone's ACTUAL (eased) position, not the target — otherwise the minerals pop from empty space while the stone is still gliding in (the burst "bug") */ /* centre the ring on the stone's real screen position (crystals oy=CRYS_OY) */
-  const Rx=Math.min(cw-46,178),Ry=VPH*0.108;
+  const Rx=149*cScale,Ry=VPH*0.108;
   if(crysOrbit){ crysOrbit.setAttribute('cy',(500+CRYS_OY).toFixed(1)); crysOrbit.setAttribute('rx',(Rx/svgScale).toFixed(1)); crysOrbit.setAttribute('ry',(Ry/svgScale).toFixed(1)); crysOrbit.setAttribute('opacity',(crysExit*0.9).toFixed(3)); }   /* orbit is FIXED at the scene's resting position (already there) — like the ripple, it must NOT follow stoneOY/bob or it 'comes down with the mud'; the stone settles at CRYS_OY so it aligns at rest */
   /* 4) the burst is a single triggered event: once the scroll passes TRIG, ALL minerals reveal together
         on their own time clock — they don't scrub in one-by-one as you keep scrolling */
@@ -1688,12 +1688,12 @@ function frame(){
     const bcx=lerp(cw,orbX,mv)+swx*bt, scy=lerp(ccy,orbY,mv)+bob*bt, s=0.34+0.66*mv;
     /* position via the composited `translate`/`scale` props (NOT left/top) — left/top forces a layout recalc on all 21 elements every frame and lags the whole section */
     c.style.translate=(bcx-29).toFixed(1)+'px '+(scy-28).toFixed(1)+'px';   /* offset = half the 58px ball box; -28 lands the SPHERE centre on the orbit */
-    c.style.scale=s.toFixed(3);                            /* start small (but not a speck) and grow */
+    c.style.scale=(s*cScale).toFixed(3);                            /* start small (but not a speck) and grow; cScale keeps the ball proportional to viewport */
     c.style.opacity=(op*crysExit).toFixed(3);
     c.style.pointerEvents=(crysOn&&crysExit>0.5&&bt>0.9)?'auto':'none';
     const L=labels[i];                                     /* labels ride in their own top layer so neighbours never cover them */
-    L.style.translate='calc(-50% + '+bcx.toFixed(1)+'px) '+(scy+34*s).toFixed(1)+'px';
-    L.style.scale=s.toFixed(3);
+    L.style.translate='calc(-50% + '+bcx.toFixed(1)+'px) '+(scy+34*s*cScale).toFixed(1)+'px';
+    L.style.scale=(s*cScale).toFixed(3);
     L.style.opacity=(op*crysExit).toFixed(3);
     const da=a+Math.PI/crystals.length, D=dots[i];         /* node sits on the orbit ring, midway to the next ball */
     D.style.translate=(cw+Math.cos(da)*Rx).toFixed(1)+'px '+(ccy+Math.sin(da)*Ry).toFixed(1)+'px';
