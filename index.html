@@ -483,6 +483,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 .tl-img.tl-two img.tl-girl{display:none}   /* Black Mud shows the hands only, per the reference */
 /* composites: pharaoh statue stands in front of the ruins; fresco tablet sits beside Cleopatra */
 .tl-row .tl-img.kings-stack{overflow:visible;z-index:2}   /* (0,3,0) beats .tl-row .tl-img{overflow:hidden} so the statue can break out (3D pop-out) */
+.tl-row .tl-img.cleo-stack .cleo-portrait img{transform:none}   /* fill: the base cleo img had translateY(28%) scale(1.08) that the fill rule didn't reset → left a lavender gap at the top */
 .kings-stack .kings-statue{display:block;position:absolute;left:-7%;bottom:-1%;width:60%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;object-position:bottom;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:kingfloat 7.4s ease-in-out infinite;will-change:translate;opacity:1;filter:drop-shadow(-6px 14px 20px rgba(20,10,30,.5))}
 @keyframes kingfloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
 .cleo-stack .cleo-stone{display:block;position:absolute;right:-3%;bottom:3%;width:56%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:none;opacity:1;border-radius:6px;box-shadow:0 12px 24px rgba(20,10,30,.32)}
@@ -499,7 +500,10 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 @media(max-width:719px){
   .hist-frame{padding:34px 16px 90px}
   .tl-row{column-gap:14px;padding:24px 0}
-  .tl-row .tl-img.kings-stack{margin:-24px 0 -24px -14px}   /* bleed the Kings image past the card's top/bottom padding + left column-gap → fills, no cream gaps */
+  .tl-row .tl-img.kings-stack{margin:-24px 0 -24px -14px}         /* Kings — image RIGHT → bleed top/bottom + left toward divider */
+  .tl-row .tl-img.cleo-stack{margin:-24px -14px -24px 0}          /* Cleopatra — image LEFT → bleed top/bottom + right toward divider */
+  .tl-row .tl-img.tl-modern.tl-one{margin:-24px 0 -24px -14px}    /* Travelers — image RIGHT → bleed left */
+  .tl-row .tl-img.tl-modern.tl-two{margin:-24px -14px -24px 0}    /* Black Mud — image LEFT → bleed right */
   .tl-img img{max-width:none}
   .tl-body,.hist-sub,.handsTxt .body{font-size:12px;line-height:1.58}
 }
