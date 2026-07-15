@@ -51,9 +51,9 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 #stage.hidden{opacity:0;pointer-events:none;visibility:hidden;transition:opacity .8s,visibility 0s .8s}
 #stageSvg{position:absolute;top:0;left:0;width:100%;height:100vh;height:100svh}   /* svh (NOT 100% of the dynamic stage) so the stone doesn't slide when the mobile URL bar hides/shows — matches the .cine .pin copy frame, which is also svh */
 /* Dead Sea water band (−350m). z-index:2 → in front of the stone (z1), behind the copy (z10). Top edge feathers up into the section colour. */
-#seaLayer{position:fixed;left:0;right:0;bottom:0;height:52%;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
+#seaLayer{position:fixed;left:0;right:0;top:48vh;top:48svh;bottom:0;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}   /* svh-locked surface: top edge fixed on URL-bar toggle, water extends to true bottom */
 /* HERO: moving water surface (video) below the floating stone; top edge feathers up into the light bg */
-#heroWater{position:fixed;left:0;right:0;bottom:0;height:47%;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
+#heroWater{position:fixed;left:0;right:0;top:53vh;top:53svh;bottom:0;z-index:2;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}   /* svh-locked */
 #heroWaterVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%);mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%)}   /* keep the top fully transparent well past the stone so the clip's bright horizon never washes over it — the opaque waterline sits BELOW the floating stone */
 /* HERO: real drifting mineral-grain / dirt particles around the mud stone (photographic plate, cut to alpha) */
@@ -67,17 +67,17 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @keyframes dustDriftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-1.4%,1.2%)}}
 @media(prefers-reduced-motion:reduce){.heroDustLayer{animation:none}}
 /* white base at the bottom so text reads cleanly; fades up to fully translucent */
-#seaScrim{position:fixed;left:0;right:0;bottom:0;height:40%;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;
+#seaScrim{position:fixed;left:0;right:0;top:60vh;top:60svh;bottom:0;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;
   background:linear-gradient(to top,#ffffff 0,rgba(255,255,255,.92) 20%,rgba(255,255,255,0) 100%)}
 /* Dead Sea salt formations — a faint, hazy hint under the water (kept subtle, like the distant mountains) */
-#saltLayer{position:fixed;left:0;right:0;bottom:0;height:28%;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}
+#saltLayer{position:fixed;left:0;right:0;top:72vh;top:72svh;height:28vh;height:28svh;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}   /* svh-locked: salt floor stays put on URL-bar toggle */
 #saltLayer .salt-u{position:absolute;left:50%;transform:translateX(-50%);bottom:-2.5%;width:130%;height:auto;display:block;opacity:.92;
   filter:brightness(1.02) saturate(.95) contrast(1.0);
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%);
           mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%)}
 
 /* rising bubbles in the −350m water — behind the salt (z5 < salt z6), varied sizes, slow rise, fade out at the surface */
-#bubbleLayer{position:fixed;left:0;right:0;bottom:0;height:52%;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
+#bubbleLayer{position:fixed;left:0;right:0;top:48vh;top:48svh;bottom:0;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}   /* svh-locked */
 .wbub{position:absolute;bottom:-7%;border-radius:50%;
   background:radial-gradient(circle at 33% 28%,rgba(255,255,255,.98),rgba(224,244,242,.42) 52%,rgba(190,222,220,.10) 100%);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.62),inset -1.5px -2px 3px rgba(100,145,145,.30),0 1px 3px rgba(90,130,130,.14);
@@ -86,12 +86,12 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   0%{transform:translate(0,0) scale(.82);opacity:0}
   9%{opacity:var(--op,.5)}
   74%{opacity:var(--op,.5)}
-  100%{transform:translate(var(--dx,10px),var(--rise,-46vh)) scale(1.12);opacity:0}}
+  100%{transform:translate(var(--dx,10px),var(--rise,-46svh)) scale(1.12);opacity:0}}
 @media(prefers-reduced-motion:reduce){.wbub{animation:none;opacity:0}}
 
 /* white depth gradient IN FRONT of the salt — transparent at top, lighter toward the bottom;
    builds atmospheric depth, softens the busy salt detail at the base, and closes the bottom edge */
-#saltFade{position:fixed;left:0;right:0;bottom:0;height:27%;z-index:7;opacity:0;transition:opacity 1s ease;pointer-events:none;
+#saltFade{position:fixed;left:0;right:0;top:73vh;top:73svh;bottom:0;z-index:7;opacity:0;transition:opacity 1s ease;pointer-events:none;
   background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,.22) 42%,rgba(255,255,255,.55) 74%,rgba(255,255,255,.9) 100%)}
 /* water drops floating gently around the tags in the water */
 #dropLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:7;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* svh-locked: stable frame, no URL-bar jump */
@@ -127,7 +127,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.5) 4%,#000 10%);
           mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.5) 4%,#000 10%)}
 /* distant hazy mountains behind the stone — ridge sits behind the stone, base tucks behind the water */
-#mtnLayer{position:absolute;left:0;right:0;top:19%;height:37%;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
+#mtnLayer{position:absolute;left:0;right:0;top:19vh;top:19svh;height:37vh;height:37svh;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}   /* svh-locked: mountains don't jump on URL-bar toggle */
 #mtnImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 45%,#000 82%,transparent 100%);
           mask-image:linear-gradient(to bottom,transparent 0,#000 45%,#000 82%,transparent 100%)}
@@ -392,7 +392,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 @keyframes tlIn{to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.tl-row .tl-img,.tl-row .tl-year,.tl-row .tl-name,.tl-row .tl-body,.tl-row .tl-src{opacity:1;transform:none;animation:none}}
 /* gradient veil: keeps the next section teased/obscured until you scroll to it */
-.hist-veil{position:fixed;left:0;right:0;bottom:0;height:30vh;z-index:4;pointer-events:none;opacity:0;
+.hist-veil{position:fixed;left:0;right:0;bottom:0;height:30vh;height:30svh;z-index:4;pointer-events:none;opacity:0;
   transition:opacity .4s ease;
   background:linear-gradient(to bottom,rgba(244,239,251,0) 0%,rgba(244,239,251,.4) 48%,rgba(244,239,251,.8) 80%,rgba(244,239,251,.95) 100%)}
 .tl-year{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--plum);margin:0 0 10px;display:block}
@@ -853,7 +853,7 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
     b.style.setProperty('--dur',(7.5+Math.random()*8).toFixed(1)+'s');     /* slow rise */
     b.style.setProperty('--del',(-Math.random()*15).toFixed(1)+'s');       /* stagger: some already mid-rise */
     b.style.setProperty('--dx',((Math.random()*2-1)*24).toFixed(1)+'px');  /* gentle horizontal drift */
-    b.style.setProperty('--rise',(-(41+Math.random()*11)).toFixed(1)+'vh');/* rise up to ~surface, then gone */
+    b.style.setProperty('--rise',(-(41+Math.random()*11)).toFixed(1)+'svh');/* rise up to ~surface, then gone (svh-stable) */
     b.style.setProperty('--op',(0.4+Math.random()*0.45).toFixed(2));       /* varied faintness */
     bl.appendChild(b);
   }
