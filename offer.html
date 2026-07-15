@@ -33,8 +33,10 @@ img{max-width:100%;display:block}
 
 /* ===== the offer section (this is the block that will be swapped into descent.html) ===== */
 .offer{position:relative;width:100%;max-width:430px;background:var(--bg);overflow:clip;
-  padding:calc(26px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
-  isolation:isolate}
+  padding:0 20px calc(24px + env(safe-area-inset-bottom));isolation:isolate}
+.hero{position:relative;width:calc(100% + 40px);margin:0 -20px}
+.hero__img{width:100%;display:block;-webkit-mask:linear-gradient(180deg,#000 90%,transparent);mask:linear-gradient(180deg,#000 90%,transparent)}
+.hero__text{position:absolute;top:0;left:0;right:0;z-index:2;padding:calc(22px + env(safe-area-inset-top)) 22px 0;text-align:center}
 /* ambient water caustics */
 .offer__bg{position:absolute;inset:0;z-index:0;background:
   radial-gradient(120% 80% at 50% -8%, rgba(255,255,255,.6), transparent 60%),
@@ -65,7 +67,7 @@ img{max-width:100%;display:block}
 .bottle--front{left:14%;width:41%;bottom:3%;z-index:4}
 .bottle--rear{left:40%;width:35%;bottom:9%;z-index:3;opacity:.95;filter:drop-shadow(0 20px 22px rgba(42,17,72,.2))}
 .gift{position:absolute;right:2%;bottom:5%;width:25%;z-index:5;filter:drop-shadow(0 16px 20px rgba(42,17,72,.24))}
-.gift-badge{position:absolute;left:59%;bottom:24%;z-index:6;width:clamp(74px,20.5vw,86px);aspect-ratio:1;border-radius:50%;
+.gift-badge{position:absolute;left:66%;bottom:26%;z-index:6;width:clamp(74px,20.5vw,86px);aspect-ratio:1;border-radius:50%;
   background:rgba(255,255,255,.94);box-shadow:var(--sh-card),var(--rim);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   font-weight:700;color:var(--purple);letter-spacing:.12em;line-height:1.15;font-size:clamp(8px,2.3vw,9.5px)}
@@ -76,7 +78,7 @@ img{max-width:100%;display:block}
 .card{background:var(--surface);border:1px solid rgba(255,255,255,.9);border-radius:20px;box-shadow:var(--sh-card),var(--rim)}
 
 /* price card */
-.price-card{position:relative;margin-top:clamp(14px,4vw,20px);padding:clamp(30px,8vw,38px) 20px clamp(16px,4.5vw,20px);text-align:center}
+.price-card{position:relative;margin-top:clamp(-30px,-6vw,-16px);padding:clamp(30px,8vw,38px) 20px clamp(16px,4.5vw,20px);text-align:center}
 .ribbon{position:absolute;top:0;left:50%;transform:translate(-50%,-46%);background:var(--purple);color:#fff;
   font-weight:700;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;padding:clamp(8px,2.3vw,11px) clamp(16px,4.6vw,24px);
   border-radius:100px;box-shadow:0 10px 22px -8px rgba(42,17,72,.5);white-space:nowrap}
@@ -133,18 +135,16 @@ img{max-width:100%;display:block}
 </head>
 <body>
 <section class="offer" aria-label="LIQUICK two-bottle offer">
-  <div class="offer__bg" aria-hidden="true"></div>
-
-  <header class="offer__brand">PROMISE&reg;</header>
-
-  <div class="offer__intro">
-    <p class="eyebrow">The complete mineral reset</p>
-    <h2 class="headline">One bottle to start.<br>A second one is on us.</h2>
-    <p class="support">60 mineral-rich treatments for the price of 30.</p>
-  </div>
-
-  <div class="stage">
-    <img class="scene" src="assets/offer/scene.webp" alt="Two LIQUICK Multi-Effect liquid mud mask bottles with a surprise gift">
+  <div class="hero">
+    <img class="hero__img" src="assets/offer/hero.webp" alt="Two LIQUICK Multi-Effect liquid mud mask bottles with a surprise gift">
+    <div class="hero__text">
+      <header class="offer__brand">PROMISE&reg;</header>
+      <div class="offer__intro">
+        <p class="eyebrow">The complete mineral reset</p>
+        <h2 class="headline">One bottle to start.<br>A second one is on us.</h2>
+        <p class="support">60 mineral-rich treatments for the price of 30.</p>
+      </div>
+    </div>
     <div class="gift-badge"><span>Surprise</span><b>GIFT</b><span>· Value ·</span>&#3647;600</div>
   </div>
 
