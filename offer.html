@@ -83,11 +83,10 @@ img{max-width:100%;display:block}
 .ribbon{position:absolute;top:0;left:50%;transform:translate(-50%,-46%);background:var(--purple);color:#fff;
   font-weight:700;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;padding:clamp(8px,2.3vw,11px) clamp(16px,4.6vw,24px);
   border-radius:100px;box-shadow:0 10px 22px -8px rgba(42,17,72,.5);white-space:nowrap}
-.regular{font-weight:600;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;color:var(--purple2);text-transform:uppercase}
-.regular s{opacity:.6;text-decoration-thickness:1.5px}
-.reg-price{font-family:var(--disp);font-weight:700;font-size:clamp(56px,17.9vw,74px);line-height:.9;letter-spacing:-.045em;color:#a294bd;text-decoration:line-through;text-decoration-thickness:clamp(3px,.9vw,5px);text-decoration-color:#b98aa8;margin:clamp(4px,1.4vw,7px) 0 clamp(4px,1.6vw,8px)}
+.regular{font-weight:600;font-size:clamp(11px,3.3vw,13px);letter-spacing:.14em;color:var(--purple2);text-transform:uppercase;display:flex;align-items:baseline;justify-content:center;gap:.5em}
+.regular s{font-size:1.5em;opacity:.5;text-decoration-thickness:2px;text-decoration-color:#c58aa6;letter-spacing:-.01em;margin-left:.15em}
 .today{font-weight:700;font-size:clamp(13px,3.8vw,15px);letter-spacing:.16em;color:var(--purple);margin-top:clamp(6px,1.8vw,8px)}
-.price{font-family:var(--disp);font-weight:700;font-size:clamp(45px,14.4vw,60px);line-height:.92;letter-spacing:-.045em;
+.price{font-family:var(--disp);font-weight:700;font-size:clamp(42px,13.1vw,54px);line-height:.92;letter-spacing:-.045em;
   color:var(--purple);margin:clamp(2px,1vw,4px) 0 clamp(8px,2.4vw,10px)}
 .price .cur{font-size:.66em;vertical-align:.06em;margin-right:.02em}
 .saving{font-weight:600;font-size:clamp(10px,3vw,12px);letter-spacing:.05em;color:var(--purple2)}
@@ -153,8 +152,7 @@ img{max-width:100%;display:block}
   <div class="offer__body">
   <section class="card price-card">
     <div class="ribbon">BUY 1 · GET 1 FREE</div>
-    <p class="regular">Regular value</p>
-    <div class="reg-price">&#3647;3,500</div>
+    <p class="regular">Regular value <s>&#3647;3,500</s></p>
     <p class="today">TODAY</p>
     <div class="price"><span class="cur">&#3647;</span>1,650</div>
     <p class="saving">TOTAL BUNDLE VALUE &#3647;4,100 · YOU SAVE &#3647;2,450</p>
