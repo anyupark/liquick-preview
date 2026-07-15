@@ -71,7 +71,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 #seaScrim{position:fixed;left:0;right:0;top:60vh;top:60svh;bottom:0;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;
   background:linear-gradient(to top,#ffffff 0,rgba(255,255,255,.92) 20%,rgba(255,255,255,0) 100%)}
 /* Dead Sea salt formations — a faint, hazy hint under the water (kept subtle, like the distant mountains) */
-#saltLayer{position:fixed;left:0;right:0;top:72vh;top:72svh;height:28vh;height:28svh;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}   /* svh-locked: salt floor stays put on URL-bar toggle */
+#saltLayer{position:fixed;left:0;right:0;top:72vh;top:72svh;bottom:0;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}   /* top edge svh-locked, but extends to the TRUE bottom so the salt floor fills the space the URL bar frees up (no white band) */
 #saltLayer .salt-u{position:absolute;left:50%;transform:translateX(-50%);bottom:-2.5%;width:130%;height:auto;display:block;opacity:.92;
   filter:brightness(1.02) saturate(.95) contrast(1.0);
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%);
