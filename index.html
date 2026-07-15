@@ -1493,7 +1493,7 @@ const stage=document.getElementById('stage'),stoneG=document.getElementById('sto
  crysMedia=document.querySelectorAll('.vtext-media');
 let cineEnd=0,lastT=performance.now();
 let curDepth=0,stoneO=1,stoneScale=1,stoneOX=0,stoneOY=0,oCollage=0,oBottle=0,oFilter=0,oBot=0,revealE=0,worldE=0;
-let colVids=null,colPlaying=false;   /* collage <video>s are gated to the place scene (perf) */
+let colVids=null,colPlaying=false,colTick=0;   /* collage <video>s: gated to the place scene AND to the tiles actually on screen (perf) */
 let revAct=-1,revEnterT=0;   /* per-section reveal clock so content appears on ENTRY (time), not spread across the scroll */
 let introStart=-1,introAtTop=false; /* stone grows in on load so the headline reads first */
 let burstP=0,burstFired=false;       /* crystals: one-shot timed burst — crossing the scroll point reveals ALL minerals together */
@@ -1648,8 +1648,15 @@ function frame(){
   col.style.opacity=oCollage.toFixed(3);
   /* only let the collage clips decode while the place scene is actually up — otherwise ~20 background videos stutter the whole descent */
   const colOn=oCollage>0.02;
-  if(colOn!==colPlaying){ colPlaying=colOn; if(!colVids)colVids=[...col.querySelectorAll('video')];
-    colVids.forEach(v=>{ if(colOn && !isPhone){ const q=v.play(); if(q&&q.catch)q.catch(()=>{}); } else v.pause(); }); }   /* phones: leave collage on posters — ~20 concurrent decodes was the top lag source */
+  if(colOn){
+    if(!colVids)colVids=[...col.querySelectorAll('video')];
+    colTick++;
+    if(!colPlaying || colTick%16===0){   /* recheck as tiles slide: play ONLY the ones on screen (keeps concurrent decode low), pause the rest */
+      colPlaying=true; const Wv=innerWidth, mg=Wv*0.12;
+      colVids.forEach(v=>{ const r=v.getBoundingClientRect(); const vis=r.right>-mg && r.left<Wv+mg && r.bottom>0 && r.top<VPH;
+        if(vis){ if(v.paused){const q=v.play(); if(q&&q.catch)q.catch(()=>{});} } else if(!v.paused) v.pause(); });
+    }
+  } else if(colPlaying){ colPlaying=false; if(colVids)colVids.forEach(v=>v.pause()); }   /* phones: leave collage on posters — ~20 concurrent decodes was the top lag source */
   if(oCollage>0.004){
     for(const r of SLROWS){
       const p=(nowT*0.004*r.spd)%r.setW;                 /* gentle continuous slide */
