@@ -57,7 +57,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
 #heroWaterVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%);mask-image:linear-gradient(to bottom,transparent 0,transparent 30%,#000 60%)}   /* keep the top fully transparent well past the stone so the clip's bright horizon never washes over it — the opaque waterline sits BELOW the floating stone */
 /* HERO: real drifting mineral-grain / dirt particles around the mud stone (photographic plate, cut to alpha) */
-#heroDust{position:fixed;top:0;left:0;right:0;height:100vh;height:100svh;z-index:3;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* svh-locked to track the stone (same stable frame) so the particles don't drift off it when the URL bar toggles */
+#heroDust{position:absolute;top:0;left:0;right:0;height:100vh;height:100svh;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* absolute inside #stage, BEFORE #stageSvg → renders BEHIND the stone; svh height keeps it from drifting on URL-bar toggle */
 .heroDustLayer{position:absolute;height:auto;will-change:transform;
   -webkit-mask-image:radial-gradient(ellipse 54% 48% at 50% 47%,transparent 0 16%,#000 32%,#000 58%,transparent 95%);
           mask-image:radial-gradient(ellipse 54% 48% at 50% 47%,transparent 0 16%,#000 32%,#000 58%,transparent 95%)}
@@ -482,7 +482,7 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   position:absolute;inset:0;width:100%;height:100%;max-width:none;aspect-ratio:auto;object-fit:cover;rotate:0deg;margin:0;border-radius:0;-webkit-mask:none;mask:none;animation:none;opacity:1}
 .tl-img.tl-two img.tl-girl{display:none}   /* Black Mud shows the hands only, per the reference */
 /* composites: pharaoh statue stands in front of the ruins; fresco tablet sits beside Cleopatra */
-.kings-stack{overflow:visible;z-index:2}   /* let the statue break out of the image frame (3D pop-out) */
+.tl-row .tl-img.kings-stack{overflow:visible;z-index:2}   /* (0,3,0) beats .tl-row .tl-img{overflow:hidden} so the statue can break out (3D pop-out) */
 .kings-stack .kings-statue{display:block;position:absolute;left:-7%;bottom:-1%;width:60%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;object-position:bottom;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:kingfloat 7.4s ease-in-out infinite;will-change:translate;opacity:1;filter:drop-shadow(-6px 14px 20px rgba(20,10,30,.5))}
 @keyframes kingfloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
 .cleo-stack .cleo-stone{display:block;position:absolute;right:-3%;bottom:3%;width:56%;height:auto;max-width:none;aspect-ratio:auto;object-fit:contain;rotate:0deg;margin:0;z-index:2;-webkit-mask:none;mask:none;animation:none;opacity:1;border-radius:6px;box-shadow:0 12px 24px rgba(20,10,30,.32)}
@@ -499,6 +499,7 @@ body.in-history #depth,body.in-history #mbar,body.in-history #scrollbar,body.in-
 @media(max-width:719px){
   .hist-frame{padding:34px 16px 90px}
   .tl-row{column-gap:14px;padding:24px 0}
+  .tl-row .tl-img.kings-stack{margin:-24px 0 -24px -14px}   /* bleed the Kings image past the card's top/bottom padding + left column-gap → fills, no cream gaps */
   .tl-img img{max-width:none}
   .tl-body,.hist-sub,.handsTxt .body{font-size:12px;line-height:1.58}
 }
