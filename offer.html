@@ -68,10 +68,10 @@ img{max-width:100%;display:block}
 .bottle--front{left:14%;width:41%;bottom:3%;z-index:4}
 .bottle--rear{left:40%;width:35%;bottom:9%;z-index:3;opacity:.95;filter:drop-shadow(0 20px 22px rgba(42,17,72,.2))}
 .gift{position:absolute;right:2%;bottom:5%;width:25%;z-index:5;filter:drop-shadow(0 16px 20px rgba(42,17,72,.24))}
-.gift-badge{position:absolute;left:66%;bottom:26%;z-index:6;width:clamp(74px,20.5vw,86px);aspect-ratio:1;border-radius:50%;
-  background:rgba(255,255,255,.94);box-shadow:var(--sh-card),var(--rim);
+.gift-badge{position:absolute;left:63%;bottom:33%;z-index:6;width:clamp(94px,26vw,112px);aspect-ratio:1;border-radius:50%;
+  background:rgba(255,255,255,.98);box-shadow:0 10px 26px -8px rgba(42,17,72,.34),var(--rim);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  font-weight:700;color:var(--purple);letter-spacing:.12em;line-height:1.15;font-size:clamp(8px,2.3vw,9.5px)}
+  font-weight:700;color:var(--purple);letter-spacing:.1em;line-height:1.2;font-size:clamp(10px,3vw,12.5px)}
 .gift-badge b{font-size:1.9em;letter-spacing:.02em;margin:.06em 0}
 .gift-badge span{font-size:.82em;letter-spacing:.18em;opacity:.8}
 
@@ -120,10 +120,11 @@ img{max-width:100%;display:block}
 
 /* CTA + reassurance */
 .cta{width:100%;margin-top:clamp(14px,4vw,18px);min-height:56px;border:none;cursor:pointer;
-  background:linear-gradient(180deg,#43208a,#35166F);color:#fff;font-family:var(--disp);font-weight:750;
+  background:linear-gradient(180deg,#12A7FF,#0A6BFF);color:#fff;font-family:var(--disp);font-weight:750;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.4vw,11px);
   font-size:clamp(13px,3.9vw,15px);letter-spacing:.07em;border-radius:16px;
-  box-shadow:0 16px 30px -12px rgba(42,17,72,.6),var(--rim);transition:transform .15s ease,box-shadow .15s ease}
-.cta:hover{transform:translateY(-1px);box-shadow:0 20px 36px -12px rgba(42,17,72,.68)}
+  box-shadow:0 16px 30px -12px rgba(0,92,255,.5),var(--rim);transition:transform .15s ease,box-shadow .15s ease}
+.cta .msgr{width:clamp(21px,5.8vw,26px);height:auto;flex:0 0 auto}
+.cta:hover{transform:translateY(-1px);box-shadow:0 20px 36px -12px rgba(0,92,255,.6)}
 .cta:active{transform:translateY(0)}
 .cta:focus-visible{outline:3px solid #a98cff;outline-offset:3px}
 .reassurance{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:clamp(10px,2.8vw,13px);
@@ -181,7 +182,7 @@ img{max-width:100%;display:block}
     <div><strong>30-day money-back guarantee</strong><span>Try it at home. If it is not right for your skin, send it back.</span></div>
   </section>
 
-  <button class="cta" type="button">CLAIM THE 2-BOTTLE OFFER · &#3647;1,650</button>
+  <button class="cta" type="button"><svg class="msgr" viewBox="0 0 36 36" aria-hidden="true"><path fill="#fff" d="M18 2C9.16 2 2 8.65 2 16.85c0 4.67 2.32 8.84 5.95 11.57V34l5.44-2.99c1.45.4 2.99.62 4.61.62 8.84 0 16-6.65 16-14.85S26.84 2 18 2z"/><path fill="#0A6BFF" d="M8.4 22.05l4.7-7.45c.75-1.19 2.35-1.49 3.48-.65l3.74 2.8c.34.26.81.26 1.15 0l5.05-3.83c.67-.51 1.55.29 1.1 1.01l-4.7 7.45c-.75 1.19-2.35 1.49-3.48.65l-3.74-2.8a.96.96 0 0 0-1.15 0l-5.05 3.83c-.67.51-1.55-.29-1.1-1.01z"/></svg><span>CLAIM THE 2-BOTTLE OFFER · &#3647;1,650</span></button>
   <p class="reassurance"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>Secure</b>&nbsp;checkout · Limited bundle availability</p>
   </div>
 </section>
