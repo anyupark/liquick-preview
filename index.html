@@ -71,10 +71,23 @@ body{background:var(--lilac);color:var(--ink);font-family:var(--sans);overflow-x
   background:linear-gradient(to top,#ffffff 0,rgba(255,255,255,.92) 20%,rgba(255,255,255,0) 100%)}
 /* Dead Sea salt formations — a faint, hazy hint under the water (kept subtle, like the distant mountains) */
 #saltLayer{position:fixed;left:0;right:0;bottom:0;height:28%;z-index:6;opacity:0;transition:opacity 1s ease;pointer-events:none}
-#saltLayer .salt-u{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;display:block;opacity:.92;
+#saltLayer .salt-u{position:absolute;left:50%;transform:translateX(-50%);bottom:-1.5%;width:130%;height:auto;display:block;opacity:.92;
   filter:brightness(1.02) saturate(.95) contrast(1.0);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 32%,#000 100%);
-          mask-image:linear-gradient(to bottom,transparent 0,#000 32%,#000 100%)}
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 100%)}
+
+/* rising bubbles in the −350m water — behind the salt (z5 < salt z6), varied sizes, slow rise, fade out at the surface */
+#bubbleLayer{position:fixed;left:0;right:0;bottom:0;height:52%;z-index:5;opacity:0;transition:opacity 1s ease;pointer-events:none;overflow:hidden}
+.wbub{position:absolute;bottom:-7%;border-radius:50%;
+  background:radial-gradient(circle at 33% 28%,rgba(255,255,255,.98),rgba(224,244,242,.42) 52%,rgba(190,222,220,.10) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.62),inset -1.5px -2px 3px rgba(100,145,145,.30),0 1px 3px rgba(90,130,130,.14);
+  will-change:transform,opacity;animation:wrise var(--dur,10s) linear infinite;animation-delay:var(--del,0s)}
+@keyframes wrise{
+  0%{transform:translate(0,0) scale(.82);opacity:0}
+  9%{opacity:var(--op,.5)}
+  74%{opacity:var(--op,.5)}
+  100%{transform:translate(var(--dx,10px),var(--rise,-46vh)) scale(1.12);opacity:0}}
+@media(prefers-reduced-motion:reduce){.wbub{animation:none;opacity:0}}
 /* water drops floating gently around the tags in the water */
 #dropLayer{position:fixed;top:0;left:0;right:0;height:100svh;z-index:7;pointer-events:none;opacity:0;transition:opacity 1s ease;overflow:hidden}   /* svh-locked: stable frame, no URL-bar jump */
 .drop{position:absolute;aspect-ratio:1;opacity:.7;will-change:transform,scale;
@@ -822,6 +835,23 @@ details p{padding:0 20px 16px;font-size:14.5px;line-height:1.7;color:#4a4460}
   </svg>
 </div>
 <div id="seaScrim" aria-hidden="true"></div>
+<div id="bubbleLayer" aria-hidden="true"></div>
+<script>(function(){var bl=document.getElementById('bubbleLayer');if(!bl)return;
+  var N=28;
+  for(var i=0;i<N;i++){var b=document.createElement('span');b.className='wbub';
+    var r=Math.random();
+    /* size buckets: ~55% small, ~30% medium, ~15% wide/big */
+    var sz = r<0.55 ? (5+Math.random()*6) : (r<0.85 ? (12+Math.random()*8) : (22+Math.random()*17));
+    b.style.width=b.style.height=sz.toFixed(1)+'px';
+    b.style.left=(Math.random()*100).toFixed(1)+'%';
+    b.style.setProperty('--dur',(7.5+Math.random()*8).toFixed(1)+'s');     /* slow rise */
+    b.style.setProperty('--del',(-Math.random()*15).toFixed(1)+'s');       /* stagger: some already mid-rise */
+    b.style.setProperty('--dx',((Math.random()*2-1)*24).toFixed(1)+'px');  /* gentle horizontal drift */
+    b.style.setProperty('--rise',(-(41+Math.random()*11)).toFixed(1)+'vh');/* rise up to ~surface, then gone */
+    b.style.setProperty('--op',(0.4+Math.random()*0.45).toFixed(2));       /* varied faintness */
+    bl.appendChild(b);
+  }
+})();</script>
 <div id="saltLayer" aria-hidden="true">
   <img class="salt-u" src="assets/sea/salt-u.webp" alt="">
 </div>
@@ -1562,6 +1592,7 @@ function frame(){
   if(seaRipple&&sea){ seaRipple.style.setProperty('--ox',(stoneOX*Math.max(innerWidth,VPH)/1000).toFixed(1)+'px'); }  /* keep the surface ripple centred under the stone (stone shifts right on desktop) */
   mtnLayer.style.opacity=sea?'1':'0';
   seaScrim.style.opacity=sea?'1':'0';
+  bubbleLayer.style.opacity=sea?'1':'0';
   saltLayer.style.opacity=sea?'1':'0';
   tagLayer.style.opacity=sea?'1':'0';
   dropLayer.style.opacity=sea?'1':'0';
